@@ -2,6 +2,8 @@ import sys
 import logging 
 import os
 import json
+import ctypes
+import ctypes.util
 # import unicorn
 
 # Unicorn imports
@@ -27,22 +29,24 @@ MAX_ALLOWABLE_SEG_SIZE = 1024 * 1024 * 1024
 ALIGN_PAGE_DOWN = lambda x: x & ~(UNICORN_PAGE_SIZE - 1)
 ALIGN_PAGE_UP   = lambda x: (x + UNICORN_PAGE_SIZE - 1) & ~(UNICORN_PAGE_SIZE-1)
 
+
+
+
 class Firmcorn( object ): # Firmcorn object
     '''
     Firmcorn-object is main object of our Firmcorn Framework
     '''
-    def __init__(self , context_dir , enable_debug = True):
+    def __init__(self  , enable_debug = True):
         # pass
         # self.files = files
-        self.context_dir = context_dir
+        # self.context_dir = context_dir
         self.enable_debug = enable_debug
         
         # init unciorn enigne
-        
-        
+
     
-    def loadContext(self):
-        context_json = os.path.join( self.context_dir, CONTEXT_JSON)
+    def loadContext(self , context_dir):
+        context_json = os.path.join( context_dir, CONTEXT_JSON)
         if not os.path.isfile(context_json):
             raise Exception("Contex json not found")
         
@@ -94,7 +98,8 @@ class Firmcorn( object ): # Firmcorn object
 
         # pass    
     
-    def setupReg(self , regs, regs_map):
+    def setupReg(self , regs, regs_map , debug_func = False ):
+        self.enable_debug = debug_func
         # setup register
         for register , value in regs.iteritems():
             if self.enable_debug:
@@ -125,7 +130,8 @@ class Firmcorn( object ): # Firmcorn object
         return True
 
 
-    def setupMemory(self , segments_list):
+    def setupMemory(self , segments_list , debug_func = False  ):
+        self.enable_debug = debug_func
         # setup memory need 2 steps
         # 1. mu.mem_map
         # 2. mu.mem_write
@@ -141,7 +147,7 @@ class Firmcorn( object ): # Firmcorn object
                 (UC_PROT_EXEC  if segment['permissions']['x'] == True else 0)        
 
             if self.enable_debug:
-                print "Handling segment {}".format(name) 
+                print "Handling segment {}".format(seg_name) 
             
             # before map memory , do some check
             # there are 3 cases:
@@ -184,10 +190,62 @@ class Firmcorn( object ): # Firmcorn object
             # |                             |
             # |                             |
             # +-----------------------------+<-----+  mem_end
+            found = False
+            overlap_start = False
+            overlap_end = False
+            tmp = 0
+            for (mem_start, mem_end, mem_perm) in self.mu.mem_regions():
+                mem_end = mem_end + 1
+                if seg_start >= mem_start and seg_end < mem_end:
+                    found = True
+                    break
+                if seg_start >= mem_start and seg_start < mem_end:
+                    overlap_start = True
+                    tmp = mem_end
+                    break
+                if seg_end >= mem_start and seg_end < mem_end:
+                    overlap_end = True
+                    tmp = mem_start
+                    break
 
+            # Map memory into the address space if it is of an acceptable size.
+            if (seg_end - seg_start) > MAX_ALLOWABLE_SEG_SIZE:
+                if self.enable_debug:
+                    print "Skipping segment (LARGER THAN {0}) from {1:016x} - {2:016x} with perm={3}: {4}".format(MAX_ALLOWABLE_SEG_SIZE, seg_start, seg_end, perms, name)
+                continue
+            elif not found:           # Make sure it's not already mapped
+                if overlap_start:     # Partial overlap (start) case 3
+                    self.mapSegment(seg_name, tmp, seg_end - tmp, perms)
+                elif overlap_end:       # Patrial overlap (end) case 2
+                    self.mapSegment(seg_name, seg_start, tmp - seg_start, perms)
+                else:                   # Not found
+                    self.mapSegment(seg_name, seg_start, seg_end - seg_start, perms)
+            else:
+                if self.enable_debug:
+                    print "Segment {} already mapped. Moving on.".format(name) 
+
+        return True
+
+
+    def mapSegment(self , name, address, size, perms , debug_func = True ):
+        self.enable_debug = debug_func
+        map_start = address 
+        map_end = address + size
+        # page alingn
+        map_start_align = ALIGN_PAGE_DOWN(map_start)
+        map_end_align = ALIGN_PAGE_UP(map_end)
+        if self.enable_debug:
+            print " segment name: {}".format(name)
+            print " segment start: {0:016x} -> {1:016x}".format(map_start, map_start_align)
+            print " segment end:   {0:016x} -> {1:016x}".format(map_end, map_end_align)
+        if map_start_align < map_end_align: 
+            self.mu.mem_map(map_start_align , map_end_align - map_start_align , perms) # map memory
+
+        # pass
 
     def firmRun(self):
-        pass
+        
+        # pass
 
     def catchErr(self):
         pass
