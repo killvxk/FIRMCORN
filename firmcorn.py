@@ -4,6 +4,8 @@ import os
 import json
 import ctypes
 import ctypes.util
+import zlib
+# from pwn import * 
 # import unicorn
 
 # Unicorn imports
@@ -30,23 +32,25 @@ ALIGN_PAGE_DOWN = lambda x: x & ~(UNICORN_PAGE_SIZE - 1)
 ALIGN_PAGE_UP   = lambda x: (x + UNICORN_PAGE_SIZE - 1) & ~(UNICORN_PAGE_SIZE-1)
 
 
+BASE = 0x0400000
 
 
-class Firmcorn( object ): # Firmcorn object
+class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
     '''
     Firmcorn-object is main object of our Firmcorn Framework
     '''
-    def __init__(self  , enable_debug = True):
+    def __init__(self   , enable_debug = True):
         # pass
         # self.files = files
         # self.context_dir = context_dir
         self.enable_debug = enable_debug
-        
+        # self.files = files  
         # init unciorn enigne
 
     
     def loadContext(self , context_dir):
-        context_json = os.path.join( context_dir, CONTEXT_JSON)
+        self.context_dir = context_dir
+        context_json = os.path.join( self.context_dir, CONTEXT_JSON)
         if not os.path.isfile(context_json):
             raise Exception("Contex json not found")
         
@@ -85,20 +89,21 @@ class Firmcorn( object ): # Firmcorn object
             raise Exception("Error arch")
 
         # init uc object
-        self.mu = Uc(self.uc_arch , self.uc_mode)
+        # self = Uc(self.uc_arch , self.uc_mode)
+        Uc.__init__(self, self.uc_arch, self.uc_mode)
 
-        if not self.setupReg(regs , regs_map):
+        if not self.setReg(regs , regs_map):
             raise Exception("Error in setup registers")
 
         # setup segment
         segments_list = context['segments'] # 
-        if not self.setupMemory(segments_list):
+        if not self.setMemory(segments_list):
             raise Exception("Error in setup memory")
 
 
         # pass    
     
-    def setupReg(self , regs, regs_map , debug_func = False ):
+    def setReg(self , regs, regs_map , debug_func = False ):
         self.enable_debug = debug_func
         # setup register
         for register , value in regs.iteritems():
@@ -113,7 +118,7 @@ class Firmcorn( object ): # Firmcorn object
                 # 
                 reg_write_retry = True
                 try:
-                    self.mu.reg_write(regs_map[register.lower()], value)
+                    self.reg_write(regs_map[register.lower()], value)
                     reg_write_retry = False
                 except Exception as e:
                     if self.enable_debug:
@@ -122,7 +127,7 @@ class Firmcorn( object ): # Firmcorn object
                     if self.enable_debug:
                         print "Trying to parse value ({}) as hex string".format(value)
                     try:
-                        self.mu.reg_write(regs_map[register.lower()], int(value, 16))
+                        self.reg_write(regs_map[register.lower()], int(value, 16))
                     except Exception as e:
                         if self.enable_debug:
                             print "ERROR writing hex string register: {}, value: {} -- {}".format(register, value, repr(e))
@@ -130,7 +135,7 @@ class Firmcorn( object ): # Firmcorn object
         return True
 
 
-    def setupMemory(self , segments_list , debug_func = False  ):
+    def setMemory(self , segments_list , debug_func = False  ):
         self.enable_debug = debug_func
         # setup memory need 2 steps
         # 1. mu.mem_map
@@ -194,7 +199,7 @@ class Firmcorn( object ): # Firmcorn object
             overlap_start = False
             overlap_end = False
             tmp = 0
-            for (mem_start, mem_end, mem_perm) in self.mu.mem_regions():
+            for (mem_start, mem_end, mem_perm) in self.mem_regions():
                 mem_end = mem_end + 1
                 if seg_start >= mem_start and seg_end < mem_end:
                     found = True
@@ -222,12 +227,31 @@ class Firmcorn( object ): # Firmcorn object
                     self.mapSegment(seg_name, seg_start, seg_end - seg_start, perms)
             else:
                 if self.enable_debug:
-                    print "Segment {} already mapped. Moving on.".format(name) 
+                    print "Segment {} already mapped. Moving on.".format(seg_name) 
+
+            # Load the content (*.bin)
+            # directly copy from unicorn_loader.py
+            if 'content_file' in segment and len(segment['content_file']) > 0:
+                content_file_path = os.path.join(self.context_dir, segment['content_file'])
+                if not os.path.isfile(content_file_path):
+                    raise Exception("Unable to find segment content file. Expected it to be at {}".format(content_file_path))
+                if self.enable_debug:
+                   print "Loading content for segment {} from {}".format(seg_name, segment['content_file'])
+                content_file = open(content_file_path, 'rb')
+                compressed_content = content_file.read()
+                content_file.close()
+                self.mem_write(seg_start, zlib.decompress(compressed_content)) 
+
+            else:
+                if self.enable_debug:
+                    print("No content found for segment {0} @ {1:016x}".format(seg_name, seg_start))
+                self.mem_write(seg_start, '\x00' * (seg_end - seg_start))
+
 
         return True
 
 
-    def mapSegment(self , name, address, size, perms , debug_func = True ):
+    def mapSegment(self , name, address, size, perms , debug_func = False ):
         self.enable_debug = debug_func
         map_start = address 
         map_end = address + size
@@ -239,12 +263,22 @@ class Firmcorn( object ): # Firmcorn object
             print " segment start: {0:016x} -> {1:016x}".format(map_start, map_start_align)
             print " segment end:   {0:016x} -> {1:016x}".format(map_end, map_end_align)
         if map_start_align < map_end_align: 
-            self.mu.mem_map(map_start_align , map_end_align - map_start_align , perms) # map memory
+            self.mem_map(map_start_align , map_end_align - map_start_align , perms) # map memory
 
         # pass
 
-    def firmRun(self):
-        
+
+    def setHook(self, hook_level ,hook_func):
+        self.hook_add(hook_level , hook_func)
+
+    def startRun(self , start_address , end_address ):
+        print "==============================================    "
+        print "              Virtual Execution"
+        print "==============================================    "
+        try:
+            uc_result = self.emu_start(start_address , end_address)
+        except:
+            print "emu_start error"
         # pass
 
     def catchErr(self):
