@@ -15,6 +15,9 @@ from unicorn.arm_const import *
 from unicorn.arm64_const import *
 from unicorn.x86_const import *
 from unicorn.mips_const import *
+
+# custom module import 
+from hook.hook_loader import *
 # import unicorn_loader  # need to be change , it's not mine
 
 
@@ -35,7 +38,7 @@ ALIGN_PAGE_UP   = lambda x: (x + UNICORN_PAGE_SIZE - 1) & ~(UNICORN_PAGE_SIZE-1)
 BASE = 0x0400000
 
 
-class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
+class Firmcorn( Uc ): # Firmcorn object inherit from Uc object  
     '''
     Firmcorn-object is main object of our Firmcorn Framework
     '''
@@ -47,8 +50,8 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         # self.files = files  
         # init unciorn enigne
 
-    
-    def loadContext(self , context_dir):
+
+    def load_context(self , context_dir):
         self.context_dir = context_dir
         context_json = os.path.join( self.context_dir, CONTEXT_JSON)
         if not os.path.isfile(context_json):
@@ -72,6 +75,10 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         regs_map = self.getRegsByArch(self.arch)
         regs = context['regs']
 
+        # init hookcode class
+        # we get self.hookcode
+        self.init_hook()
+
         # arch to uc_arch
         if self.arch == "x64":
             self.uc_arch =  UC_ARCH_X86
@@ -92,18 +99,18 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         # self = Uc(self.uc_arch , self.uc_mode)
         Uc.__init__(self, self.uc_arch, self.uc_mode)
 
-        if not self.setReg(regs , regs_map):
+        if not self.set_reg(regs , regs_map):
             raise Exception("Error in setup registers")
 
         # setup segment
         segments_list = context['segments'] # 
-        if not self.setMemory(segments_list):
+        if not self.set_memory(segments_list):
             raise Exception("Error in setup memory")
 
 
         # pass    
     
-    def setReg(self , regs, regs_map , debug_func = False ):
+    def set_reg(self , regs, regs_map , debug_func = False ):
         self.enable_debug = debug_func
         # setup register
         for register , value in regs.iteritems():
@@ -135,7 +142,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         return True
 
 
-    def setMemory(self , segments_list , debug_func = False  ):
+    def set_memory(self , segments_list , debug_func = False  ):
         self.enable_debug = debug_func
         # setup memory need 2 steps
         # 1. mu.mem_map
@@ -220,11 +227,11 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
                 continue
             elif not found:           # Make sure it's not already mapped
                 if overlap_start:     # Partial overlap (start) case 3
-                    self.mapSegment(seg_name, tmp, seg_end - tmp, perms)
+                    self.map_segment(seg_name, tmp, seg_end - tmp, perms)
                 elif overlap_end:       # Patrial overlap (end) case 2
-                    self.mapSegment(seg_name, seg_start, tmp - seg_start, perms)
+                    self.map_segment(seg_name, seg_start, tmp - seg_start, perms)
                 else:                   # Not found
-                    self.mapSegment(seg_name, seg_start, seg_end - seg_start, perms)
+                    self.map_segment(seg_name, seg_start, seg_end - seg_start, perms)
             else:
                 if self.enable_debug:
                     print "Segment {} already mapped. Moving on.".format(seg_name) 
@@ -251,7 +258,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         return True
 
 
-    def mapSegment(self , name, address, size, perms , debug_func = False ):
+    def map_segment(self , name, address, size, perms , debug_func = False ):
         self.enable_debug = debug_func
         map_start = address 
         map_end = address + size
@@ -268,18 +275,25 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         # pass
 
 
-    def setHook(self, hook_level ,hook_func):
-        self.hook_add(hook_level , hook_func)
-
-    def startRun(self , start_address , end_address ):
+    def start_run(self , start_address , end_address ):
         print "==============================================    "
         print "              Virtual Execution"
         print "==============================================    "
+        # uc_result = self.emu_start(start_address , end_address)
+        self.hook_add(UC_HOOK_CODE , self.hc.func_hijack)
         try:
             uc_result = self.emu_start(start_address , end_address)
         except:
             print "emu_start error"
         # pass
+        
+
+
+    def init_hook(self): 
+        # this part import hook module 
+        # return HookCode class
+        self.hc = HookCode(self , self.arch )
+        
 
     def catchErr(self):
         pass
