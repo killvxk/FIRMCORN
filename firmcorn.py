@@ -5,7 +5,7 @@ import json
 import ctypes
 import ctypes.util
 import zlib
-# from pwn import * 
+from pwn import * 
 # import unicorn
 
 # Unicorn imports
@@ -47,6 +47,8 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         # self.files = files
         # self.context_dir = context_dir
         self.enable_debug = enable_debug
+        self.trace_start_addr = 0
+        self.trace_end_addr = 0
         # self.files = files  
         # init unciorn enigne
 
@@ -275,13 +277,36 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         # pass
 
 
+    def set_trace(self , trace_start_addr , trace_end_addr  , debug_func=True):
+        self.trace_start_addr = trace_start_addr
+        self.trace_end_addr = trace_end_addr
+
+
+    def _set_trace(self , uc , address , size , user_data):
+        if address >= self.trace_start_addr and self.trace_end_addr:
+            if self.enable_debug:
+                print "trace address"
+            # print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
+            instr = self.mem_read(address, size)
+            context.arch      = 'i386'
+            context.endian    = 'little'
+            context.os        = 'linux'
+            context.word_size = 32
+            # print ("0x%x %s" % (address - BASE ,   disasm(instr)) )
+            print "0x{:#x}   {}".format(address -BASE , disasm(instr))
+
+
     def start_run(self , start_address , end_address ):
         print "==============================================    "
         print "              Virtual Execution"
         print "==============================================    "
         # uc_result = self.emu_start(start_address , end_address)
-        self.hook_add(UC_HOOK_CODE , self.hookcode._func_alt) 
-        self.hook_add(UC_HOOK_CODE , self.hookcode._func_skip)
+        if self.hookcode.func_alt_addr is not None:
+            self.hook_add(UC_HOOK_CODE , self.hookcode._func_alt) 
+        if self.hookcode.func_skip_list is not None:
+            self.hook_add(UC_HOOK_CODE , self.hookcode._func_skip)
+        if self.trace_start_addr!=0 and self.trace_end_addr!=0:
+            self.hook_add(UC_HOOK_CODE , self._set_trace)
         try:
             uc_result = self.emu_start(start_address , end_address)
         except:

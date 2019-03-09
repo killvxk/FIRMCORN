@@ -24,11 +24,12 @@ COMPILE_MSVC = 2
 
 # The class for hook and  hijack function
 class HookCode(object):
-    def __init__(self , fc , arch , compiler=COMPILE_GCC, enable_debug = True):
+    def __init__(self , fc , arch , compiler=COMPILE_GCC, enable_debug = False):
         # pass
         self.fc = fc 
         self.arch = arch
         self.func_alt_addr = {}
+        self.func_skip_list = []
         self.compiler = compiler
         self.debug_func = enable_debug
         self.get_common_regs() 
@@ -78,7 +79,7 @@ class HookCode(object):
                 i += 1
             '''
             # 3 , execute custom function and get return value
-            res = func(uc , self.fc , args) # not very understand , need debug
+            res = func(args) # not very understand , need debug
             if self.debug_func:
                 print "ret_addr : {0}; args : {1}; res : {2}".format(ret_addr , args , res)
             if type(res) != int: res = 0 # return value is not very import for fuzz , easpically return value is not int type
@@ -101,6 +102,7 @@ class HookCode(object):
                 print "address skip:{:#x}".format(address)
             self.fc.reg_write( self.REG_PC ,  address+size)
 
+    
 
     def get_common_regs(self):
         # get some common register
