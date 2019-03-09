@@ -18,4 +18,18 @@ from unicorn.mips_const import *
 
 
 # there are simulation of common function
-# once you 
+
+class FuncEmu(object):
+    def __init__(self):
+        pass
+    
+
+    def _strcpy(self):
+        pass
+    
+    def _getenv(self):
+        pass
+    
+    def _printf(self):
+        pass
+    

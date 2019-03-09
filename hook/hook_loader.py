@@ -28,13 +28,19 @@ class HookCode(object):
         # pass
         self.fc = fc 
         self.arch = arch
-        self.funcAddr = {}
+        self.func_alt_addr = {}
         self.compiler = compiler
         self.debug_func = enable_debug
         self.get_common_regs() 
 
-    # use for hijack function , like getenv , printf .etc
-    def func_hijack(self , uc , address , size , user_data):
+
+    def func_alt(self , address , func , argc , debug_func = False):
+        # fake func fmt : (func , argc)
+        self.debug_func = debug_func
+        self.func_alt_addr[address] = (func , argc )
+
+        # use for hijack function , like getenv , printf .etc
+    def _func_alt(self , uc , address , size , user_data):
         # print "hook code success"
         # The essence of function hijacking is to skip 
         # over the function and set the return content according to 
@@ -42,11 +48,11 @@ class HookCode(object):
         # and also set the stack balance for addres 
         if self.debug_func:
             print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
-        if address in self.funcAddr.keys():
+        if address in self.func_alt_addr.keys():
             # keep balance may be need to 
             # consider in the future
             # fake func fmt : (func , args)
-            func , argc  = self.funcAddr[address]
+            func , argc  = self.func_alt_addr[address]
             if self.debug_func:
                 print  "func : {0} ; argc : {1}".format(func, argc)
             # fc <==> firmcorn class <--- Uc class
@@ -84,10 +90,16 @@ class HookCode(object):
             '''
 
 
+    def func_skip( self , func_skip_list , debug_func = True):
+        # setup func skip list 
+        self.debug_func = debug_func
+        self.func_skip_list = func_skip_list
 
-    def func_alt(self , address , func , argc , debug = True):
-        # fake func fmt : (func , argc)
-        self.funcAddr[address] = (func , argc )
+    def _func_skip(self  ,  uc , address , size , user_data):
+        if address in self.func_skip_list:
+            if self.debug_func:
+                print "address skip:{:#x}".format(address)
+            self.fc.reg_write( self.REG_PC ,  address+size)
 
 
     def get_common_regs(self):

@@ -280,7 +280,8 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         print "              Virtual Execution"
         print "==============================================    "
         # uc_result = self.emu_start(start_address , end_address)
-        self.hook_add(UC_HOOK_CODE , self.hc.func_hijack)
+        self.hook_add(UC_HOOK_CODE , self.hookcode._func_alt) 
+        self.hook_add(UC_HOOK_CODE , self.hookcode._func_skip)
         try:
             uc_result = self.emu_start(start_address , end_address)
         except:
@@ -292,7 +293,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
     def init_hook(self): 
         # this part import hook module 
         # return HookCode class
-        self.hc = HookCode(self , self.arch )
+        self.hookcode = HookCode(self , self.arch )
         
 
     def catchErr(self):

@@ -1,7 +1,4 @@
 from firmcorn import *
-from pwn import *
-
-
 
 
 fc = Firmcorn()
@@ -19,8 +16,9 @@ def myprint(uc, out, args):
 
 
 print_addr = 0x0400400    
-
+skip_list = [0x400534 ]
 # fc.hook_add(UC_HOOK_CODE , hook_code)
-fc.hc.func_alt( print_addr , myprint , 2)
+fc.hookcode.func_alt( print_addr , myprint , 2)
+fc.hookcode.func_skip(skip_list)
 fc.start_run( 0x00400526  , 0x0000040053F )
 
