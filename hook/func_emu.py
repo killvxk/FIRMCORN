@@ -24,12 +24,17 @@ class FuncEmu(object):
         pass
     
 
-    def _strcpy(self):
+    def _strcpy(self , args):
+        # pass
+        print "hook by strcpy"
+
+    
+    def _getenv(self , args):
         pass
     
-    def _getenv(self):
-        pass
+    def _printf(self , args):
+        print("this is hook output: %d" % args[1])
+        return 0
     
-    def _printf(self):
-        pass
-    
+    def _scanf(self , args):
+        print "scanf"

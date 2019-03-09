@@ -18,6 +18,7 @@ from unicorn.mips_const import *
 
 # custom module import 
 from hook.hook_loader import *
+from hook.func_emu import *
 # import unicorn_loader  # need to be change , it's not mine
 
 
@@ -293,7 +294,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             context.os        = 'linux'
             context.word_size = 32
             # print ("0x%x %s" % (address - BASE ,   disasm(instr)) )
-            print "0x{:#x}   {}".format(address -BASE , disasm(instr))
+            print "{}".format( disasm(instr))
 
 
     def start_run(self , start_address , end_address ):
@@ -319,7 +320,8 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         # this part import hook module 
         # return HookCode class
         self.hookcode = HookCode(self , self.arch )
-        
+        self.funcemu = FuncEmu()
+
 
     def catchErr(self):
         pass
