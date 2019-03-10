@@ -33,17 +33,20 @@ class FuncEmu(object):
     def _strcpy(self , args):
         # pass
         # print "hook by strcpy"
-        dest  = self.fc.reg_read(self.hc.REG_ARGS[0])
-        src = self.fc.reg_read(self.hc.REG_ARGS[1])
-        src_str = self.fc.mem_read(src , self.hc.size)
+        dest_addr  = self.fc.reg_read(self.hc.REG_ARGS[0])
+        src_addr = self.fc.reg_read(self.hc.REG_ARGS[1])
+        src_str = self.fc.mem_read(src_addr , 0x10)
         if self.debug_func:
-            print "src: {} ; dest: {}".format(src , dest)
-        self.fc.mem_write(dest , str(src_str))
+            print "src: {} ; dest: {}".format(hex(src_addr) , hex(dest_addr))
+        if self.debug_func:
+            print "scanf buf: {}".format(self.fc.mem_read(0x7fffffffdb30,0x10) )
+        self.fc.mem_write(dest_addr - len(str(src_str)) , str(src_str)) # stack is from high to low
         if self.debug_func:
             print "check the stack: {}".format(self.fc.mem_read(self.fc.reg_read(self.hc.REG_SP) , self.hc.size) )
     
     def _getenv(self , args):
-        pass
+        # pass
+        
     
     def _printf(self , args):
         print("this is hook output: %d" % args[1])
@@ -60,8 +63,9 @@ class FuncEmu(object):
         fmt = self.fc.reg_read(self.hc.REG_ARGS[0])
         buf = self.fc.reg_read(self.hc.REG_ARGS[1])
         if self.debug_func:
-            print "args1: {} ; args2 : {:#x}".format(fmt , buf)
+            print "fmt: {} ; buf : {:#x}".format(fmt , buf)
         self.fc.mem_write(buf , inputs)
+        if self.debug_func:
+            print "scanf buf: {}".format(self.fc.mem_read(0x7fffffffdb30,0x10) )
         print "scanf compelte"
         return 0
-        
