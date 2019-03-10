@@ -102,7 +102,6 @@ class HookCode(object):
                 print "address skip:{:#x}".format(address)
             self.fc.reg_write( self.REG_PC ,  address+size)
 
-    
 
     def get_common_regs(self):
         # get some common register
@@ -154,6 +153,7 @@ class HookCode(object):
                 if self.compiler == COMPILE_GCC:
                     self.REG_ARGS = [UC_X86_REG_RDI, UC_X86_REG_RSI, UC_X86_REG_RDX, UC_X86_REG_RCX,
                                      UC_X86_REG_R8, UC_X86_REG_R9]
+                    print "11"
                 elif self.compiler == COMPILE_MSVC:
                     self.REG_ARGS = [UC_X86_REG_RCX, UC_X86_REG_RDX, UC_X86_REG_R8, UC_X86_REG_R9]
         elif self.uc_arch == UC_ARCH_ARM:

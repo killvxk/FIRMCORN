@@ -78,9 +78,9 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         regs_map = self.getRegsByArch(self.arch)
         regs = context['regs']
 
-        # init hookcode class
+        # init some class
         # we get self.hookcode
-        self.init_hook()
+        self.init_class()
 
         # arch to uc_arch
         if self.arch == "x64":
@@ -316,12 +316,12 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         
 
 
-    def init_hook(self): 
+    def init_class(self): 
         # this part import hook module 
         # return HookCode class
         self.hookcode = HookCode(self , self.arch )
-        self.funcemu = FuncEmu()
-
+        self.funcemu = FuncEmu(self , self.hookcode)
+        
 
     def catchErr(self):
         pass
