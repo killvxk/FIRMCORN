@@ -40,13 +40,12 @@ class FuncEmu(object):
             print "src: {} ; dest: {}".format(hex(src_addr) , hex(dest_addr))
         if self.debug_func:
             print "scanf buf: {}".format(self.fc.mem_read(0x7fffffffdb30,0x10) )
-        self.fc.mem_write(dest_addr - len(str(src_str)) , str(src_str)) # stack is from high to low
+        self.fc.mem_write(dest_addr - len(str(src_str)) , str(src_str)) # stack isfrom high to low
         if self.debug_func:
             print "check the stack: {}".format(self.fc.mem_read(self.fc.reg_read(self.hc.REG_SP) , self.hc.size) )
     
     def _getenv(self , args):
-        # pass
-        
+        pass
     
     def _printf(self , args):
         print("this is hook output: %d" % args[1])
@@ -69,3 +68,4 @@ class FuncEmu(object):
             print "scanf buf: {}".format(self.fc.mem_read(0x7fffffffdb30,0x10) )
         print "scanf compelte"
         return 0
+        

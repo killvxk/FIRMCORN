@@ -24,9 +24,9 @@ strcpy_addr = 0x04004B0
 skip_list = [0x00004005FE , 0x040064A , 0x0040063F ]
 
 fc.hookcode.func_alt(scanf_addr , fc.funcemu._scanf  , 2)
-fc.hookcode.func_alt(strcpy_addr , fc.funcemu._strcpy  , 2)
+# fc.hookcode.func_alt(strcpy_addr , fc.funcemu._strcpy  , 2)
 fc.hookcode.func_skip(skip_list)
-
+# fc.set_trace(0x000004005F6, 0x0000400607 )
 run_start_addr = 0x00004005F6    
 run_end_addr = 0x0400650
 fc.start_run(run_start_addr , run_end_addr)
