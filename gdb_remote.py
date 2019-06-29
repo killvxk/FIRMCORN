@@ -8,11 +8,13 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
-
-gdbmi_ = pygdbmi.gdbcontroller.GdbController()
-response = gdbmi_.write('target remote 192.168.214.155:1239')
+gdb_executable = "gdb-multiarch"
+gdbmi_ = pygdbmi.gdbcontroller.GdbController(gdb_path=gdb_executable)
+response = gdbmi_.write("file ./cgibin")
+response = gdbmi_.write('target remote 192.168.214.229:1234')
 response = gdbmi_.write('b *main') # B *addr
 response = gdbmi_.write('c') 
+
 
 def get_all_regs(arch):
     all_arch_registers = {
@@ -156,45 +158,48 @@ def get_all_regs(arch):
     return registers
 
 
-def dump_arch_info(gdbmi):
-    response = gdbmi.write("show architecture")
-    for dict_ in range(len(response)):
-        print dict_
-        arch = response[dict_]['payload']
-        if 'x86_64' in arch or 'x86-64' in arch:
-            return "x64"
-        elif 'x86' in arch or 'i386' in arch:
-            return "x86"
-        elif 'aarch64' in arch or 'arm64' in arch:
-            return "arm64le"
-        elif 'aarch64_be' in arch:
-            return "arm64be"
-        elif 'arm' in arch:
-            cpsr = pwndbg.regs['cpsr']
-            if pwndbg.arch.endian == 'big':
-                # check for THUMB mode
-                if (cpsr & (1 << 5)):
-                    return "armbethumb"
-                else:
-                    return "armbe"
-                # check for THUMB mode
-                if (cpsr & (1 << 5)):
-                    return "armlethumb"
-                else:
-                    return "armle"
-        elif 'mips' in arch:
-            if pwndbg.arch.endian == 'little':
-                return 'mipsel'
+def dump_arch_info(binary):
+    file_info =subprocess.Popen(['file' , binary ],
+                            stdout = subprocess.PIPE, 
+                            stdin  = subprocess.PIPE, 
+                            stderr = subprocess.STDOUT)
+    arch = file_info.stdout.readline().strip()
+    logging.info(arch)
+    if 'x86_64' in arch or 'x86-64' in arch:
+        return "x64"
+    elif 'x86' in arch or 'i386' in arch:
+        return "x86"
+    elif 'aarch64' in arch or 'arm64' in arch:
+        return "arm64le"
+    elif 'aarch64_be' in arch:
+        return "arm64be"
+    elif 'arm' in arch:
+        cpsr = pwndbg.regs['cpsr']
+        if pwndbg.arch.endian == 'big':
+            # check for THUMB mode
+            if (cpsr & (1 << 5)):
+                return "armbethumb"
             else:
-                return 'mips'
-        else:
-            continue
-    return ""
+                return "armbe"
+            # check for THUMB mode
+            if (cpsr & (1 << 5)):
+                return "armlethumb"
+            else:
+                return "armle"
+    elif 'MIPS' in arch:
+        if "MSB" in arch:
+            return 'mips'
+        elif "LSB" in arch:
+            return 'mipsel'
+    else:
+        return ""
+
 
 
 def dump_regs(gdbmi , arch):
     reg_state = {}
     regs = get_all_regs(arch)
+    logging.info(regs)
     print len(regs)
     for reg in regs:
         response = gdbmi.write("info register {}".format(reg))
@@ -204,9 +209,11 @@ def dump_regs(gdbmi , arch):
             if payload is not None:
                 if reg in payload and "Invalid register"  not in payload \
                     and "info register" not in payload :
-                    reg_state[reg] = int(payload.replace(" ", "").replace(reg , ""), 16)
+                    logging.info(payload[payload.find("0x"):].replace("\\n", "") )
+                    reg_state[reg] = int(payload[payload.find("0x"):].replace("\\n" , ""), 16)
     logging.info(reg_state)
     return reg_state
+
 
 def dump_process_memory(gdbmi ):
     final_segment_list = []
@@ -222,9 +229,7 @@ def dump_process_memory(gdbmi ):
 
 
 
-
-
-arch =  dump_arch_info(gdbmi_)
+arch =  dump_arch_info("cgibin")
 print arch
 dump_regs(gdbmi_ , arch)
 # dump_process_memory(gdbmi_)
