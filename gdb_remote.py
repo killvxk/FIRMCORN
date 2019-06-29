@@ -8,21 +8,9 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
-GDB_PORT = 1236
 
-gdb_executable = "gdb"
-gdb_args = []
-gdbserver =subprocess.Popen(['gdbserver' , '127.0.0.1:1239' , './t1'],
-                            stdout = subprocess.PIPE, 
-                            stdin = subprocess.PIPE, 
-                            stderr=subprocess.STDOUT)
-
-
-response = gdbserver.stdout.readline().strip()
-print "sub process output: ", response
-proc_pid = response[response.find("pid = ")+6:]
 gdbmi_ = pygdbmi.gdbcontroller.GdbController()
-response = gdbmi_.write('target remote localhost:1239')
+response = gdbmi_.write('target remote 192.168.214.155:1239')
 response = gdbmi_.write('b *main') # B *addr
 response = gdbmi_.write('c') 
 
@@ -210,6 +198,7 @@ def dump_regs(gdbmi , arch):
     print len(regs)
     for reg in regs:
         response = gdbmi.write("info register {}".format(reg))
+        logging.info(response)
         for dict_ in range(len(response)):
             payload = response[dict_]['payload']
             if payload is not None:
@@ -238,7 +227,7 @@ def dump_process_memory(gdbmi ):
 arch =  dump_arch_info(gdbmi_)
 print arch
 dump_regs(gdbmi_ , arch)
-dump_process_memory(gdbmi_)
+# dump_process_memory(gdbmi_)
 # response = gdbmi_.write("info registers") # hahhaha
 
 
