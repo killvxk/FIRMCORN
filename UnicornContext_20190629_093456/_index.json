@@ -1,0 +1,115 @@
+{
+    "arch": {
+        "arch": "mips"
+    },
+    "segments": [
+        {
+            "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01.bin.extracted/squashfs-root/htdocs/cgibin",
+            "permissions": {
+                "r": true,
+                "x": true,
+                "w": true
+            },
+            "end": 4198400,
+            "content_file": "1daab43b46af0f68d8c7198bef3a0dd4.bin",
+            "start": 4194304
+        },
+        {
+            "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01.bin.extracted/squashfs-root/htdocs/cgibin",
+            "permissions": {
+                "r": true,
+                "x": true,
+                "w": false
+            },
+            "end": 4341760,
+            "content_file": "f70ebb798bc447b411cede64a8c3fb96.bin",
+            "start": 4198400
+        },
+        {
+            "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01.bin.extracted/squashfs-root/htdocs/cgibin",
+            "permissions": {
+                "r": false,
+                "x": false,
+                "w": false
+            },
+            "end": 4403200,
+            "content_file": "",
+            "start": 4341760
+        },
+        {
+            "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01.bin.extracted/squashfs-root/htdocs/cgibin",
+            "permissions": {
+                "r": true,
+                "x": false,
+                "w": true
+            },
+            "end": 4415488,
+            "content_file": "d45fd7d284ae04e57ae2e1617f28f634.bin",
+            "start": 4403200
+        },
+        {
+            "name": "",
+            "permissions": {
+                "r": true,
+                "x": false,
+                "w": true
+            },
+            "end": 1987751936,
+            "content_file": "",
+            "start": 1987719168
+        },
+        {
+            "name": "",
+            "permissions": {
+                "r": true,
+                "x": true,
+                "w": false
+            },
+            "end": 1988026368,
+            "content_file": "5cdb951e6f2c263393670235b86aca7c.bin",
+            "start": 1988001792
+        },
+        {
+            "name": "[stack]",
+            "permissions": {
+                "r": true,
+                "x": false,
+                "w": true
+            },
+            "end": 1996488704,
+            "content_file": "0d5f18d47eea06db1993a264ff869a4e.bin",
+            "start": 1996480512
+        }
+    ],
+    "regs": {
+        "s0": 1996485548,
+        "s1": 1987475792,
+        "t2": 1988071424,
+        "ra": 1987628768,
+        "t6": 1988071424,
+        "t7": 4204448,
+        "v1": 0,
+        "a1": 1996485284,
+        "t3": 4294967292,
+        "t1": 0,
+        "t4": 1,
+        "s3": 1996485284,
+        "s4": 1,
+        "a2": 1996485292,
+        "t5": 1988071424,
+        "a0": 1,
+        "s6": 4204800,
+        "s5": 4204236,
+        "fp": 1996485072,
+        "s8": 0,
+        "v0": 1987747504,
+        "s2": 1996485096,
+        "s7": 0,
+        "sp": 1996485072,
+        "a3": 0,
+        "t8": 176,
+        "t0": 4194356,
+        "t9": 4204800,
+        "pc": 4204800
+    }
+}

@@ -9,20 +9,14 @@
     
     The output of this script is expected to be used 
     to initialize context for Unicorn emulation.
-
     -----------
-
     In order to run this script, PWNDBG needs to be running in the GDB session (gdbinit.py)
     # HELPERS from: https://github.com/pwndbg/pwndbg
     It can be loaded with:
       source <path_to_pwndbg>/gdbinit.py
-
     Call this function when at a breakpoint in your process with:
       source unicorn_dumper_pwndbg.py
-
     -----------
-
-
 """
 
 import datetime
@@ -114,6 +108,7 @@ def dump_regs():
 #             reg_str = "0x{:016x}".format(reg_val)
 #         reg_state[reg.strip().strip('$')] = reg_str
         reg_state[reg.strip().strip('$')] = reg_val
+    print (reg_state)
     return reg_state
 
 
@@ -133,7 +128,7 @@ def dump_process_memory(output_dir):
     if not vmmap:
         print("No address mapping information found")
         return final_segment_list
-
+    # print(vmmap)
     # Assume segment entries are sorted by start address
     for entry in vmmap:
         if entry.start == entry.end:
@@ -183,7 +178,7 @@ def dump_process_memory(output_dir):
         # Add the segment to the list
         final_segment_list.append(seg_info)
 
-            
+    print(final_segment_list)
     return final_segment_list
 
 #----------
@@ -221,4 +216,3 @@ def main():
         
 if __name__ == "__main__" and pwndbg_loaded:
     main()
-    

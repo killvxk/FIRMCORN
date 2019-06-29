@@ -153,7 +153,7 @@ class HookCode(object):
                 if self.compiler == COMPILE_GCC:
                     self.REG_ARGS = [UC_X86_REG_RDI, UC_X86_REG_RSI, UC_X86_REG_RDX, UC_X86_REG_RCX,
                                      UC_X86_REG_R8, UC_X86_REG_R9]
-                    print "11"
+                    # print "test"
                 elif self.compiler == COMPILE_MSVC:
                     self.REG_ARGS = [UC_X86_REG_RCX, UC_X86_REG_RDX, UC_X86_REG_R8, UC_X86_REG_R9]
         elif self.uc_arch == UC_ARCH_ARM:
@@ -177,3 +177,11 @@ class HookCode(object):
             self.REG_RES = UC_ARM64_REG_X0
             self.REG_ARGS = [UC_ARM64_REG_X0, UC_ARM64_REG_X1, UC_ARM64_REG_X2, UC_ARM64_REG_X3,
                              UC_ARM64_REG_X4, UC_ARM64_REG_X5, UC_ARM64_REG_X6, UC_ARM64_REG_X7]
+        elif self.uc_arch == UC_ARCH_MIPS:
+            self.size = 8
+            self.pack_fmt = "<I"
+            self.REG_PC = UC_MIPS_REG_PC
+            self.REG_SP = UC_MIPS_REG_SP
+            self.REG_RA = UC_MIPS_REG_RA
+            self.REG_RES = [UC_MIPS_REG_V0, UC_MIPS_REG_V1,UC_MIPS_REG_V1]
+            self.REG_ARGS = [UC_MIPS_REG_A0, UC_MIPS_REG_A1, UC_MIPS_REG_A2, UC_MIPS_REG_A3]

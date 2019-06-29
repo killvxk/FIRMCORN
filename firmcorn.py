@@ -298,9 +298,13 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
 
 
     def start_run(self , start_address , end_address ):
-        print "==============================================    "
-        print "              Virtual Execution"
-        print "==============================================    "
+        print "  ______ _____ _____  __  __  _____ ____  _____  _   _ "
+        print " |  ____|_   _|  __ \|  \/  |/ ____/ __ \|  __ \| \ | |"
+        print " | |__    | | | |__) | \  / | |   | |  | | |__) |  \| |"
+        print " |  __|   | | |  _  /| |\/| | |   | |  | |  _  /| . ` |"
+        print " | |     _| |_| | \ \| |  | | |___| |__| | | \ \| |\  |"
+        print " |_|    |_____|_|  \_\_|  |_|\_____\____/|_|  \_\_| \_|"
+        print "                                                       "
         # uc_result = self.emu_start(start_address , end_address)
         if self.hookcode.func_alt_addr is not None:
             self.hook_add(UC_HOOK_CODE , self.hookcode._func_alt) 

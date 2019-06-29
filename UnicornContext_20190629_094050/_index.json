@@ -1,0 +1,104 @@
+{
+    "segments": [
+        {
+            "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01.bin.extracted/squashfs-root/htdocs/cgibin",
+            "start": 4194304,
+            "content_file": "1daab43b46af0f68d8c7198bef3a0dd4.bin",
+            "end": 4198400,
+            "permissions": {
+                "r": true,
+                "x": true,
+                "w": true
+            }
+        },
+        {
+            "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01.bin.extracted/squashfs-root/htdocs/cgibin",
+            "start": 4198400,
+            "content_file": "f70ebb798bc447b411cede64a8c3fb96.bin",
+            "end": 4341760,
+            "permissions": {
+                "r": true,
+                "x": true,
+                "w": false
+            }
+        },
+        {
+            "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01.bin.extracted/squashfs-root/htdocs/cgibin",
+            "start": 4341760,
+            "content_file": "",
+            "end": 4403200,
+            "permissions": {
+                "r": false,
+                "x": false,
+                "w": false
+            }
+        },
+        {
+            "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01.bin.extracted/squashfs-root/htdocs/cgibin",
+            "start": 4403200,
+            "content_file": "8ffbe1c8c45846f1d4d395f983674e8b.bin",
+            "end": 4415488,
+            "permissions": {
+                "r": true,
+                "x": false,
+                "w": true
+            }
+        },
+        {
+            "name": "",
+            "start": 1988001792,
+            "content_file": "",
+            "end": 1988026368,
+            "permissions": {
+                "r": true,
+                "x": false,
+                "w": false
+            }
+        },
+        {
+            "name": "[stack]",
+            "start": 1996480512,
+            "content_file": "588ba8980ba7ab35e10213900484f07b.bin",
+            "end": 1996488704,
+            "permissions": {
+                "r": true,
+                "x": false,
+                "w": true
+            }
+        }
+    ],
+    "arch": {
+        "arch": "mips"
+    },
+    "regs": {
+        "s2": 0,
+        "t6": 0,
+        "t7": 0,
+        "s6": 0,
+        "a1": 0,
+        "t3": 0,
+        "a2": 0,
+        "t5": 0,
+        "v0": 0,
+        "t8": 0,
+        "s3": 0,
+        "s5": 0,
+        "ra": 0,
+        "t2": 0,
+        "s4": 0,
+        "t0": 0,
+        "fp": 0,
+        "s8": 0,
+        "t9": 0,
+        "s1": 0,
+        "sp": 1996485280,
+        "a0": 0,
+        "s7": 0,
+        "v1": 0,
+        "t1": 0,
+        "a3": 0,
+        "t4": 0,
+        "pc": 1988008512,
+        "s0": 0
+    }
+}
