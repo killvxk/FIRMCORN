@@ -21,6 +21,7 @@ from hook.hook_loader import *
 from hook.func_emu import *
 # import unicorn_loader  # need to be change , it's not mine
 
+from fuzz.fuzz_loader import *
 
 # Name of the index file
 CONTEXT_JSON = "_index.json"
@@ -297,7 +298,14 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             print "{}".format( disasm(instr))
 
 
-    def start_run(self , start_address , end_address ):
+
+    def add_fuzz(self, fuzzTarget):
+        # use to add a fuzz targrt object
+        if fuzzTarget is not None:
+            fuzzTarget.init(self, self.arch)
+            self.hook_add(UC_HOOK_CODE , fuzzTarget.fuzz_func_alt)
+
+    def start_run(self , start_address , end_address , fuzzTarget=None):
         print "  ______ _____ _____  __  __  _____ ____  _____  _   _ "
         print " |  ____|_   _|  __ \|  \/  |/ ____/ __ \|  __ \| \ | |"
         print " | |__    | | | |__) | \  / | |   | |  | | |__) |  \| |"
@@ -312,10 +320,12 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             self.hook_add(UC_HOOK_CODE , self.hookcode._func_skip)
         if self.trace_start_addr!=0 and self.trace_end_addr!=0:
             self.hook_add(UC_HOOK_CODE , self._set_trace)
-        try:
-            uc_result = self.emu_start(start_address , end_address)
-        except:
-            print "emu_start error"
+        uc_result = self.emu_start(start_address , end_address)
+        # try:
+        #     uc_result = self.emu_start(start_address , end_address)
+        #     # need to add fuzz_start
+        # except:
+        #     print "emu_start error"
         # pass
         
 

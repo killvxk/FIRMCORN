@@ -54,7 +54,7 @@ class FuncEmu(object):
     def _scanf(self , args , debug_func = True):
         # maybe we have to think about all instruction
         # # need to be changed
-        inputs_dir = "/home/b1ngo/firmcorn/inputs/" 
+        inputs_dir = "/home/b1ngo/Firmcorn/inputs/" 
         inputs_bin = "1.bin"
         inputs_file = open(inputs_dir + inputs_bin, "rb")
         inputs = inputs_file.read()

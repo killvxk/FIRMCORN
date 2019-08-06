@@ -1,3 +1,5 @@
+import subprocess
+import os 
 import sys
 import logging 
 import os
@@ -13,46 +15,56 @@ from unicorn.arm64_const import *
 from unicorn.x86_const import *
 from unicorn.mips_const import *
 
-# https://github.com/36hours/idaemu
-# very enlightening
 COMPILE_GCC = 1
 COMPILE_MSVC = 2
+INPUT_BASE = 0x300000
 
-# The class for hook and  hijack function
-class HookCode(object):
-    def __init__(self , fc , arch , compiler=COMPILE_GCC, enable_debug = False):
-        # pass
+class FuzzTarget():
+    def __init__(self  , seed ,datas , func_list, formats="not" , enable_debug = True):
+        self.seed = seed
+        self.datas =datas
+        self.formats = formats
+        self.fuzz_func_list = func_list
+        self.enable_debug = enable_debug
+        
+
+
+    def init(self ,fc , arch , compiler=COMPILE_GCC):
         self.fc = fc 
         self.arch = arch
-        self.func_alt_addr = {}
-        self.func_skip_list = []
         self.compiler = compiler
-        self.debug_func = enable_debug
         self.get_common_regs() 
 
 
-    def func_alt(self , address , func , argc , debug_func = True):
-        # fake func fmt : (func , argc)
-        self.debug_func = debug_func
-        self.func_alt_addr[address] = (func , argc )
+    def get_data(self):
+        self.cmd = []
+        self.cmd.append("radamsa")
+        # self.cmd.append("--seed")
+        # self.cmd.append(str(self.seed))
+        self.cmd.append("-n")
+        self.cmd.append("1")
+
+        fuzz_data = subprocess.Popen(self.cmd , 
+                                    stdin=subprocess.PIPE,
+                                    stdout=subprocess.PIPE)
+        fuzz_data_str = fuzz_data.communicate( self.datas )[0]
+        # fuzz_data_arry = fuzz_data_str.split("\n") # have problem in split process
+
+        if self.enable_debug == True:
+            print fuzz_data_str
+        return fuzz_data_str
+
+    def get_format_data(self):
+        # have format
+        pass
+
 
         # use for hijack function , like getenv , printf .etc
-    def _func_alt(self , uc , address , size , user_data):
-        # print "hook code success"
-        # The essence of function hijacking is to skip 
-        # over the function and set the return content according to 
-        # the function function, according to the parameters, 
-        # and also set the stack balance for addres 
-        if self.debug_func:
-            print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
-        if address in self.func_alt_addr.keys():
-            # keep balance may be need to 
-            # consider in the future
-            # fake func fmt : (func , args)
-            func , argc  = self.func_alt_addr[address]
-            if self.debug_func:
-                print  "func : {0} ; argc : {1}".format(func, argc)
-            # fc <==> firmcorn class <--- Uc class
+    def fuzz_func_alt(self , uc , address , size , user_data):
+        if address in self.fuzz_func_list:
+            if self.enable_debug:
+                print "function fuzz address : {}".format(hex(address))
+                print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
             # 1 , get return address
             reg_sp = self.fc.reg_read(self.REG_SP)
             # we should get address value from stack
@@ -60,45 +72,28 @@ class HookCode(object):
                 ret_addr = unpack(self.pack_fmt , str(self.fc.mem_read(reg_sp , self.size)))[0]
             else:
                 ret_addr = self.fc.reg_read(self.REG_RA)
-            # 2 , get args by argc
-            if self.debug_func:
-                print "ret_addr : {}".format(hex(ret_addr))
-            args = []
-            i = 0
-            while i < argc and i<len(self.REG_ARGS):
-                args.append(self.fc.reg_read(self.REG_ARGS[i]))
-                i +=1
-            '''
-            # if argc > len(self.REG_ARGS)
-            sp2 = sp
-            while i < argc:
-                args.append(unpack(self.pack_fmt, str(uc.mem_read(sp2, self.step)))[0])
-                sp2 += self.step
-                i += 1
-            '''
-            # 3 , execute custom function and get return value
-            res = func(args) # not very understand , need debug
-            if self.debug_func:
-                print "ret_addr : {0}; args : {1}; res : {2}".format(ret_addr , args , res)
-            if type(res) != int: res = 0 # return value is not very import for fuzz , easpically return value is not int type
-            self.fc.reg_write(self.REG_RES , res)
+
+            # 2. get malformed data 
+            res = self.get_data() # get malformed data
+
+            # 3. map a memory to store res_data
+            res_addr = INPUT_BASE
+            if self.enable_debug:
+                print res_addr
+                print type(res_addr)
+            self.fc.mem_map(INPUT_BASE , 1024*1024)
+            
+            # 4. write res_data to res_addr
+            self.fc.mem_write( INPUT_BASE , res)
+            if self.enable_debug:
+                print "get malformed data :{}".format(res)
+                print "return addr : {}".format(hex(ret_addr))
+            # 3. write malformed data to REG_RES and change REG_PC
+            self.fc.reg_write(self.REG_RES , INPUT_BASE)
             self.fc.reg_write(self.REG_PC , ret_addr)
-            '''
-            # maybe need to keep stack balace
-            pass 
-            '''
-
-
-    def func_skip( self , func_skip_list , debug_func = True):
-        # setup func skip list 
-        self.debug_func = debug_func
-        self.func_skip_list = func_skip_list
-
-    def _func_skip(self  ,  uc , address , size , user_data):
-        if address in self.func_skip_list:
-            if self.debug_func:
-                print "address skip:{:#x}".format(address)
-            self.fc.reg_write( self.REG_PC ,  address+size)
+            if self.enable_debug:
+                print "reg_res : {}".format( str(self.fc.mem_read(INPUT_BASE , self.size)))
+                print "ret_addr : {}".format(str(self.fc.reg_read(self.REG_PC , self.size)))
 
     def get_common_regs(self):
         # get some common register
@@ -182,3 +177,6 @@ class HookCode(object):
             self.REG_RA = UC_MIPS_REG_RA
             self.REG_RES = [UC_MIPS_REG_V0, UC_MIPS_REG_V1,UC_MIPS_REG_V1]
             self.REG_ARGS = [UC_MIPS_REG_A0, UC_MIPS_REG_A1, UC_MIPS_REG_A2, UC_MIPS_REG_A3]
+
+
+
