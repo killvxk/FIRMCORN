@@ -19,9 +19,8 @@ from unicorn.mips_const import *
 # custom module import 
 from hook.hook_loader import *
 from hook.func_emu import *
-# import unicorn_loader  # need to be change , it's not mine
-
 from fuzz.fuzz_loader import *
+from crash.crash_loader import *
 
 # Name of the index file
 CONTEXT_JSON = "_index.json"
@@ -290,12 +289,12 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
                 print "trace address"
             # print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
             instr = self.mem_read(address, size)
-            context.arch      = 'i386'
-            context.endian    = 'little'
-            context.os        = 'linux'
-            context.word_size = 32
+            # context.arch      = 'i386'
+            # context.endian    = 'little'
+            # context.os        = 'linux'
+            # context.word_size = 32
             # print ("0x%x %s" % (address - BASE ,   disasm(instr)) )
-            print "{}".format( disasm(instr))
+            print "{}".format( disasm(instr , arch="{}".format(self.arch)))
 
 
 
@@ -304,6 +303,11 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         if fuzzTarget is not None:
             fuzzTarget.init(self, self.arch)
             self.hook_add(UC_HOOK_CODE , fuzzTarget.fuzz_func_alt)
+        # add crash 
+        # crashTarget = CrashTarget()
+        # crashTarget.init(self, self.arch)
+        # elf.hook_add(UC_HOOK_CODE , crashTarget.check_crash)
+
 
     def start_run(self , start_address , end_address , fuzzTarget=None):
         print "  ______ _____ _____  __  __  _____ ____  _____  _   _ "

@@ -15,5 +15,5 @@ fc.hookcode.func_skip(skip_list)
 
 run_start_addr = 0x00000400597      
 run_end_addr = 0x000004004E9     
-# fc.set_trace(run_start_addr, run_end_addr )
+fc.set_trace(run_start_addr, run_end_addr )
 fc.start_run(run_start_addr , run_end_addr )
