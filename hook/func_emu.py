@@ -68,4 +68,7 @@ class FuncEmu(object):
             print "scanf buf: {}".format(self.fc.mem_read(0x7fffffffdb30,0x10) )
         print "scanf compelte"
         return 0
-        
+
+
+    def _memset(self , args):
+        return 0

@@ -36,7 +36,10 @@ class FuzzTarget():
         self.get_common_regs() 
 
 
-    def get_data(self):
+    def get_mutate_data(self):
+        """ 
+        mutation-based method
+        """
         self.cmd = []
         self.cmd.append("radamsa")
         # self.cmd.append("--seed")
@@ -54,13 +57,18 @@ class FuzzTarget():
             print fuzz_data_str
         return fuzz_data_str
 
-    def get_format_data(self):
-        # have format
+    def get_generate_data(self):
+        """
+        generation-based method
+        """
         pass
 
 
-        # use for hijack function , like getenv , printf .etc
+       
     def fuzz_func_alt(self , uc , address , size , user_data):
+        """
+        use for hijack function , like getenv , printf .etc
+        """
         if address in self.fuzz_func_list:
             if self.enable_debug:
                 print "function fuzz address : {}".format(hex(address))
@@ -74,7 +82,7 @@ class FuzzTarget():
                 ret_addr = self.fc.reg_read(self.REG_RA)
 
             # 2. get malformed data 
-            res = self.get_data() # get malformed data
+            res = self.get_mutate_data() # get malformed data
 
             # 3. map a memory to store res_data
             res_addr = INPUT_BASE
@@ -96,13 +104,15 @@ class FuzzTarget():
                 print "ret_addr : {}".format(str(self.fc.reg_read(self.REG_PC , self.size)))
 
     def get_common_regs(self):
-        # get some common register
-        # REG_PC: IP
-        # REG_SP: stack pointer 
-        # REG_RA: return address (just like arm $lr and mips $ra)
-        # REG_ARGS: args 
-        # REG_RES: return value
-        # arch to uc_arch
+        """
+        get some common register
+        REG_PC: IP
+        REG_SP: stack pointer 
+        REG_RA: return address (just like arm $lr and mips $ra)
+        REG_ARGS: args 
+        REG_RES: return value
+        arch to uc_arch
+        """
         if self.arch == "x64":
             self.uc_arch =  UC_ARCH_X86
             self.uc_mode = UC_MODE_64
@@ -179,4 +189,6 @@ class FuzzTarget():
             self.REG_ARGS = [UC_MIPS_REG_A0, UC_MIPS_REG_A1, UC_MIPS_REG_A2, UC_MIPS_REG_A3]
 
 
-
+hook_func = [0x00400460]
+fuzzs = FuzzTarget(5 , "a"*256 , hook_func)
+print fuzzs.get_mutate_data()
