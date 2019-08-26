@@ -10,7 +10,7 @@ import math
 SENSITIVE_FUNC_LIST = ['strcpy','strcat','read','scanf','gets','read','gets','system','execve','getenv']
 
 class PreanalysisTarget():
-    def __init__(self , enable_debug=True):
+    def __init__(self , enable_debug=False):
         self.complex_sort_dict = dict()
         self.vuln_sort_dict = dict()
         self.enable_debug = enable_debug
@@ -82,17 +82,21 @@ class PreanalysisTarget():
         """
         stage 2 sorting
         stage1 dict format: {rate1 : [ea1 , ea2 , ...] , rate2 : [ea1 ,ea2 ..] ...}
-        stage2 dict format: {rate1 : [{ ea1: ea1_rate1} , {ea2: ea1_rate2} ..] , rate2: [ {ea1: ea1_rate1}]}
+        stage2 dict format: {rate1 : [{ea1_rate1 : ea1 } , {ea1_rate2 : ea2 } ..] , rate2: [ {ea1_rate1: ea1 }, {ea1_rate2: ea2 } ]}  
         """
-        for k,v in self.complex_sort_dict.intems():
+        for k,v in self.complex_sort_dict.items():
             each_rate_list = []
             for i in range(len(v)):
-                sensitive_index = get_sensitive_index(v[i]) # each v[i] is func_ea 
-                memop_num = get_memop_num(v[i])
+                sensitive_index = self.get_sensitive_index(v[i]) # each v[i] is func_ea 
+                memop_num = self.get_memop_num(v[i])
                 vuln_rate = sensitive_index + memop_num
-                each_rate_list.append({v[i]:vuln_rate})
+                each_rate_list.append({vuln_rate:v[i]})
             self.vuln_sort_dict.update({k:each_rate_list})
-        print vuln_sort_dict # need to test
+        print self.vuln_sort_dict # need to sort
+        for k in self.vuln_sort_dict:
+            self.vuln_sort_dict[k].sort(reverse=True)
+        return self.vuln_sort_dict 
+
 
     def get_sensitive_index(self , func_ea):
         indexs = 0
@@ -141,12 +145,10 @@ class PreanalysisTarget():
         memop_num = 0
         allop_num = 0 
         dism_addr = list(FuncItems(func_ea))
-        if self.enable_debug:
-            print "arch info: {}".format(self.arch)
         for instr in dism_addr:
             allop_num  += 1
             op = GetOpType(instr, 0) 
-            print op
+            # print op
             dism_instr = GetDisasm(instr)
 
             # need to distinguish arch
@@ -154,16 +156,16 @@ class PreanalysisTarget():
                 # x86 arch 
                 if op == 4 and "mov"  in dism_instr:
                     memop_num += 1
-                    print "0x{} {}".format(hex(instr), dism_instr)
+                    # print "0x{} {}".format(hex(instr), dism_instr)
             elif self.arch[0] == "mips" or  self.arch[0] == "mipsb":
                 if op == 1 and ("sw"  in dism_instr or "lw"  in dism_instr):
                     memop_num += 1
-                    print "0x{} {}".format(hex(instr), dism_instr)
+                    # print "0x{} {}".format(hex(instr), dism_instr)
             elif self.arch[0]== "arm" :
                 pass
             else:
                 print "unknow arch"
-        print "memop_num: {}   all_op_num{} , rate: {} ".format(memop_num , allop_num,  int((float(memop_num) / float(allop_num)) * 100))
+        # print "memop_num: {}   all_op_num{} , rate: {} ".format(memop_num , allop_num,  int((float(memop_num) / float(allop_num)) * 100))
         return memop_num
 
     def get_arch(self):
@@ -188,4 +190,5 @@ class PreanalysisTarget():
 
 
 target = PreanalysisTarget()
-# target.complex_sort()
+target.complex_sort()
+target.vuln_sort()
