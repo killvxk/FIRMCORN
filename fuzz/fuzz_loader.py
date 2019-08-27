@@ -51,7 +51,6 @@ class FuzzTarget():
                                     stdin=subprocess.PIPE,
                                     stdout=subprocess.PIPE)
         fuzz_data_str = fuzz_data.communicate( self.datas )[0]
-        # fuzz_data_arry = fuzz_data_str.split("\n") # have problem in split process
 
         if self.enable_debug == True:
             print fuzz_data_str
@@ -188,7 +187,3 @@ class FuzzTarget():
             self.REG_RES = [UC_MIPS_REG_V0, UC_MIPS_REG_V1,UC_MIPS_REG_V1]
             self.REG_ARGS = [UC_MIPS_REG_A0, UC_MIPS_REG_A1, UC_MIPS_REG_A2, UC_MIPS_REG_A3]
 
-
-hook_func = [0x00400460]
-fuzzs = FuzzTarget(5 , "a"*256 , hook_func)
-print fuzzs.get_mutate_data()

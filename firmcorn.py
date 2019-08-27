@@ -30,7 +30,7 @@ UNICORN_PAGE_SIZE = 0x1000
 
 # Max allowable segment size (1G)
 MAX_ALLOWABLE_SEG_SIZE = 1024 * 1024 * 1024
-
+    
 # Alignment functions to align all memory segments to Unicorn page boundaries (4KB pages only)
 ALIGN_PAGE_DOWN = lambda x: x & ~(UNICORN_PAGE_SIZE - 1)
 ALIGN_PAGE_UP   = lambda x: (x + UNICORN_PAGE_SIZE - 1) & ~(UNICORN_PAGE_SIZE-1)
@@ -294,8 +294,9 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             # context.os        = 'linux'
             # context.word_size = 32
             # print ("0x%x %s" % (address - BASE ,   disasm(instr)) )
-            print "{}".format( disasm(instr , arch="{}".format(self.arch)))
-
+            if self.arch == "x64" or self.arch == "x32":
+                print "{}".format( disasm(instr , arch="{}".format("i386")))
+            print "{}".format( disasm(instr , arch="{}".format("mips")))
 
 
     def add_fuzz(self, fuzzTarget):
