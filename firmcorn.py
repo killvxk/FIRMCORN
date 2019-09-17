@@ -73,8 +73,10 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         if 'segments' not in context:
             raise Exception("Couldn't find segment/memory information in index file")
         
-        # load registers
+        
         self.arch = context['arch']['arch']
+        self.endian = context['arch']['endian']
+        # load registers
         regs_map = self.getRegsByArch(self.arch)
         regs = context['regs']
 
@@ -97,10 +99,15 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             self.uc_mode = UC_MODE_32
         else:
             raise Exception("Error arch")
-
+        
+        # endian to uc_endian
+        if self.endian == "big":
+            self.uc_endian =  UC_MODE_BIG_ENDIAN
+        else:
+            self.uc_endian =  UC_MODE_LITTLE_ENDIAN
         # init uc object
         # self = Uc(self.uc_arch , self.uc_mode)
-        Uc.__init__(self, self.uc_arch, self.uc_mode)
+        Uc.__init__(self, self.uc_arch, self.uc_mode + self.uc_endian)
 
         if not self.set_reg(regs , regs_map):
             raise Exception("Error in setup registers")
@@ -111,14 +118,23 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             raise Exception("Error in setup memory")
 
 
-        # pass    
-    
-    def set_reg(self , regs, regs_map , debug_func = False ):
+    def dbg_hook_code(mu, address, size, user_data):  
+        print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
+
+    def debug_moudle(self , start_addr , end_addr):
+        """
+        debug 
+        """
+        dbg_mu = Uc(UC_ARCH_MIPS, UC_MODE_MIPS32 + UC_MODE_BIG_ENDIAN)
+        dbg_mu.hook_add(UC_HOOK_CODE, self.dbg_hook_code)
+        dbg_mu.emu_start(start_addr )
+
+    def set_reg(self , regs, regs_map , debug_func = True ):
         self.enable_debug = debug_func
         # setup register
         for register , value in regs.iteritems():
             if self.enable_debug:
-                # print "Reg {0} = {1}".format(register, value) 
+                print "Reg {0} = {1}".format(register, value) 
                 pass
             if not regs_map.has_key(register.lower()):
                 if self.enable_debug:
@@ -163,48 +179,49 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
 
             if self.enable_debug:
                 print "Handling segment {}".format(seg_name) 
-            
-            # before map memory , do some check
-            # there are 3 cases:
-            # ======= 1 =======
-            # +----------------------------+ <-----+ mem_start
-            # |                            |
-            # |  +----------------------+<----+  seg_start
-            # |  |                      |  |
-            # |  |                      |  |
-            # |  +----------------------+<----+  seg_end
-            # |                            |
-            # +----------------------------+ <-----+  mem_end
-            # for this case, shoud't map memory 
+            """
+            before map memory , do some check
+            there are 3 cases:
+            ======= 1 =======
+            +----------------------------+ <-----+ mem_start
+            |                            |
+            |  +----------------------+<----+  seg_start
+            |  |                      |  |
+            |  |                      |  |
+            |  +----------------------+<----+  seg_end
+            |                            |
+            +----------------------------+ <-----+  mem_end
+            for this case, shoud't map memory 
 
-            # ======= 2 =======
-            # +-----------------------------+<-----+ mem_start
-            # |                             |
-            # |                             |
-            # +------------------------------<----+  seg_start
-            # |                             |
-            # |                             |
-            # |                             |
-            # +------------------------------<-----+  mem_end=tmp
-            # |-----------------------------|
-            # |--------------------------------------------->map area
-            # |-----------------------------|
-            # +------------------------------<----+  seg_end
+            ======= 2 =======
+            +-----------------------------+<-----+ mem_start
+            |                             |
+            |                             |
+            +------------------------------<----+  seg_start
+            |                             |
+            |                             |
+            |                             |
+            +------------------------------<-----+  mem_end=tmp
+            |-----------------------------|
+            |--------------------------------------------->map area
+            |-----------------------------|
+            +------------------------------<----+  seg_end
             
-            # ======= 3 =======
-            # +------------------------------<----+  seg_start
-            # |-----------------------------|
-            # |--------------------------------------------->map area
-            # |-----------------------------|
-            # +------------------------------<-----+ mem_start=tmp
-            # |                             |
-            # |                             |
-            # |                             |
-            # +------------------------------<----+  seg_end
-            # |                             |
-            # |                             |
-            # |                             |
-            # +-----------------------------+<-----+  mem_end
+            ======= 3 =======
+            +------------------------------<----+  seg_start
+            |-----------------------------|
+            |--------------------------------------------->map area
+            |-----------------------------|
+            +------------------------------<-----+ mem_start=tmp
+            |                             |
+            |                             |
+            |                             |
+            +------------------------------<----+  seg_end
+            |                             |
+            |                             |
+            |                             |
+            +-----------------------------+<-----+  mem_end
+            """
             found = False
             overlap_start = False
             overlap_end = False
@@ -246,7 +263,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
                 if not os.path.isfile(content_file_path):
                     raise Exception("Unable to find segment content file. Expected it to be at {}".format(content_file_path))
                 if self.enable_debug:
-                   print "Loading content for segment {} from {}".format(seg_name, segment['content_file'])
+                    print "Loading content for segment {} from {}".format(seg_name, segment['content_file'])
                 content_file = open(content_file_path, 'rb')
                 compressed_content = content_file.read()
                 content_file.close()
@@ -287,16 +304,57 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         if address >= self.trace_start_addr and self.trace_end_addr:
             if self.enable_debug:
                 print "trace address"
-            # print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
+            print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
             instr = self.mem_read(address, size)
             # context.arch      = 'i386'
-            # context.endian    = 'little'
+            context.endian    = str(self.endian)
             # context.os        = 'linux'
             # context.word_size = 32
             # print ("0x%x %s" % (address - BASE ,   disasm(instr)) )
             if self.arch == "x64" or self.arch == "x32":
                 print "{}".format( disasm(instr , arch="{}".format("i386")))
             print "{}".format( disasm(instr , arch="{}".format("mips")))
+    
+    def _show_debug_info(self, uc , address , size , user_data ):
+        """
+        show registers and memory info when debug
+        """
+        self.get_common_regs()
+        context_json = os.path.join( self.context_dir, CONTEXT_JSON)
+        if not os.path.isfile(context_json):
+            raise Exception("Contex json not found")
+        
+        # load context from json
+        context_json_file  = open(context_json , "r")
+        context = json.load(context_json_file) # load _index.json
+        context_json_file.close()
+        regs_map = self.getRegsByArch(self.arch)
+        regs = context['regs']
+        
+        if address in self.dbg_addr_list:
+            # show registers value
+            print("=================================================================")
+            print("=========================Registers Value=========================")
+            for register , value in regs.iteritems():
+                try:
+                    print("Reg {} --> {}".format(register.lower() ,hex(self.reg_read(regs_map[register.lower()])) ))
+                except Exception as e:
+                    print "ERROR writing register: {}, value: {} -- {}".format(register, value, repr(e))
+            
+
+            print("=================================================================")
+            # print("")
+            print("=========================Memory Content==========================")
+            # show stack memory
+            for i in range(6):
+                reg_sp = self.reg_read(self.REG_SP , size)
+                stack_addr = reg_sp + 288 + 4*i
+                mem_cont = self.mem_read(stack_addr, 4)
+                print("sp+{} {} --> {}".format( 288 + 4*i , hex(stack_addr) ,str(mem_cont).encode("hex")))
+
+
+    def show_debug_info(self , dbg_addr_list):
+        self.dbg_addr_list = dbg_addr_list
 
 
     def add_fuzz(self, fuzzTarget):
@@ -323,8 +381,13 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             self.hook_add(UC_HOOK_CODE , self.hookcode._func_alt) 
         if self.hookcode.func_skip_list is not None:
             self.hook_add(UC_HOOK_CODE , self.hookcode._func_skip)
+        if self.dbg_addr_list is not None:
+            self.hook_add(UC_HOOK_CODE, self._show_debug_info)
         if self.trace_start_addr!=0 and self.trace_end_addr!=0:
             self.hook_add(UC_HOOK_CODE , self._set_trace)
+
+        import pdb
+        # pdb.set_trace()
         uc_result = self.emu_start(start_address , end_address)
         # try:
         #     uc_result = self.emu_start(start_address , end_address)
@@ -498,3 +561,75 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             }
         }
         return registers[arch]  
+
+
+    def get_common_regs(self):
+        """
+        get some common register
+        REG_PC: IP
+        REG_SP: stack pointer 
+        REG_RA: return address (just like arm $lr and mips $ra)
+        REG_ARGS: args 
+        REG_RES: return value
+        arch to uc_arch
+        """
+
+        if self.uc_arch == UC_ARCH_X86:
+            if self.uc_mode == UC_MODE_16:
+                self.size = 2
+                self.pack_fmt = '<H'
+                self.REG_PC = UC_X86_REG_IP
+                self.REG_SP = UC_X86_REG_SP
+                self.REG_RA = 0
+                self.REG_RES = UC_X86_REG_AX
+                self.REG_ARGS = []
+            elif self.uc_mode == UC_MODE_32:
+                self.size = 4
+                self.pack_fmt = '<I'
+                self.REG_PC = UC_X86_REG_EIP
+                self.REG_SP = UC_X86_REG_ESP
+                self.REG_RA = 0
+                self.REG_RES = UC_X86_REG_EAX
+                self.REG_ARGS = []
+            elif self.uc_mode == UC_MODE_64:
+                self.size = 8
+                self.pack_fmt = '<Q'
+                self.REG_PC = UC_X86_REG_RIP
+                self.REG_SP = UC_X86_REG_RSP
+                self.REG_RA = 0
+                self.REG_RES = UC_X86_REG_RAX
+                if self.compiler == COMPILE_GCC:
+                    self.REG_ARGS = [UC_X86_REG_RDI, UC_X86_REG_RSI, UC_X86_REG_RDX, UC_X86_REG_RCX,
+                                     UC_X86_REG_R8, UC_X86_REG_R9]
+                    # print "test"
+                elif self.compiler == COMPILE_MSVC:
+                    self.REG_ARGS = [UC_X86_REG_RCX, UC_X86_REG_RDX, UC_X86_REG_R8, UC_X86_REG_R9]
+        elif self.uc_arch == UC_ARCH_ARM:
+            if self.uc_mode == UC_MODE_ARM:
+                self.size = 4
+                self.pack_fmt = '<I'
+            elif self.uc_mode == UC_MODE_THUMB:
+                self.size = 2
+                self.pack_fmt = '<H'
+            self.REG_PC = UC_ARM_REG_PC
+            self.REG_SP = UC_ARM_REG_SP
+            self.REG_RA = UC_ARM_REG_LR
+            self.REG_RES = UC_ARM_REG_R0
+            self.REG_ARGS = [UC_ARM_REG_R0, UC_ARM_REG_R1, UC_ARM_REG_R2, UC_ARM_REG_R3]
+        elif self.uc_arch == UC_ARCH_ARM64:
+            self.size = 8
+            self.pack_fmt = '<Q'
+            self.REG_PC = UC_ARM64_REG_PC
+            self.REG_SP = UC_ARM64_REG_SP
+            self.REG_RA = UC_ARM64_REG_LR
+            self.REG_RES = UC_ARM64_REG_X0
+            self.REG_ARGS = [UC_ARM64_REG_X0, UC_ARM64_REG_X1, UC_ARM64_REG_X2, UC_ARM64_REG_X3,
+                             UC_ARM64_REG_X4, UC_ARM64_REG_X5, UC_ARM64_REG_X6, UC_ARM64_REG_X7]
+        elif self.uc_arch == UC_ARCH_MIPS:
+            self.size = 8
+            self.pack_fmt = "<I"
+            self.REG_PC = UC_MIPS_REG_PC
+            self.REG_SP = UC_MIPS_REG_SP
+            self.REG_RA = UC_MIPS_REG_RA
+            self.REG_RES = [UC_MIPS_REG_V0, UC_MIPS_REG_V1,UC_MIPS_REG_V1]
+            self.REG_ARGS = [UC_MIPS_REG_A0, UC_MIPS_REG_A1, UC_MIPS_REG_A2, UC_MIPS_REG_A3]

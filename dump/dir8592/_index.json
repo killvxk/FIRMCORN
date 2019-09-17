@@ -1,248 +1,249 @@
 {
     "arch": {
-        "endian": "big",
-        "arch": "mips"
+        "arch": "mips",
+        "endian": "big"
     },
     "regs": {
-        "pc": 4257756,
-        "s2": 0,
-        "a0": 0,
-        "t0": 33,
-        "a2": 4415632,
-        "sp": 1996484784,
-        "t1": 1987749768,
-        "s0": 1996484880,
-        "ra": 4208956,
-        "fp": 0,
-        "s7": 0,
-        "t8": 41,
-        "a3": 32,
-        "a1": 1996484808,
-        "s4": 3130,
-        "s8": 0,
-        "t7": 4279676,
-        "s6": 4257756,
-        "t5": 87,
-        "t9": 4257756,
-        "s3": 0,
-        "s5": 0,
         "t4": 0,
-        "s1": 1996486052,
-        "t6": 2048,
-        "t2": 2130640639,
+        "a0": 0,
+        "s8": 0,
+        "a3": 32,
+        "fp": 0,
+        "s3": 0,
+        "t8": 41,
+        "s2": 0,
+        "s4": 3130,
+        "s0": 1996484880,
+        "gp": 4438848,
+        "s5": 0,
+        "a1": 1996484808,
+        "s7": 0,
+        "t5": 87,
+        "t7": 4279676,
+        "sp": 1996484784,
         "t3": 2164326656,
+        "v1": 4415528,
+        "s6": 4257756,
+        "s1": 1996486052,
         "v0": 4415496,
-        "v1": 4415528
+        "ra": 4208956,
+        "t1": 1987749768,
+        "pc": 4257756,
+        "a2": 4415632,
+        "t2": 2130640639,
+        "t9": 4257756,
+        "t6": 2048,
+        "t0": 33
     },
     "segments": [
         {
             "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01_patch.bin.extracted/squashfs-root/htdocs/cgibin",
+            "content_file": "1daab43b46af0f68d8c7198bef3a0dd4.bin",
             "permissions": {
                 "w": true,
                 "r": true,
                 "x": true
             },
             "end": 4198400,
-            "start": 4194304,
-            "content_file": "1daab43b46af0f68d8c7198bef3a0dd4.bin"
+            "start": 4194304
         },
         {
             "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01_patch.bin.extracted/squashfs-root/htdocs/cgibin",
+            "content_file": "5a94c50f3b11af7dfa772abcaa030b29.bin",
             "permissions": {
                 "w": false,
                 "r": true,
                 "x": true
             },
             "end": 4341760,
-            "start": 4198400,
-            "content_file": "5a94c50f3b11af7dfa772abcaa030b29.bin"
+            "start": 4198400
         },
         {
             "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01_patch.bin.extracted/squashfs-root/htdocs/cgibin",
+            "content_file": "",
             "permissions": {
                 "w": false,
                 "r": false,
                 "x": false
             },
             "end": 4403200,
-            "start": 4341760,
-            "content_file": ""
+            "start": 4341760
         },
         {
             "name": "",
+            "content_file": "42d89824f3161ef35fe4154ecbc17b56.bin",
             "permissions": {
                 "w": true,
                 "r": true,
                 "x": false
             },
             "end": 4419584,
-            "start": 4403200,
-            "content_file": "b518b44730bd516d7bd40f7cc3a7679e.bin"
+            "start": 4403200
         },
         {
             "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01_patch.bin.extracted/squashfs-root/lib/libc.so.0",
+            "content_file": "f154de2dc77e9f6fa0c909b3a944d5fe.bin",
             "permissions": {
                 "w": true,
                 "r": true,
                 "x": true
             },
             "end": 1987276800,
-            "start": 1987272704,
-            "content_file": "f154de2dc77e9f6fa0c909b3a944d5fe.bin"
+            "start": 1987272704
         },
         {
             "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01_patch.bin.extracted/squashfs-root/lib/libc.so.0",
+            "content_file": "9b83fba9ef62f0e1909747a0ce57d7eb.bin",
             "permissions": {
                 "w": false,
                 "r": true,
                 "x": true
             },
             "end": 1987661824,
-            "start": 1987276800,
-            "content_file": "9b83fba9ef62f0e1909747a0ce57d7eb.bin"
+            "start": 1987276800
         },
         {
             "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01_patch.bin.extracted/squashfs-root/lib/libc.so.0",
+            "content_file": "",
             "permissions": {
                 "w": false,
                 "r": false,
                 "x": false
             },
             "end": 1987723264,
-            "start": 1987661824,
-            "content_file": ""
+            "start": 1987661824
         },
         {
             "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01_patch.bin.extracted/squashfs-root/lib/libc.so.0",
+            "content_file": "9767f352b95ff79f947a9b44e8d5b20a.bin",
             "permissions": {
                 "w": false,
                 "r": true,
                 "x": false
             },
             "end": 1987727360,
-            "start": 1987723264,
-            "content_file": "9767f352b95ff79f947a9b44e8d5b20a.bin"
+            "start": 1987723264
         },
         {
             "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01_patch.bin.extracted/squashfs-root/lib/libc.so.0",
+            "content_file": "8969f590cc31e9d97ac4eccea18c2b71.bin",
             "permissions": {
                 "w": true,
                 "r": true,
                 "x": false
             },
             "end": 1987751936,
-            "start": 1987727360,
-            "content_file": "8969f590cc31e9d97ac4eccea18c2b71.bin"
+            "start": 1987727360
         },
         {
             "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01_patch.bin.extracted/squashfs-root/lib/libgcc_s.so.1",
+            "content_file": "da40c6acfa9a58c687fa13579774fa62.bin",
             "permissions": {
                 "w": true,
                 "r": true,
                 "x": true
             },
             "end": 1987760128,
-            "start": 1987756032,
-            "content_file": "da40c6acfa9a58c687fa13579774fa62.bin"
+            "start": 1987756032
         },
         {
             "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01_patch.bin.extracted/squashfs-root/lib/libgcc_s.so.1",
+            "content_file": "9927ff445d70a249b9740bd432daca2c.bin",
             "permissions": {
                 "w": false,
                 "r": true,
                 "x": true
             },
             "end": 1987928064,
-            "start": 1987760128,
-            "content_file": "9927ff445d70a249b9740bd432daca2c.bin"
+            "start": 1987760128
         },
         {
             "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01_patch.bin.extracted/squashfs-root/lib/libgcc_s.so.1",
+            "content_file": "",
             "permissions": {
                 "w": false,
                 "r": false,
                 "x": false
             },
             "end": 1987993600,
-            "start": 1987928064,
-            "content_file": ""
+            "start": 1987928064
         },
         {
             "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01_patch.bin.extracted/squashfs-root/lib/libgcc_s.so.1",
+            "content_file": "2ce7f19654341292bf0ac719ca32cbb0.bin",
             "permissions": {
                 "w": true,
                 "r": true,
                 "x": false
             },
             "end": 1987997696,
-            "start": 1987993600,
-            "content_file": "2ce7f19654341292bf0ac719ca32cbb0.bin"
+            "start": 1987993600
         },
         {
             "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01_patch.bin.extracted/squashfs-root/lib/ld-uClibc.so.0",
+            "content_file": "04bc3abe77147732420ced5f32b46b45.bin",
             "permissions": {
                 "w": true,
                 "r": true,
                 "x": true
             },
             "end": 1988009984,
-            "start": 1988005888,
-            "content_file": "04bc3abe77147732420ced5f32b46b45.bin"
+            "start": 1988005888
         },
         {
             "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01_patch.bin.extracted/squashfs-root/lib/ld-uClibc.so.0",
+            "content_file": "436faf286ab5a2f8dd6730c30744220c.bin",
             "permissions": {
                 "w": false,
                 "r": true,
                 "x": true
             },
             "end": 1988026368,
-            "start": 1988009984,
-            "content_file": "436faf286ab5a2f8dd6730c30744220c.bin"
+            "start": 1988009984
         },
         {
             "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01_patch.bin.extracted/squashfs-root/lib/ld-uClibc.so.0",
+            "content_file": "",
             "permissions": {
                 "w": false,
                 "r": false,
                 "x": false
             },
             "end": 1988087808,
-            "start": 1988026368,
-            "content_file": ""
+            "start": 1988026368
         },
         {
             "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01_patch.bin.extracted/squashfs-root/lib/ld-uClibc.so.0",
+            "content_file": "bd8dbc3b9fb7ed974aacedfaf7cacb54.bin",
             "permissions": {
                 "w": false,
                 "r": true,
                 "x": false
             },
             "end": 1988091904,
-            "start": 1988087808,
-            "content_file": "bd8dbc3b9fb7ed974aacedfaf7cacb54.bin"
+            "start": 1988087808
         },
         {
             "name": "/home/b1ngo/firmware/_DIR859Ax_FW106b01_beta01_patch.bin.extracted/squashfs-root/lib/ld-uClibc.so.0",
+            "content_file": "7b3a7dcafade2c836c16ed487e596d26.bin",
             "permissions": {
                 "w": true,
                 "r": true,
                 "x": false
             },
             "end": 1988096000,
-            "start": 1988091904,
-            "content_file": "7b3a7dcafade2c836c16ed487e596d26.bin"
+            "start": 1988091904
         },
         {
             "name": "[stack]",
+            "content_file": "231deb036913125198001a3ef177e227.bin",
             "permissions": {
                 "w": true,
                 "r": true,
                 "x": false
             },
             "end": 1996488704,
-            "start": 1996480512,
-            "content_file": "3a09f3f3c9071f6c4696ee441ee68f8f.bin"
+            "start": 1996480512
         }
     ]
 }

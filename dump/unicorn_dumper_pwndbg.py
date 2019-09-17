@@ -88,6 +88,9 @@ def map_arch():
     else:
         return ""
 
+def get_endian():
+    return pwndbg.arch.endian
+
 
 #-----------------------
 #---- Dumping functions
@@ -95,6 +98,7 @@ def map_arch():
 def dump_arch_info():
     arch_info = {}
     arch_info["arch"] = map_arch()
+    arch_info['endian'] = get_endian()
     return arch_info
 
 
@@ -109,6 +113,7 @@ def dump_regs():
 #         reg_state[reg.strip().strip('$')] = reg_str
         reg_state[reg.strip().strip('$')] = reg_val
     print (reg_state)
+    
     return reg_state
 
 

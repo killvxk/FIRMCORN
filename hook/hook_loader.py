@@ -44,7 +44,8 @@ class HookCode(object):
         # the function function, according to the parameters, 
         # and also set the stack balance for addres 
         if self.debug_func:
-            print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
+            # print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
+            pass
         if address in self.func_alt_addr.keys():
             # keep balance may be need to 
             # consider in the future
