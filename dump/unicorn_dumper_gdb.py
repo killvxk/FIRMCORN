@@ -28,7 +28,7 @@ MAX_SEG_SIZE = 128 * 1024 * 1024
 # Name of the index file
 INDEX_FILE_NAME = "_index.json"
 
-class DumpPwndbgTarget():
+class Dumper():
     def __init__(self):
         self.arch_info = {}
         self.reg_state = {}
@@ -197,5 +197,5 @@ class DumpPwndbgTarget():
             print("!!! ERROR:\n\t{}".format(repr(e)))
         
 
-dumpTarget = DumpPwndbgTarget()
+dumpTarget = Dumper()
 dumpTarget.start_dump()

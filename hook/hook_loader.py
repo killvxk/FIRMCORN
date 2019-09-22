@@ -6,6 +6,7 @@ import ctypes
 import ctypes.util
 import zlib
 from struct import unpack, pack, unpack_from, calcsize
+from pwn import *
 
 from unicorn import *
 from unicorn.arm_const import *
@@ -19,7 +20,7 @@ COMPILE_GCC = 1
 COMPILE_MSVC = 2
 
 # The class for hook and  hijack function
-class HookCode(object):
+class Hooker(object):
     def __init__(self , fc , arch , compiler=COMPILE_GCC, enable_debug = False):
         # pass
         self.fc = fc 
@@ -27,6 +28,9 @@ class HookCode(object):
         self.func_alt_addr = {}
         self.func_skip_list = []
         self.compiler = compiler
+
+
+
         self.debug_func = enable_debug
         self.get_common_regs() 
 
@@ -78,11 +82,12 @@ class HookCode(object):
                 i += 1
             '''
             # 3 , execute custom function and get return value
-            res = func(args) # not very understand , need debug
+            res = func() # not very understand , need debug
             if self.debug_func:
                 print "ret_addr : {0}; args : {1}; res : {2}".format(ret_addr , args , res)
             if type(res) != int: res = 0 # return value is not very import for fuzz , easpically return value is not int type
-            self.fc.reg_write(self.REG_RES , res)
+            # multiple return values should to be considered, maybe 
+            self.fc.reg_write(self.REG_RES[0] , res)
             self.fc.reg_write(self.REG_PC , ret_addr)
             '''
             # maybe need to keep stack balace
@@ -100,6 +105,18 @@ class HookCode(object):
             if self.debug_func:
                 print "address skip:{:#x}".format(address)
             self.fc.reg_write( self.REG_PC ,  address+size)
+
+
+    
+    def func_alt_dbg(self, uc , address , size , user_data):
+        if self.fc.got.has_key(address):
+            print "find func : {} --> {}".format(hex(address) , self.fc.got[address])
+            if self.fc.funcemu.func_list.has_key(self.fc.got[address]):
+                print "custom func {}##############################################".format(self.fc.got[address])
+                #fc.hookcode.func_alt(memset_addr2 , fc.funcemu.memset  , 2)
+                self.func_alt( address , self.fc.funcemu.func_list[self.fc.got[address]]  , 2)
+                if self.func_alt_addr is not None:
+                    self.fc.hook_add(UC_HOOK_CODE , self._func_alt) 
 
     def get_common_regs(self):
         # get some common register

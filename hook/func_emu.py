@@ -28,20 +28,29 @@ class FuncEmu(object):
         self.fc = fc # firmcorn class, inherited from uc class
         self.hc = hc # hookcode class, inherited from object(this is not a good implementation...)
         self.debug_func = enable_debug
-    
+        self.func_list = {}
+        self.func_list.update({ 'strcpy': self.strcpy })
+        self.func_list.update({ 'scanf' : self.scanf })
+        self.func_list.update({ 'memset': self.memset})
+        self.func_list.update({ 'sprintf': self.sprintf})
+        self.func_list.update({ 'strdup': self.strdup})
     
     def strcpy(self):
-        strcpyEmu = strcpy(fc, hc)
+        strcpyEmu = strcpy(self.fc, self.hc)
         strcpyEmu.run()
     
     def scanf(self):
-        scanfEmu = scanf(fc, hc)
+        scanfEmu = scanf(self.fc, self.hc)
         scanfEmu.run()
     
     def memset(self):
-        memsettEmu = memset(fc, hc)
+        memsetEmu = memset(self.fc, self.hc)
         memsetEmu.run()
     
     def sprintf(self):
-        sprintfEmu = sprintf(fc, hc)
+        sprintfEmu = sprintf(self.fc, self.hc)
+        sprintfEmu.run()
+
+    def strdup(self):
+        sprintfEmu = strdup(self.fc, self.hc)
         sprintfEmu.run()

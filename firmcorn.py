@@ -50,11 +50,16 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         self.enable_debug = enable_debug
         self.trace_start_addr = 0
         self.trace_end_addr = 0
+        self.dbg_addr_list = []
         # self.files = files  
         # init unciorn enigne
 
 
-    def load_context(self , context_dir):
+    def load_context(self , context_dir , binary ):
+        self.elf = ELF(binary)
+        self.got = self.elf.got
+
+        
         self.context_dir = context_dir
         context_json = os.path.join( self.context_dir, CONTEXT_JSON)
         if not os.path.isfile(context_json):
@@ -100,6 +105,8 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         else:
             raise Exception("Error arch")
         
+        self.get_common_regs()
+
         # endian to uc_endian
         if self.endian == "big":
             self.uc_endian =  UC_MODE_BIG_ENDIAN
@@ -117,7 +124,23 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         if not self.set_memory(segments_list):
             raise Exception("Error in setup memory")
 
+        self.init_got()
 
+
+    def init_got(self , enable_debug = True):
+        """
+        Read GOT table entries in memory 
+        """
+        print "=======================================Init GOT Table Start======================================="
+        if self.got is not None and self.enable_debug:
+            print self.got  
+
+        for name , addr in self.got.items():
+            print int(str(self.mem_read(addr , self.size)).encode("hex") , 16)
+            self.got.update({ int(str(self.mem_read(addr , self.size)).encode("hex") , 16): name})
+            print "Name : {:<40} Addr : {:<10} Value: 0x{:<10}".format( name, hex(addr) , str(self.mem_read(addr , self.size)).encode("hex"))
+        print "=======================================Init GOT Table End=========================================="
+    
     def dbg_hook_code(mu, address, size, user_data):  
         print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
 
@@ -134,7 +157,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         # setup register
         for register , value in regs.iteritems():
             if self.enable_debug:
-                print "Reg {0} = {1}".format(register, value) 
+                print "Reg {0} = {1}".format(register, hex(value)) 
                 pass
             if not regs_map.has_key(register.lower()):
                 if self.enable_debug:
@@ -319,7 +342,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         """
         show registers and memory info when debug
         """
-        self.get_common_regs()
+        
         context_json = os.path.join( self.context_dir, CONTEXT_JSON)
         if not os.path.isfile(context_json):
             raise Exception("Contex json not found")
@@ -351,7 +374,10 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
                 stack_addr = reg_sp + 288 + 4*i
                 mem_cont = self.mem_read(stack_addr, 4)
                 print("sp+{} {} --> {}".format( 288 + 4*i , hex(stack_addr) ,str(mem_cont).encode("hex")))
-
+            
+            # show other memory
+            addr = self.reg_read(UC_MIPS_REG_S0, size) 
+            print("{} --> 0x{}".format( hex(addr) , str(self.mem_read(addr, 4)).encode("hex")))
 
     def show_debug_info(self , dbg_addr_list):
         self.dbg_addr_list = dbg_addr_list
@@ -385,6 +411,9 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             self.hook_add(UC_HOOK_CODE, self._show_debug_info)
         if self.trace_start_addr!=0 and self.trace_end_addr!=0:
             self.hook_add(UC_HOOK_CODE , self._set_trace)
+        if self.got is not None:
+            self.hook_add(UC_HOOK_CODE , self.hookcode.func_alt_dbg)
+
 
         import pdb
         # pdb.set_trace()
@@ -400,19 +429,12 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
 
     def init_class(self): 
         # this part import hook module 
-        # return HookCode class
-        self.hookcode = HookCode(self , self.arch )
+        # return Hooker class
+        self.hookcode = Hooker(self , self.arch )
         self.funcemu = FuncEmu(self , self.hookcode)
         
+        
 
-    def catchErr(self):
-        pass
-
-    def heapHook(self):
-        pass
-    
-    def funcHook(self):
-        pass
 
     def getRegsByArch(self , arch):
         if arch == "arm64le" or arch == "arm64be":
@@ -626,7 +648,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             self.REG_ARGS = [UC_ARM64_REG_X0, UC_ARM64_REG_X1, UC_ARM64_REG_X2, UC_ARM64_REG_X3,
                              UC_ARM64_REG_X4, UC_ARM64_REG_X5, UC_ARM64_REG_X6, UC_ARM64_REG_X7]
         elif self.uc_arch == UC_ARCH_MIPS:
-            self.size = 8
+            self.size = 4
             self.pack_fmt = "<I"
             self.REG_PC = UC_MIPS_REG_PC
             self.REG_SP = UC_MIPS_REG_SP

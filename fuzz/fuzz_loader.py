@@ -19,7 +19,7 @@ COMPILE_GCC = 1
 COMPILE_MSVC = 2
 INPUT_BASE = 0x300000
 
-class FuzzTarget():
+class Fuzzer():
     def __init__(self  , seed ,datas , func_list, formats="not" , enable_debug = True):
         self.seed = seed
         self.datas =datas
@@ -63,7 +63,6 @@ class FuzzTarget():
         pass
 
 
-       
     def fuzz_func_alt(self , uc , address , size , user_data):
         """
         use for hijack function , like getenv , printf .etc
