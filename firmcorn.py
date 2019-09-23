@@ -44,23 +44,22 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
     Firmcorn-object is main object of our Firmcorn Framework
     '''
     def __init__(self   , enable_debug = True):
-        # pass
-        # self.files = files
-        # self.context_dir = context_dir
         self.enable_debug = enable_debug
         self.trace_start_addr = 0
         self.trace_end_addr = 0
         self.dbg_addr_list = []
-        # self.files = files  
-        # init unciorn enigne
-
 
     def load_context(self , context_dir , binary ):
-        self.elf = ELF(binary)
+        self.context_dir = context_dir
+        self.binary = binary
+
+    def _load_context(self):
+        """
+        load context and binary actual
+        """
+        self.elf = ELF(self.binary)
         self.got = self.elf.got
 
-        
-        self.context_dir = context_dir
         context_json = os.path.join( self.context_dir, CONTEXT_JSON)
         if not os.path.isfile(context_json):
             raise Exception("Contex json not found")
@@ -78,11 +77,10 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         if 'segments' not in context:
             raise Exception("Couldn't find segment/memory information in index file")
         
-        
         self.arch = context['arch']['arch']
         self.endian = context['arch']['endian']
         # load registers
-        regs_map = self.getRegsByArch(self.arch)
+        regs_map = self.get_regs_by_arch(self.arch)
         regs = context['regs']
 
         # init some class
@@ -185,12 +183,14 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
 
 
     def set_memory(self , segments_list , debug_func = False  ):
+        """
+        setup memory need 2 steps
+        1. mu.mem_map
+        2. mu.mem_write
+        before mem_map, must check it's not already mapped
+        copy from __map_segments
+        """
         self.enable_debug = debug_func
-        # setup memory need 2 steps
-        # 1. mu.mem_map
-        # 2. mu.mem_write
-        # before mem_map, must check it's not already mapped
-        # copy from __map_segments
         for segment in segments_list:
             seg_name = segment['name']
             seg_start = segment['start']
@@ -351,7 +351,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         context_json_file  = open(context_json , "r")
         context = json.load(context_json_file) # load _index.json
         context_json_file.close()
-        regs_map = self.getRegsByArch(self.arch)
+        regs_map = self.get_regs_by_arch(self.arch)
         regs = context['regs']
         
         if address in self.dbg_addr_list:
@@ -384,15 +384,12 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
 
 
     def add_fuzz(self, fuzzTarget):
-        # use to add a fuzz targrt object
+        """
+        use to add a fuzz targrt object
+        """
         if fuzzTarget is not None:
             fuzzTarget.init(self, self.arch)
             self.hook_add(UC_HOOK_CODE , fuzzTarget.fuzz_func_alt)
-        # add crash 
-        # crashTarget = CrashTarget()
-        # crashTarget.init(self, self.arch)
-        # elf.hook_add(UC_HOOK_CODE , crashTarget.check_crash)
-
 
     def start_run(self , start_address , end_address , fuzzTarget=None):
         print "  ______ _____ _____  __  __  _____ ____  _____  _   _ "
@@ -403,40 +400,40 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         print " |_|    |_____|_|  \_\_|  |_|\_____\____/|_|  \_\_| \_|"
         print "                                                       "
         # uc_result = self.emu_start(start_address , end_address)
-        if self.hookcode.func_alt_addr is not None:
-            self.hook_add(UC_HOOK_CODE , self.hookcode._func_alt) 
-        if self.hookcode.func_skip_list is not None:
-            self.hook_add(UC_HOOK_CODE , self.hookcode._func_skip)
-        if self.dbg_addr_list is not None:
-            self.hook_add(UC_HOOK_CODE, self._show_debug_info)
-        if self.trace_start_addr!=0 and self.trace_end_addr!=0:
-            self.hook_add(UC_HOOK_CODE , self._set_trace)
-        if self.got is not None:
-            self.hook_add(UC_HOOK_CODE , self.hookcode.func_alt_dbg)
 
+        rounds = 0
+        while True:
+            self._load_context()
+            if self.hookcode.func_alt_addr is not None:
+                self.hook_add(UC_HOOK_CODE , self.hookcode._func_alt) 
+            if self.hookcode.func_skip_list is not None:
+                self.hook_add(UC_HOOK_CODE , self.hookcode._func_skip)
+            if self.dbg_addr_list is not None:
+                self.hook_add(UC_HOOK_CODE, self._show_debug_info)
+            if self.trace_start_addr!=0 and self.trace_end_addr!=0:
+                self.hook_add(UC_HOOK_CODE , self._set_trace)
+            if self.got is not None:
+                self.hook_add(UC_HOOK_CODE , self.hookcode.func_alt_auto)
 
-        import pdb
-        # pdb.set_trace()
-        uc_result = self.emu_start(start_address , end_address)
-        # try:
-        #     uc_result = self.emu_start(start_address , end_address)
-        #     # need to add fuzz_start
-        # except:
-        #     print "emu_start error"
-        # pass
-        
+            uc_result = self.emu_start(start_address , end_address)
+            print "Round : {}".format(rounds)
+            rounds += 1
+            raw_input()
+
 
 
     def init_class(self): 
-        # this part import hook module 
-        # return Hooker class
+        """
+        this part import hook module 
+        return Hooker & FuncEmu class
+        """
         self.hookcode = Hooker(self , self.arch )
         self.funcemu = FuncEmu(self , self.hookcode)
         
         
 
 
-    def getRegsByArch(self , arch):
+    def get_regs_by_arch(self , arch):
         if arch == "arm64le" or arch == "arm64be":
             arch = "arm64"
         elif arch == "armle" or arch == "armbe" or "thumb" in arch:
@@ -483,9 +480,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
                 "esp":    UC_X86_REG_ESP,
                 "eip":    UC_X86_REG_EIP,
                 "esp":    UC_X86_REG_ESP,
-                "efl":    UC_X86_REG_EFLAGS,        
-                # Segment registers removed...
-                # They caused segfaults (from unicorn?) when they were here
+                "efl":    UC_X86_REG_EFLAGS,
             },        
             "arm" : {
                 "r0":     UC_ARM_REG_R0,

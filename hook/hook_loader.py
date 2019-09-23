@@ -36,24 +36,26 @@ class Hooker(object):
 
 
     def func_alt(self , address , func , argc , debug_func = True):
-        # fake func fmt : (func , argc)
         self.debug_func = debug_func
         self.func_alt_addr[address] = (func , argc )
 
         # use for hijack function , like getenv , printf .etc
     def _func_alt(self , uc , address , size , user_data):
-        # print "hook code success"
-        # The essence of function hijacking is to skip 
-        # over the function and set the return content according to 
-        # the function function, according to the parameters, 
-        # and also set the stack balance for addres 
+        """
+        The essence of function hijacking is to skip 
+        over the function and set the return content according to 
+        the function function, according to the parameters, 
+        and also set the stack balance for addres 
+        """
         if self.debug_func:
             # print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
             pass
         if address in self.func_alt_addr.keys():
-            # keep balance may be need to 
-            # consider in the future
-            # fake func fmt : (func , args)
+            """
+            keep balance may be need to 
+            consider in the future
+            fake func fmt : (func , args)
+            """
             func , argc  = self.func_alt_addr[address]
             if self.debug_func:
                 print  "func : {0} ; argc : {1}".format(func, argc)
@@ -108,7 +110,7 @@ class Hooker(object):
 
 
     
-    def func_alt_dbg(self, uc , address , size , user_data):
+    def func_alt_auto(self, uc , address , size , user_data):
         if self.fc.got.has_key(address):
             print "find func : {} --> {}".format(hex(address) , self.fc.got[address])
             if self.fc.funcemu.func_list.has_key(self.fc.got[address]):
@@ -119,13 +121,15 @@ class Hooker(object):
                     self.fc.hook_add(UC_HOOK_CODE , self._func_alt) 
 
     def get_common_regs(self):
-        # get some common register
-        # REG_PC: IP
-        # REG_SP: stack pointer 
-        # REG_RA: return address (just like arm $lr and mips $ra)
-        # REG_ARGS: args 
-        # REG_RES: return value
-        # arch to uc_arch
+        """
+        get some common register
+        REG_PC: IP
+        REG_SP: stack pointer 
+        REG_RA: return address (just like arm $lr and mips $ra)
+        REG_ARGS: args 
+        REG_RES: return value
+        arch to uc_arch
+        """
         if self.arch == "x64":
             self.uc_arch =  UC_ARCH_X86
             self.uc_mode = UC_MODE_64
