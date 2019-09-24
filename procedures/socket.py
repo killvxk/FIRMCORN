@@ -6,9 +6,9 @@ from unicorn.x86_const import *
 from unicorn.mips_const import *
 
 
-class sprintf():
+class socket():
     """
-    sprintf(char *string, char *format [,argument,...])
+    socket 
     """
     def __init__(self ,fc, hc, enable_debug=True):
         self.fc = fc # firmcorn class, inherited from uc class
@@ -16,10 +16,10 @@ class sprintf():
         self.enable_debug = enable_debug
 
     def run(self ):
-        if self.fc.arch == "x32":
-            return 1
-        strings = self.fc.reg_read(self.hc.REG_ARGS[0])
-        formats = self.fc.reg_read(self.hc.REG_ARGS[1])
-        arg1 = self.fc.reg_read(self.hc.REG_ARGS[2])
+        # not implement 
+        print "socket"
+        arg1 = self.fc.reg_read(self.hc.REG_ARGS[0])
+        arg2 = self.fc.reg_read(self.hc.REG_ARGS[1])
+        arg3 = self.fc.reg_read(self.hc.REG_ARGS[2])
         if self.enable_debug:
-            print "strings: {} formats:{} arg1:{}".format(hex(strings), hex(formats), hex(arg1))    
+            print "arg1: {} arg2:{} arg3:{}".format(hex(arg1), hex(arg2), hex(arg3))

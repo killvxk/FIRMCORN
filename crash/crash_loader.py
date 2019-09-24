@@ -16,20 +16,16 @@ from unicorn.x86_const import *
 from unicorn.mips_const import *
 
 
-class CrashTarget():
-    def __init__(self):
-        pass
-    
-
-    def init(self ,fc , arch ):
+class CrashLoader():
+    def __init__(self  , fc ):
         self.fc = fc 
-        self.arch = arch
-        self.get_common_ret()
 
-    def check_crash(self , uc , address , size , user_data):
+    def check_stack(self , uc , address , size , user_data):
         instr = mu.mem_read(address , size)
 
-
+    def mem_crash_check(self, uc, access, address, size, value, user_data):
+        print ">>>Err<<< Missing memory is being WRITE at {}".format(hex(address))
+ 
 
     def identity_ret(self):
         pass

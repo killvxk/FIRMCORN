@@ -155,7 +155,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         # setup register
         for register , value in regs.iteritems():
             if self.enable_debug:
-                print "Reg {0} = {1}".format(register, hex(value)) 
+                print "Reg {0}start_address = {1}".format(register, hex(value)) 
                 pass
             if not regs_map.has_key(register.lower()):
                 if self.enable_debug:
@@ -324,7 +324,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
 
 
     def _set_trace(self , uc , address , size , user_data):
-        if address >= self.trace_start_addr and self.trace_end_addr:
+        if address >= self.trace_start_addr and address <= self.trace_end_addr:
             if self.enable_debug:
                 print "trace address"
             print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
@@ -371,13 +371,14 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             # show stack memory
             for i in range(6):
                 reg_sp = self.reg_read(self.REG_SP , size)
-                stack_addr = reg_sp + 288 + 4*i
+                stack_addr = reg_sp + 0x14 + 4*i
                 mem_cont = self.mem_read(stack_addr, 4)
-                print("sp+{} {} --> {}".format( 288 + 4*i , hex(stack_addr) ,str(mem_cont).encode("hex")))
+                print("sp+{} {} --> {}".format( 0x14 + 4*i , hex(stack_addr) ,str(mem_cont).encode("hex")))
             
             # show other memory
-            addr = self.reg_read(UC_MIPS_REG_S0, size) 
-            print("{} --> 0x{}".format( hex(addr) , str(self.mem_read(addr, 4)).encode("hex")))
+            #addr = self.reg_read(UC_MIPS_REG_V0, size) 
+            #print("{} --> 0x{}".format( 0x4361b0 , str(self.mem_read(0x4361b0, 4)).encode("hex")))
+            raw_input()
 
     def show_debug_info(self , dbg_addr_list):
         self.dbg_addr_list = dbg_addr_list
@@ -387,25 +388,23 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         """
         use to add a fuzz targrt object
         """
-        if fuzzTarget is not None:
+        if init_clfuzzTarget is not None:
             fuzzTarget.init(self, self.arch)
             self.hook_add(UC_HOOK_CODE , fuzzTarget.fuzz_func_alt)
 
     def start_run(self , start_address , end_address , fuzzTarget=None):
-        print "  ______ _____ _____  __  __  _____ ____  _____  _   _ "
-        print " |  ____|_   _|  __ \|  \/  |/ ____/ __ \|  __ \| \ | |"
-        print " | |__    | | | |__) | \  / | |   | |  | | |__) |  \| |"
-        print " |  __|   | | |  _  /| |\/| | |   | |  | |  _  /| . ` |"
-        print " | |     _| |_| | \ \| |  | | |___| |__| | | \ \| |\  |"
-        print " |_|    |_____|_|  \_\_|  |_|\_____\____/|_|  \_\_| \_|"
-        print "                                                       "
+        print "  ______ _____ _____  __  __  _____ ____  _____  _   _  "
+        print " |  ____|_   _|  __ \|  \/  |/ ____/ __ \|  __ \| \ | | "
+        print " | |__    | | | |__) | \  / | |   | |  | | |__) |  \| | "
+        print " |  __|   | | |  _  /| |\/| | |   | |  | |  _  /| . ` | "
+        print " | |     _| |_| | \ \| |  | | |___| |__| | | \ \| |\  | "
+        print " |_|    |_____|_|  \_\_|  |_|\_____\____/|_|  \_\_| \_| "
+        print "                                                        "
         # uc_result = self.emu_start(start_address , end_address)
 
         rounds = 0
         while True:
             self._load_context()
-            if self.hookcode.func_alt_addr is not None:
-                self.hook_add(UC_HOOK_CODE , self.hookcode._func_alt) 
             if self.hookcode.func_skip_list is not None:
                 self.hook_add(UC_HOOK_CODE , self.hookcode._func_skip)
             if self.dbg_addr_list is not None:
@@ -414,7 +413,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
                 self.hook_add(UC_HOOK_CODE , self._set_trace)
             if self.got is not None:
                 self.hook_add(UC_HOOK_CODE , self.hookcode.func_alt_auto)
-
+            self.hook_add( UC_HOOK_MEM_READ_UNMAPPED | UC_HOOK_MEM_WRITE_UNMAPPED, self.crash.mem_crash_check)
             uc_result = self.emu_start(start_address , end_address)
             print "Round : {}".format(rounds)
             rounds += 1
@@ -429,7 +428,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         """
         self.hookcode = Hooker(self , self.arch )
         self.funcemu = FuncEmu(self , self.hookcode)
-        
+        self.crash = CrashLoader(self)
         
 
 

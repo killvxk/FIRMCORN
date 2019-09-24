@@ -21,7 +21,7 @@ class memset():
             return  1
         addr = self.fc.reg_read(self.hc.REG_ARGS[0])
         ch = self.fc.reg_read(self.hc.REG_ARGS[1])
-        n = self.fc.reg_read(self.hc.REG_ARGS[2])
+        n =  self.fc.reg_read(self.hc.REG_ARGS[2])
         if ch is None:
             ch = ""
         if self.enable_debug:

@@ -18,10 +18,9 @@ from procedures import *
 
 INPUT_BASE = 0x300000
 
-
 class FuncEmu(object):
     """
-    # simulation of common function
+    simulation of common function
     """ 
     def __init__(self , fc ,  hc , enable_debug=True):
         # pass
@@ -34,7 +33,13 @@ class FuncEmu(object):
         self.func_list.update({ 'memset': self.memset})
         self.func_list.update({ 'sprintf': self.sprintf})
         self.func_list.update({ 'strdup': self.strdup})
-    
+        self.func_list.update({ 'memmove': self.memmove})
+        self.func_list.update({ 'memcpy': self.memcpy})
+        self.func_list.update({ 'free': self.free})
+        self.func_list.update({ 'snprintf': self.snprintf})
+        self.func_list.update({ 'socket': self.socket})
+        self.strdup_call_num = 0
+
     def strcpy(self):
         strcpyEmu = strcpy(self.fc, self.hc)
         strcpyEmu.run()
@@ -52,5 +57,26 @@ class FuncEmu(object):
         sprintfEmu.run()
 
     def strdup(self):
-        sprintfEmu = strdup(self.fc, self.hc)
-        sprintfEmu.run()
+        strdupEmu = strdup(self.fc, self.hc , self.strdup_call_num)
+        self.strdup_call_num += 1
+        return strdupEmu.run()
+
+    def memmove(self):
+        memmoveEmu = memmove(self.fc, self.hc)
+        memmoveEmu.run()
+
+    def memcpy(self):
+        memcpyEmu = memcpy(self.fc, self.hc)
+        memcpyEmu.run()
+
+    def free(self):
+        freeEmu = free(self.fc, self.hc)
+        freeEmu.run()
+
+    def snprintf(self):
+        snprintfEmu = snprintf(self.fc, self.hc)
+        snprintfEmu.run()
+
+    def socket(self):
+        socketEmu = socket(self.fc, self.hc)
+        socketEmu.run()

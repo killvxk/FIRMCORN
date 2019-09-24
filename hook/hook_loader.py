@@ -33,13 +33,59 @@ class Hooker(object):
 
         self.debug_func = enable_debug
         self.get_common_regs() 
+        self.get_common_ret() 
 
 
-    def func_alt(self , address , func , argc , debug_func = True):
+    def func_alt(self , address , func , debug_func = True):
         self.debug_func = debug_func
-        self.func_alt_addr[address] = (func , argc )
+        self.func_alt_addr[address] = (func )
 
         # use for hijack function , like getenv , printf .etc
+    def _func_alt_dbg(self , uc , address , size , user_data):
+        """
+        The essence of function hijacking is to skip 
+        over the function and set the return content according to 
+        the function function, according to the parameters, 
+        and also set the stack balance for addres 
+        """
+        if self.debug_func:
+            # print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
+            pass
+        if address in self.func_alt_addr.keys():
+            """
+            keep balance may be need to 
+            consider in the future
+            fake func fmt : (func , args)
+            """
+            func  = self.func_alt_addr[address]
+            if self.debug_func:
+                print  "func : {0} ; argc : {1}".format(func, self.argcs)
+            # fc <==> firmcorn class <--- Uc class
+            # 1 , get return address
+            reg_sp = self.fc.reg_read(self.REG_SP)
+            # we should get address value from stack
+            if self.REG_RA == 0: 
+                ret_addr = unpack(self.pack_fmt , str(self.fc.mem_read(reg_sp , self.size)))[0]
+            else:
+                ret_addr = self.fc.reg_read(self.REG_RA)
+            
+            # 2 , get args by argc
+            if self.debug_func:
+                print "ret_addr : {}".format(hex(ret_addr))
+    
+            # 3 , execute custom function and get return value
+            res = func() 
+            if self.debug_func:
+                print "ret_addr : {}; args : {}; res : {}".format(ret_addr , self.argcs , res)
+            if type(res) != int: res = 0 # return value is not very import for fuzz , easpically return value is not int type
+            # multiple return values should to be considered, maybe 
+            self.fc.reg_write(self.REG_RES[0] , res)
+            self.fc.reg_write(self.REG_PC , ret_addr)
+            '''
+            # maybe need to keep stack balace
+            pass 
+            '''
+
     def _func_alt(self , uc , address , size , user_data):
         """
         The essence of function hijacking is to skip 
@@ -56,9 +102,9 @@ class Hooker(object):
             consider in the future
             fake func fmt : (func , args)
             """
-            func , argc  = self.func_alt_addr[address]
+            func  = self.func_alt_addr[address]
             if self.debug_func:
-                print  "func : {0} ; argc : {1}".format(func, argc)
+                print  "func : {0} ".format(func)
             # fc <==> firmcorn class <--- Uc class
             # 1 , get return address
             reg_sp = self.fc.reg_read(self.REG_SP)
@@ -67,26 +113,15 @@ class Hooker(object):
                 ret_addr = unpack(self.pack_fmt , str(self.fc.mem_read(reg_sp , self.size)))[0]
             else:
                 ret_addr = self.fc.reg_read(self.REG_RA)
+            
             # 2 , get args by argc
             if self.debug_func:
                 print "ret_addr : {}".format(hex(ret_addr))
-            args = []
-            i = 0
-            while i < argc and i<len(self.REG_ARGS):
-                args.append(self.fc.reg_read(self.REG_ARGS[i]))
-                i +=1
-            '''
-            # if argc > len(self.REG_ARGS)
-            sp2 = sp
-            while i < argc:
-                args.append(unpack(self.pack_fmt, str(uc.mem_read(sp2, self.step)))[0])
-                sp2 += self.step
-                i += 1
-            '''
+    
             # 3 , execute custom function and get return value
-            res = func() # not very understand , need debug
+            res = func() 
             if self.debug_func:
-                print "ret_addr : {0}; args : {1}; res : {2}".format(ret_addr , args , res)
+                print "ret_addr : {}; res : {}".format(hex(ret_addr) ,  res)
             if type(res) != int: res = 0 # return value is not very import for fuzz , easpically return value is not int type
             # multiple return values should to be considered, maybe 
             self.fc.reg_write(self.REG_RES[0] , res)
@@ -108,9 +143,29 @@ class Hooker(object):
                 print "address skip:{:#x}".format(address)
             self.fc.reg_write( self.REG_PC ,  address+size)
 
-
     
+    def func_alt_auto_dbg(self, uc , address , size , user_data):
+        instr = uc.mem_read(address , size)
+        if instr == self.RET_INTR:
+            print "find call : {}  call address : {}".format(hex(address) , hex(uc.reg_read(UC_MIPS_REG_T9)))
+            self.argcs = []
+            print "call value" 
+            for reg in uc.REG_ARGS:
+                reg_value = uc.reg_read(reg)
+                self.argcs.append( reg_value)
+                print "reg_value : {}".format( hex(reg_value))
+        if self.fc.got.has_key(address):
+            print "find func : {} --> {}".format(hex(address) , self.fc.got[address])
+            if self.fc.funcemu.func_list.has_key(self.fc.got[address]):
+                print "custom func {}##############################################".format(self.fc.got[address])
+                #fc.hookcode.func_alt(memset_addr2 , fc.funcemu.memset  , 2)
+                self.func_alt( address , self.fc.funcemu.func_list[self.fc.got[address]] )
+                if self.func_alt_addr is not None:
+                    self.fc.hook_add(UC_HOOK_CODE , self._func_alt) 
+
+
     def func_alt_auto(self, uc , address , size , user_data):
+        instr = uc.mem_read(address , size)
         if self.fc.got.has_key(address):
             print "find func : {} --> {}".format(hex(address) , self.fc.got[address])
             if self.fc.funcemu.func_list.has_key(self.fc.got[address]):
@@ -120,13 +175,27 @@ class Hooker(object):
                 if self.func_alt_addr is not None:
                     self.fc.hook_add(UC_HOOK_CODE , self._func_alt) 
 
+
+    def get_common_ret(self):
+        if self.arch == "x64":
+            self.RET_INTR = "\xC3"
+        elif self.arch == "x32":
+            self.RET_INTR = "\xC3"
+        elif self.arch == "mips":
+            self.RET_INTR = "\x03\x20\xf8\x09" # jalr    t9
+        elif self.arch == "arm":
+            self.uc_arch = UC_ARCH_ARM
+            self.uc_mode = UC_MODE_32
+        else:
+            raise Exception("Error arch")
+
     def get_common_regs(self):
         """
         get some common register
         REG_PC: IP
         REG_SP: stack pointer 
         REG_RA: return address (just like arm $lr and mips $ra)
-        REG_ARGS: args 
+        REG_ARGSS: args 
         REG_RES: return value
         arch to uc_arch
         """

@@ -107,7 +107,7 @@ class Fuzzer():
         REG_PC: IP
         REG_SP: stack pointer 
         REG_RA: return address (just like arm $lr and mips $ra)
-        REG_ARGS: args 
+        REG_ARGSS: args 
         REG_RES: return value
         arch to uc_arch
         """
@@ -134,7 +134,7 @@ class Fuzzer():
                 self.REG_SP = UC_X86_REG_SP
                 self.REG_RA = 0
                 self.REG_RES = UC_X86_REG_AX
-                self.REG_ARGS = []
+                self.REG_ARGSS = []
             elif self.uc_mode == UC_MODE_32:
                 self.size = 4
                 self.pack_fmt = '<I'
@@ -142,7 +142,7 @@ class Fuzzer():
                 self.REG_SP = UC_X86_REG_ESP
                 self.REG_RA = 0
                 self.REG_RES = UC_X86_REG_EAX
-                self.REG_ARGS = []
+                self.REG_ARGSS = []
             elif self.uc_mode == UC_MODE_64:
                 self.size = 8
                 self.pack_fmt = '<Q'
@@ -151,11 +151,11 @@ class Fuzzer():
                 self.REG_RA = 0
                 self.REG_RES = UC_X86_REG_RAX
                 if self.compiler == COMPILE_GCC:
-                    self.REG_ARGS = [UC_X86_REG_RDI, UC_X86_REG_RSI, UC_X86_REG_RDX, UC_X86_REG_RCX,
+                    self.REG_ARGSS = [UC_X86_REG_RDI, UC_X86_REG_RSI, UC_X86_REG_RDX, UC_X86_REG_RCX,
                                      UC_X86_REG_R8, UC_X86_REG_R9]
                     # print "test"
                 elif self.compiler == COMPILE_MSVC:
-                    self.REG_ARGS = [UC_X86_REG_RCX, UC_X86_REG_RDX, UC_X86_REG_R8, UC_X86_REG_R9]
+                    self.REG_ARGSS = [UC_X86_REG_RCX, UC_X86_REG_RDX, UC_X86_REG_R8, UC_X86_REG_R9]
         elif self.uc_arch == UC_ARCH_ARM:
             if self.uc_mode == UC_MODE_ARM:
                 self.size = 4
@@ -167,7 +167,7 @@ class Fuzzer():
             self.REG_SP = UC_ARM_REG_SP
             self.REG_RA = UC_ARM_REG_LR
             self.REG_RES = UC_ARM_REG_R0
-            self.REG_ARGS = [UC_ARM_REG_R0, UC_ARM_REG_R1, UC_ARM_REG_R2, UC_ARM_REG_R3]
+            self.REG_ARGSS = [UC_ARM_REG_R0, UC_ARM_REG_R1, UC_ARM_REG_R2, UC_ARM_REG_R3]
         elif self.uc_arch == UC_ARCH_ARM64:
             self.size = 8
             self.pack_fmt = '<Q'
@@ -175,7 +175,7 @@ class Fuzzer():
             self.REG_SP = UC_ARM64_REG_SP
             self.REG_RA = UC_ARM64_REG_LR
             self.REG_RES = UC_ARM64_REG_X0
-            self.REG_ARGS = [UC_ARM64_REG_X0, UC_ARM64_REG_X1, UC_ARM64_REG_X2, UC_ARM64_REG_X3,
+            self.REG_ARGSS = [UC_ARM64_REG_X0, UC_ARM64_REG_X1, UC_ARM64_REG_X2, UC_ARM64_REG_X3,
                              UC_ARM64_REG_X4, UC_ARM64_REG_X5, UC_ARM64_REG_X6, UC_ARM64_REG_X7]
         elif self.uc_arch == UC_ARCH_MIPS:
             self.size = 8
@@ -184,5 +184,5 @@ class Fuzzer():
             self.REG_SP = UC_MIPS_REG_SP
             self.REG_RA = UC_MIPS_REG_RA
             self.REG_RES = [UC_MIPS_REG_V0, UC_MIPS_REG_V1,UC_MIPS_REG_V1]
-            self.REG_ARGS = [UC_MIPS_REG_A0, UC_MIPS_REG_A1, UC_MIPS_REG_A2, UC_MIPS_REG_A3]
+            self.REG_ARGSS = [UC_MIPS_REG_A0, UC_MIPS_REG_A1, UC_MIPS_REG_A2, UC_MIPS_REG_A3]
 

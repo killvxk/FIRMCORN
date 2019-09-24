@@ -6,7 +6,7 @@ from unicorn.x86_const import *
 from unicorn.mips_const import *
 
 
-class sprintf():
+class snprintf():
     """
     sprintf(char *string, char *format [,argument,...])
     """
@@ -16,10 +16,12 @@ class sprintf():
         self.enable_debug = enable_debug
 
     def run(self ):
+        print "snprintf"
         if self.fc.arch == "x32":
             return 1
         strings = self.fc.reg_read(self.hc.REG_ARGS[0])
         formats = self.fc.reg_read(self.hc.REG_ARGS[1])
         arg1 = self.fc.reg_read(self.hc.REG_ARGS[2])
+        arg2 = self.fc.reg_read(self.hc.REG_ARGS[3])
         if self.enable_debug:
-            print "strings: {} formats:{} arg1:{}".format(hex(strings), hex(formats), hex(arg1))    
+            print "strings: {} formats:{} arg1:{} arg2:{}".format(hex(strings), hex(formats), hex(arg1) , hex(arg2))    
