@@ -30,6 +30,8 @@ class CrashLoader():
         self.fc.show_reg_value()
         self.fc.show_instrs()
 
+    def crash_check_dbg(self, uc ,address , size , user_data):
+        print "Memory fetech error : {}".format(hex(address)) 
 
     def identity_ret(self):
         pass

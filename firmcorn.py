@@ -4,6 +4,7 @@ import os
 import json
 import ctypes
 import ctypes.util
+import binascii
 import zlib
 from pwn import * 
 # import unicorn
@@ -346,7 +347,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         self.trace_end_addr = trace_end_addr
 
     def _set_trace(self , uc , address , size , user_data):
-        if address >= self.trace_start_addr and address:
+        if address >= self.trace_start_addr and address <= self.trace_end_addr:
             if self.enable_debug:
                 print "trace address"
             print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
@@ -458,9 +459,17 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
                 pass
             if self.unresolved_funcs is not None:
                 self.hook_add(UC_HOOK_CODE , self.hookcode.hook_unresolved_func)
-            self.hook_add( UC_HOOK_MEM_READ_UNMAPPED | UC_HOOK_MEM_WRITE_UNMAPPED, self.crash.mem_crash_check)
+            self.hook_add( UC_HOOK_MEM_READ_UNMAPPED | UC_HOOK_MEM_WRITE_UNMAPPED  , self.crash.mem_crash_check)
+            # self.hook_add(UC_ERR_FETCH_UNMAPPED , self.crash.crash_check_dbg)
             self.hook_add(UC_HOOK_CODE , self.log_instrs)
-            uc_result = self.emu_start(start_address , end_address)
+            try:
+                uc_result = self.emu_start(start_address , end_address)
+            except UcError as e:
+                # if e.errno == UC_ERR_READ_UNMAPPED:
+                print("   \033[1;31;40m !!! about to bail due to bad fetch... here's the data at PC:  \033[0m   ")
+                # print(binascii.hexlify(self.mem_read(self.reg_read(self.REG_PC), self.size)))
+                self.show_instrs()
+
             print "Round : {}".format(rounds)
             rounds += 1
             raw_input()
