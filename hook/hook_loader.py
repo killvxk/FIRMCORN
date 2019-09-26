@@ -29,8 +29,6 @@ class Hooker(object):
         self.func_skip_list = []
         self.compiler = compiler
 
-
-
         self.debug_func = enable_debug
         self.get_common_regs() 
         self.get_common_ret() 
@@ -143,26 +141,12 @@ class Hooker(object):
                 print "address skip:{:#x}".format(address)
             self.fc.reg_write( self.REG_PC ,  address+size)
 
-    
-    def func_alt_auto_dbg(self, uc , address , size , user_data):
-        instr = uc.mem_read(address , size)
-        if instr == self.RET_INTR:
-            print "find call : {}  call address : {}".format(hex(address) , hex(uc.reg_read(UC_MIPS_REG_T9)))
-            self.argcs = []
-            print "call value" 
-            for reg in uc.REG_ARGS:
-                reg_value = uc.reg_read(reg)
-                self.argcs.append( reg_value)
-                print "reg_value : {}".format( hex(reg_value))
-        if self.fc.got.has_key(address):
-            print "find func : {} --> {}".format(hex(address) , self.fc.got[address])
-            if self.fc.funcemu.func_list.has_key(self.fc.got[address]):
-                print "custom func {}##############################################".format(self.fc.got[address])
-                #fc.hookcode.func_alt(memset_addr2 , fc.funcemu.memset  , 2)
+    def hook_unresolved_func(self , uc , address , size , user_data):
+        if self.fc.got.get(address):
+            if self.fc.got[address]  in  self.fc.unresolved_funcs:
+                print "find unresolved function : {}".format(self.fc.got[address])
                 self.func_alt( address , self.fc.funcemu.func_list[self.fc.got[address]] )
-                if self.func_alt_addr is not None:
-                    self.fc.hook_add(UC_HOOK_CODE , self._func_alt) 
-
+                self.fc.hook_add(UC_HOOK_CODE , self._func_alt) 
 
     def func_alt_auto(self, uc , address , size , user_data):
         instr = uc.mem_read(address , size)
@@ -174,7 +158,22 @@ class Hooker(object):
                 self.func_alt( address , self.fc.funcemu.func_list[self.fc.got[address]]  , 2)
                 if self.func_alt_addr is not None:
                     self.fc.hook_add(UC_HOOK_CODE , self._func_alt) 
+                    # reg_sp = self.fc.reg_read(self.REG_SP)
+                    # # we should get address value from stack
+                    # if self.REG_RA == 0: 
+                    #     ret_addr = unpack(self.pack_fmt , str(self.fc.mem_read(reg_sp , self.size)))[0]
+                    # else:
+                    #     ret_addr = self.fc.reg_read(self.REG_RA)
 
+    def func_alt_auto_libc(self , uc, address , size , user_data):
+        if self.fc.got.get(address) is not None and self.fc.rebase_got.get( self.fc.got[address] ) is not None:
+            print "find got table func : {} --> {}".format(hex(address) , self.fc.got[address]) 
+            # determaine if it has beed replaced 
+            if self.fc.reg_read(self.fc.REG_PC) != self.fc.rebase_got[ self.fc.got[address] ]: 
+                if self.fc.rebase_got.get(self.fc.got[address]):
+                    print "find libc func : {} --> {}".format(hex(self.fc.rebase_got[ self.fc.got[address] ]) , self.fc.got[address] )
+                    self.fc.reg_write(self.fc.REG_PC , self.fc.rebase_got[ self.fc.got[address] ])
+                    raw_input()
 
     def get_common_ret(self):
         if self.arch == "x64":

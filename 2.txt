@@ -1,10 +1,3 @@
-  ______ _____ _____  __  __  _____ ____  _____  _   _  
- |  ____|_   _|  __ \|  \/  |/ ____/ __ \|  __ \| \ | | 
- | |__    | | | |__) | \  / | |   | |  | | |__) |  \| | 
- |  __|   | | |  _  /| |\/| | |   | |  | |  _  /| . ` | 
- | |     _| |_| | \ \| |  | | |___| |__| | | \ \| |\  | 
- |_|    |_____|_|  \_\_|  |_|\_____\____/|_|  \_\_| \_| 
-                                                        
 [!] Could not populate PLT: Invalid memory write (UC_ERR_WRITE_UNMAPPED)
 [*] '/home/b1ngo/Firmcorn/cgibin'
     Arch:     mips-32-big
@@ -13,6 +6,21 @@
     NX:       NX disabled
     PIE:      No PIE (0x400000)
     RWX:      Has RWX segments
+[!] Could not populate PLT: Invalid memory write (UC_ERR_WRITE_UNMAPPED)
+[*] '/home/b1ngo/Firmcorn/libc.so.0'
+    Arch:     mips-32-big
+    RELRO:    Full RELRO
+    Stack:    No canary found
+    NX:       NX disabled
+    PIE:      PIE enabled
+    RWX:      Has RWX segments
+  ______ _____ _____  __  __  _____ ____  _____  _   _  
+ |  ____|_   _|  __ \|  \/  |/ ____/ __ \|  __ \| \ | | 
+ | |__    | | | |__) | \  / | |   | |  | | |__) |  \| | 
+ |  __|   | | |  _  /| |\/| | |   | |  | |  _  /| . ` | 
+ | |     _| |_| | \ \| |  | | |___| |__| | | \ \| |\  | 
+ |_|    |_____|_|  \_\_|  |_|\_____\____/|_|  \_\_| \_| 
+                                                        
 Reg t5start_address = 0x57
 Reg gpstart_address = 0x43bb40
 Reg s8start_address = 0x5
@@ -44,477 +52,341 @@ Reg t0start_address = 0x29
 Reg t1start_address = 0x767aa788
 Reg v1start_address = 0x3a
 =======================================Init GOT Table Start=======================================
-1987482624
+[(u'strncasecmp', 4406708), (u'lseek', 4406736), (u'clean_cgfile', 4406716), (u'ixmlNode_getNextSibling', 4406512), (u'ixmlNamedNodeMap_addToNamedNodeMap', 4406272), (u'cgibin_fill_http_content_len', 4406144), (u'_init', 4406124), (u'ixml_membuf_assign_str', 4406684), (u'select', 4406712), (u'sleep', 4406896), (u'xmldbc_ephp_wb', 4406688), (u'ixmlElement_setTagName', 4406772), (u'ixmlElement_free', 4406836), (u'fflush', 4406428), (u'ixmlDocument_createCDATASectionEx', 4406664), (u'ixmlAttr_init', 4406436), (u'fputc', 4406528), (u'sobj_xstream_eatwhite', 4406584), (u'xmldbc_get_wb', 4406672), (u'strtok', 4406560), (u'mmap', 4406652), (u'strncmp', 4406780), (u'send', 4406888), (u'ixmlNode_setNodeName', 4406788), (u'sobj_xstream_read_esc', 4406148), (u'xs_getc', 4406756), (u'get_parameter_nodehead', 4407052), (u'ixmlNodeList_init', 4406656), (u'getpid', 4406680), (u'realloc', 4406892), (u'phpcgi_main', 4406876), (u'main', 4406128), (u'getline', 4406904), (u'random', 4406508), (u'cgibin_print_http_resp', 4406204), (u'read', 4406724), (u'fclose', 4406640), (u'lxmldbc_eatwhite', 4406740), (u'rewind', 4407036), (u'find_uentry', 4406400), (u'ixmlNamedNodeMap_init', 4406336), (u'ixmlNode_getNodeValue', 4406812), (u'sobj_strchr', 4407048), (u'fwup_main', 4406660), (u'sess_ispoweruser', 4406796), (u'__register_frame_info', 4406808), (u'strstr', 4406284), (u'inet_ntoa', 4406404), (u'dlcfg_main', 4406276), (u'memcpy', 4406920), (u'execl', 4406448), (u'fileno', 4406556), (u'find_sentry', 4406292), (u'ixmlNode_getFirstChild', 4406816), (u'xs_fopen', 4406212), (u'srandom', 4406396), (u'ixmlElement_setAttributeNode', 4406244), (u'sobj_strncasecmp', 4406928), (u'xs_close', 4406424), (u'memmove', 4406648), (u'remove', 4406840), (u'xmldbc_set', 4406568), (u'cgibin_clean_tempfiles', 4406980), (u'sobj_new', 4406388), (u'strcmp', 4406280), (u'ixmlNode_init', 4406704), (u'snprintf', 4406732), (u'parse_uri', 4406592), (u'fgetc', 4406564), (u'fwupgrade_log', 4406136), (u'pclose', 4406644), (u'memset', 4406416), (u'strcat', 4406856), (u'MD5Update', 4406764), (u'gen_cgfile', 4406152), (u'connect', 4406912), (u'dldongle_main', 4407044), (u'fgets', 4406504), (u'close', 4406532), (u'ixmlNodeList_addToNodeList', 4406804), (u'_fini', 4406864), (u'ixmlNode_getNodeType', 4406940), (u'strchr', 4406216), (u'lxmldbc_system', 4406460), (u'ixmlNode_compare', 4406996), (u'genacgi_main', 4406472), (u'fgetpos', 4406288), (u'fsetpos', 4406440), (u'access', 4406696), (u'ftell', 4406240), (u'ixmlAttr_free', 4406224), (u'exit', 4406308), (u'sprintf', 4406340), (u'ixmlNode_setNodeProperties', 4406392), (u'strrchr', 4406784), (u'munmap', 4406384), (u'Parser_setNodePrefixAndLocalName', 4406884), (u'xmldbc_ephp', 4406208), (u'fcntl', 4406744), (u'Parser_LoadDocument', 4406984), (u'authentication_result', 4406220), (u'ixmlDocument_createAttributeNSEx', 4406832), (u'ferror', 4406496), (u'free', 4406236), (u'fwupload_main', 4406848), (u'ixmlCDATASection_init', 4406968), (u'sobj_add_string', 4406228), (u'sobj_split', 4406604), (u'Parser_freeNodeContent', 4406868), (u'sysinfo', 4406872), (u'xmldbc_read', 4406200), (u'fwupdater_main', 4406544), (u'ixmlNode_getNodeName', 4406820), (u'socket', 4406332), (u'xs_bopen', 4406376), (u'conntrackcgi_main', 4406260), (u'popen', 4406180), (u'sobj_xstream_read', 4406608), (u'ixmlNode_free', 4406500), (u'strcpy', 4406120), (u'ixmlNodeList_free', 4406632), (u'sobj_strdup', 4406844), (u'fwrite', 4406956), (u'sobj_strcmp', 4406516), (u'file_write_out', 4407032), (u'ixmlDocument_createTextNodeEx', 4406456), (u'authcgi_main', 4406172), (u'rand', 4406320), (u'ixmlDocument_createAttributeEx', 4406140), (u'cgibin_parse_request', 4406728), (u'get_sess_cfg', 4406624), (u'xmldbc_del', 4406924), (u'get_cgdata_by_uid', 4406248), (u'ixmlNode_getElementsByTagNameNS', 4406432), (u'MD5Final', 4406628), (u'ixml_membuf_append', 4407000), (u'weblogin_log', 4406316), (u'sess_logout', 4406952), (u'printf', 4406184), (u'fopen', 4406612), (u'open', 4406972), (u'strncpy', 4406480), (u'sobj_get_string', 4406880), (u'puts', 4406164), (u'fputs', 4406464), (u'fdopen', 4406692), (u'vsyslog', 4406588), (u'ssdpcgi_main', 4406420), (u'cgibin_reatwhite', 4406364), (u'system', 4406944), (u'ixmlDocument_createDocumentEx', 4406348), (u'__fgetc_unlocked', 4406668), (u'memcmp', 4406356), (u'ixmlParseBuffer', 4406492), (u'strdup', 4406168), (u'ixml_membuf_init', 4406484), (u'fork', 4406296), (u'fread', 4406636), (u'ixml_membuf_destroy', 4406116), (u'__fputc_unlocked', 4406700), (u'__uClibc_main', 4406776), (u'getenv', 4406960), (u'pigwidgeoncgi_main', 4406576), (u'gettimeofday', 4406860), (u'atoi', 4406232), (u'sobj_unescape_uri', 4406412), (u'hedwigcgi_main', 4406252), (u'ixmlCDATASection_free', 4406948), (u'hnap_main', 4406324), (u'get_random_string', 4406540), (u'ixmlDocument_createElementEx', 4406192), (u'xs_ungetc', 4407020), (u'__errno_location', 4406992), (u'strerror', 4406196), (u'seamacgi_main', 4406976), (u'soapcgi_main', 4406916), (u'__ctype_b', 4406444), (u'MD5Init', 4407016), (u'rw_sentry', 4406536), (u'fprintf', 4406368), (u'seama_file_check', 4406160), (u'rename', 4406304), (u'vsnprintf', 4406352), (u'malloc', 4406792), (u'rw_cgdata', 4407028), (u'lockf', 4406408), (u'sobj_escape_xml_sc', 4406828), (u'stdout', 4406676), (u'srand', 4406188), (u'sobj_add_char', 4406824), (u'__deregister_frame_info', 4407040), (u'ixmlElement_init', 4406748), (u'servicecgi_main', 4406300), (u'sess_get_uid', 4406156), (u'get_uptime', 4406176), (u'ixmlDocument_init', 4406600), (u'ixmlDocument_free', 4406596), (u'strlen', 4406760), (u'strncat', 4406616), (u'Parser_isValidXmlName', 4407012), (u'cgibin_verify_seamafile', 4406908), (u'feof', 4406852), (u'fseek', 4406328), (u'login_antihacker', 4406372), (u'_Jv_RegisterClasses', 4406900), (u'authentication', 4406548), (u'authenticationcgi_main', 4406932), (u'dlapn_main', 4406380), (u'getopt', 4406268), (u'sess_generate_captcha', 4406360), (u'inet_aton', 4406988), (u'waitpid', 4406264), (u'optarg', 4406132), (u'captchacgi_main', 4406256), (u'stat', 4406752), (u'ixmlNode_cloneNode', 4407004), (u'sobj_empty', 4406468), (u'ixmlNamedNodeMap_free', 4406720), (u'sess_validate', 4406312), (u'ioctl', 4406768), (u'ixmlNode_getElementsByTagName', 4406520), (u'hmac_md5', 4406936), (u'sobj_get_length', 4406620), (u'sobj_free', 4406524), (u'unlink', 4406452), (u'strcasecmp', 4406800), (u'sessioncgi_main', 4406964), (u'cgibin_print_http_status', 4406580), (u'ixml_membuf_append_str', 4406476), (u'write', 4406552), (u'sobj_del', 4407008), (u'xmldbc_timer', 4406344), (u'time', 4406572), (u'sobj_strcasecmp', 4406488), (u'ixmlNode_appendChild', 4407024)]
 Name : strncasecmp                              Addr : 0x433db4   Value: 0x76769400  
-1987327600
 Name : lseek                                    Addr : 0x433dd0   Value: 0x76743670  
-4237536
 Name : clean_cgfile                             Addr : 0x433dbc   Value: 0x0040a8e0  
-4296836
 Name : ixmlNode_getNextSibling                  Addr : 0x433cf0   Value: 0x00419084  
-4324444
 Name : ixmlNamedNodeMap_addToNamedNodeMap       Addr : 0x433c00   Value: 0x0041fc5c  
-4216028
 Name : cgibin_fill_http_content_len             Addr : 0x433b80   Value: 0x004054dc  
-4204236
 Name : _init                                    Addr : 0x433b6c   Value: 0x004026cc  
-4315792
 Name : ixml_membuf_assign_str                   Addr : 0x433d9c   Value: 0x0041da90  
-1987333744
 Name : select                                   Addr : 0x433db8   Value: 0x76744e70  
-4325216
 Name : sleep                                    Addr : 0x433e70   Value: 0x0041ff60  
-4276020
 Name : xmldbc_ephp_wb                           Addr : 0x433da0   Value: 0x00413f34  
-4318836
 Name : ixmlElement_setTagName                   Addr : 0x433df4   Value: 0x0041e674  
-4316388
 Name : ixmlElement_free                         Addr : 0x433e34   Value: 0x0041dce4  
-4326016
 Name : fflush                                   Addr : 0x433c9c   Value: 0x00420280  
-4321516
 Name : ixmlDocument_createCDATASectionEx        Addr : 0x433d88   Value: 0x0041f0ec  
-4320916
 Name : ixmlAttr_init                            Addr : 0x433ca4   Value: 0x0041ee94  
-4325872
 Name : fputc                                    Addr : 0x433d00   Value: 0x004201f0  
-4278760
 Name : sobj_xstream_eatwhite                    Addr : 0x433d38   Value: 0x004149e8  
-4276228
 Name : xmldbc_get_wb                            Addr : 0x433d90   Value: 0x00414004  
-4325808
 Name : strtok                                   Addr : 0x433d20   Value: 0x004201b0  
-4325648
 Name : mmap                                     Addr : 0x433d7c   Value: 0x00420110  
-1987479760
 Name : strncmp                                  Addr : 0x433dfc   Value: 0x767688d0  
-4325248
 Name : send                                     Addr : 0x433e68   Value: 0x0041ff80  
-4299940
 Name : ixmlNode_setNodeName                     Addr : 0x433e04   Value: 0x00419ca4  
-4282912
 Name : sobj_xstream_read_esc                    Addr : 0x433b84   Value: 0x00415a20  
-4287108
 Name : xs_getc                                  Addr : 0x433de4   Value: 0x00416a84  
-4257264
 Name : get_parameter_nodehead                   Addr : 0x433f0c   Value: 0x0040f5f0  
-4316116
 Name : ixmlNodeList_init                        Addr : 0x433d80   Value: 0x0041dbd4  
-1987324960
 Name : getpid                                   Addr : 0x433d98   Value: 0x76742c20  
-1987596224
 Name : realloc                                  Addr : 0x433e6c   Value: 0x76784fc0  
-4218328
 Name : phpcgi_main                              Addr : 0x433e5c   Value: 0x00405dd8  
-4204800
 Name : main                                     Addr : 0x433b70   Value: 0x00402900  
-4325200
 Name : getline                                  Addr : 0x433e78   Value: 0x0041ff50  
-4325888
 Name : random                                   Addr : 0x433cec   Value: 0x00420200  
-4215244
 Name : cgibin_print_http_resp                   Addr : 0x433bbc   Value: 0x004051cc  
-1987331328
 Name : read                                     Addr : 0x433dc4   Value: 0x76744500  
-4325696
 Name : fclose                                   Addr : 0x433d70   Value: 0x00420140  
-4273776
 Name : lxmldbc_eatwhite                         Addr : 0x433dd4   Value: 0x00413670  
-4325056
 Name : rewind                                   Addr : 0x433efc   Value: 0x0041fec0  
-4233704
 Name : find_uentry                              Addr : 0x433c80   Value: 0x004099e8  
-4324432
 Name : ixmlNamedNodeMap_init                    Addr : 0x433c40   Value: 0x0041fc50  
-4296672
 Name : ixmlNode_getNodeValue                    Addr : 0x433e1c   Value: 0x00418fe0  
-4279344
 Name : sobj_strchr                              Addr : 0x433f08   Value: 0x00414c30  
-4227320
 Name : fwup_main                                Addr : 0x433d84   Value: 0x004080f8  
-4240592
 Name : sess_ispoweruser                         Addr : 0x433e0c   Value: 0x0040b4d0  
-1987911124
 Name : __register_frame_info                    Addr : 0x433e18   Value: 0x767d1dd4  
-4326288
 Name : strstr                                   Addr : 0x433c0c   Value: 0x00420390  
-4326064
 Name : inet_ntoa                                Addr : 0x433c84   Value: 0x004202b0  
-4227312
 Name : dlcfg_main                               Addr : 0x433c04   Value: 0x004080f0  
-4325168
 Name : memcpy                                   Addr : 0x433e88   Value: 0x0041ff30  
-4325984
 Name : execl                                    Addr : 0x433cb0   Value: 0x00420260  
-4325824
 Name : fileno                                   Addr : 0x433d1c   Value: 0x004201c0  
-4237948
 Name : find_sentry                              Addr : 0x433c14   Value: 0x0040aa7c  
-4296732
 Name : ixmlNode_getFirstChild                   Addr : 0x433e20   Value: 0x0041901c  
-4288044
 Name : xs_fopen                                 Addr : 0x433bc4   Value: 0x00416e2c  
-4326080
 Name : srandom                                  Addr : 0x433c7c   Value: 0x004202c0  
-4317592
 Name : ixmlElement_setAttributeNode             Addr : 0x433be4   Value: 0x0041e198  
-4278976
 Name : sobj_strncasecmp                         Addr : 0x433e90   Value: 0x00414ac0  
-4287524
 Name : xs_close                                 Addr : 0x433c98   Value: 0x00416c24  
-4325664
 Name : memmove                                  Addr : 0x433d78   Value: 0x00420120  
-4325328
 Name : remove                                   Addr : 0x433e38   Value: 0x0041ffd0  
-4275552
 Name : xmldbc_set                               Addr : 0x433d28   Value: 0x00413d60  
-4215848
 Name : cgibin_clean_tempfiles                   Addr : 0x433ec4   Value: 0x00405428  
-4284704
 Name : sobj_new                                 Addr : 0x433c74   Value: 0x00416120  
-1987479200
 Name : strcmp                                   Addr : 0x433c08   Value: 0x767686a0  
-4302892
 Name : ixmlNode_init                            Addr : 0x433db0   Value: 0x0041a82c  
-4325504
 Name : snprintf                                 Addr : 0x433dcc   Value: 0x00420080  
-4209688
 Name : parse_uri                                Addr : 0x433d40   Value: 0x00403c18  
-4325792
 Name : fgetc                                    Addr : 0x433d24   Value: 0x004201a0  
-4217088
 Name : fwupgrade_log                            Addr : 0x433b78   Value: 0x00405900  
-4325680
 Name : pclose                                   Addr : 0x433d74   Value: 0x00420130  
-1987476112
 Name : memset                                   Addr : 0x433c90   Value: 0x76767a90  
-4325296
 Name : strcat                                   Addr : 0x433e48   Value: 0x0041ffb0  
-4291768
 Name : MD5Update                                Addr : 0x433dec   Value: 0x00417cb8  
-4237672
 Name : gen_cgfile                               Addr : 0x433b88   Value: 0x0040a968  
-4325184
 Name : connect                                  Addr : 0x433e80   Value: 0x0041ff40  
-4227304
 Name : dldongle_main                            Addr : 0x433f04   Value: 0x004080e8  
-4325904
 Name : fgets                                    Addr : 0x433ce8   Value: 0x00420210  
-4325856
 Name : close                                    Addr : 0x433d04   Value: 0x004201e0  
-4316128
 Name : ixmlNodeList_addToNodeList               Addr : 0x433e14   Value: 0x0041dbe0  
-4326544
 Name : _fini                                    Addr : 0x433e50   Value: 0x00420490  
-4296692
 Name : ixmlNode_getNodeType                     Addr : 0x433e9c   Value: 0x00418ff4  
-1987478720
 Name : strchr                                   Addr : 0x433bc8   Value: 0x767684c0  
-4277588
 Name : lxmldbc_system                           Addr : 0x433cbc   Value: 0x00414554  
-4300156
 Name : ixmlNode_compare                         Addr : 0x433ed4   Value: 0x00419d7c  
-4261268
 Name : genacgi_main                             Addr : 0x433cc8   Value: 0x00410594  
-4326272
 Name : fgetpos                                  Addr : 0x433c10   Value: 0x00420380  
-4326000
 Name : fsetpos                                  Addr : 0x433ca8   Value: 0x00420270  
-4325584
 Name : access                                   Addr : 0x433da8   Value: 0x004200d0  
-4326352
 Name : ftell                                    Addr : 0x433be0   Value: 0x004203d0  
-4320880
 Name : ixmlAttr_free                            Addr : 0x433bd0   Value: 0x0041ee70  
-4326224
 Name : exit                                     Addr : 0x433c24   Value: 0x00420350  
-1987436080
 Name : sprintf                                  Addr : 0x433c44   Value: 0x7675de30  
-4299524
 Name : ixmlNode_setNodeProperties               Addr : 0x433c78   Value: 0x00419b04  
-1987480352
 Name : strrchr                                  Addr : 0x433e00   Value: 0x76768b20  
-4326096
 Name : munmap                                   Addr : 0x433c70   Value: 0x004202d0  
-4305136
 Name : Parser_setNodePrefixAndLocalName         Addr : 0x433e64   Value: 0x0041b0f0  
-4277332
 Name : xmldbc_ephp                              Addr : 0x433bc0   Value: 0x00414454  
-4325472
 Name : fcntl                                    Addr : 0x433dd8   Value: 0x00420060  
-4309332
 Name : Parser_LoadDocument                      Addr : 0x433ec8   Value: 0x0041c154  
-4232528
 Name : authentication_result                    Addr : 0x433bcc   Value: 0x00409550  
-4322148
 Name : ixmlDocument_createAttributeNSEx         Addr : 0x433e30   Value: 0x0041f364  
-4325920
 Name : ferror                                   Addr : 0x433ce0   Value: 0x00420220  
-1987598048
 Name : free                                     Addr : 0x433bdc   Value: 0x767856e0  
-4264704
 Name : fwupload_main                            Addr : 0x433e40   Value: 0x00411300  
-4302836
 Name : ixmlCDATASection_init                    Addr : 0x433eb8   Value: 0x0041a7f4  
-4283600
 Name : sobj_add_string                          Addr : 0x433bd4   Value: 0x00415cd0  
-4285776
 Name : sobj_split                               Addr : 0x433d4c   Value: 0x00416550  
-4305456
 Name : Parser_freeNodeContent                   Addr : 0x433e54   Value: 0x0041b230  
-4325264
 Name : sysinfo                                  Addr : 0x433e58   Value: 0x0041ff90  
-4274720
 Name : xmldbc_read                              Addr : 0x433bb8   Value: 0x00413a20  
-4231992
 Name : fwupdater_main                           Addr : 0x433d10   Value: 0x00409338  
-4296592
 Name : ixmlNode_getNodeName                     Addr : 0x433e24   Value: 0x00418f90  
-4326176
 Name : socket                                   Addr : 0x433c3c   Value: 0x00420320  
-4287688
 Name : xs_bopen                                 Addr : 0x433c68   Value: 0x00416cc8  
-4261552
 Name : conntrackcgi_main                        Addr : 0x433bf4   Value: 0x004106b0  
-4326464
 Name : popen                                    Addr : 0x433ba4   Value: 0x00420440  
-4283560
 Name : sobj_xstream_read                        Addr : 0x433d50   Value: 0x00415ca8  
-4298956
 Name : ixmlNode_free                            Addr : 0x433ce4   Value: 0x004198cc  
-4326512
 Name : strcpy                                   Addr : 0x433b68   Value: 0x00420470  
-4316040
 Name : ixmlNodeList_free                        Addr : 0x433d68   Value: 0x0041db88  
-4279984
 Name : sobj_strdup                              Addr : 0x433e3c   Value: 0x00414eb0  
-4325136
 Name : fwrite                                   Addr : 0x433eac   Value: 0x0041ff10  
-4279088
 Name : sobj_strcmp                              Addr : 0x433cf4   Value: 0x00414b30  
-4205992
 Name : file_write_out                           Addr : 0x433ef8   Value: 0x00402da8  
-4322504
 Name : ixmlDocument_createTextNodeEx            Addr : 0x433cb8   Value: 0x0041f4c8  
-4273232
 Name : authcgi_main                             Addr : 0x433b9c   Value: 0x00413450  
-4326208
 Name : rand                                     Addr : 0x433c30   Value: 0x00420340  
-4321872
 Name : ixmlDocument_createAttributeEx           Addr : 0x433b7c   Value: 0x0041f250  
-4210036
 Name : cgibin_parse_request                     Addr : 0x433dc8   Value: 0x00403d74  
-4235416
 Name : get_sess_cfg                             Addr : 0x433d60   Value: 0x0040a098  
-4275056
 Name : xmldbc_del                               Addr : 0x433e8c   Value: 0x00413b70  
-4237256
 Name : get_cgdata_by_uid                        Addr : 0x433be8   Value: 0x0040a7c8  
-4300760
 Name : ixmlNode_getElementsByTagNameNS          Addr : 0x433ca0   Value: 0x00419fd8  
-4292092
 Name : MD5Final                                 Addr : 0x433d64   Value: 0x00417dfc  
-4315416
 Name : ixml_membuf_append                       Addr : 0x433ed8   Value: 0x0041d918  
-4217224
 Name : weblogin_log                             Addr : 0x433c2c   Value: 0x00405988  
-4238456
 Name : sess_logout                              Addr : 0x433ea8   Value: 0x0040ac78  
-4326448
 Name : printf                                   Addr : 0x433ba8   Value: 0x00420430  
-4325744
 Name : fopen                                    Addr : 0x433d54   Value: 0x00420170  
-1987330000
 Name : open                                     Addr : 0x433ebc   Value: 0x76743fd0  
-4325936
 Name : strncpy                                  Addr : 0x433cd0   Value: 0x00420230  
-4278348
 Name : sobj_get_string                          Addr : 0x433e60   Value: 0x0041484c  
-4326496
 Name : puts                                     Addr : 0x433b94   Value: 0x00420460  
-4325952
 Name : fputs                                    Addr : 0x433cc0   Value: 0x00420240  
-4325600
 Name : fdopen                                   Addr : 0x433da4   Value: 0x004200e0  
-4325760
 Name : vsyslog                                  Addr : 0x433d3c   Value: 0x00420180  
-4256704
 Name : ssdpcgi_main                             Addr : 0x433c94   Value: 0x0040f3c0  
-4206596
 Name : cgibin_reatwhite                         Addr : 0x433c5c   Value: 0x00403004  
-4325152
 Name : system                                   Addr : 0x433ea0   Value: 0x0041ff20  
-4323888
 Name : ixmlDocument_createDocumentEx            Addr : 0x433c4c   Value: 0x0041fa30  
-4325632
 Name : __fgetc_unlocked                         Addr : 0x433d8c   Value: 0x00420100  
-4326128
 Name : memcmp                                   Addr : 0x433c54   Value: 0x004202f0  
-4293356
 Name : ixmlParseBuffer                          Addr : 0x433cdc   Value: 0x004182ec  
-4326480
 Name : strdup                                   Addr : 0x433b98   Value: 0x00420450  
-4314832
 Name : ixml_membuf_init                         Addr : 0x433cd4   Value: 0x0041d6d0  
-4326256
 Name : fork                                     Addr : 0x433c18   Value: 0x00420370  
-4325712
 Name : fread                                    Addr : 0x433d6c   Value: 0x00420150  
-4315516
 Name : ixml_membuf_destroy                      Addr : 0x433b64   Value: 0x0041d97c  
-4325568
 Name : __fputc_unlocked                         Addr : 0x433dac   Value: 0x004200c0  
-1987628160
 Name : __uClibc_main                            Addr : 0x433df8   Value: 0x7678cc80  
-1987600688
 Name : getenv                                   Addr : 0x433eb0   Value: 0x76786130  
-4253360
 Name : pigwidgeoncgi_main                       Addr : 0x433d30   Value: 0x0040e6b0  
-4325280
 Name : gettimeofday                             Addr : 0x433e4c   Value: 0x0041ffa0  
-1987608736
 Name : atoi                                     Addr : 0x433bd8   Value: 0x767880a0  
-4284792
 Name : sobj_unescape_uri                        Addr : 0x433c8c   Value: 0x00416178  
-4251712
 Name : hedwigcgi_main                           Addr : 0x433bec   Value: 0x0040e040  
-4299056
 Name : ixmlCDATASection_free                    Addr : 0x433ea4   Value: 0x00419930  
-4267904
 Name : hnap_main                                Addr : 0x433c34   Value: 0x00411f80  
-4235156
 Name : get_random_string                        Addr : 0x433d0c   Value: 0x00409f94  
-4322900
 Name : ixmlDocument_createElementEx             Addr : 0x433bb0   Value: 0x0041f654  
-4286864
 Name : xs_ungetc                                Addr : 0x433eec   Value: 0x00416990  
-4325072
 Name : __errno_location                         Addr : 0x433ed0   Value: 0x0041fed0  
-4326416
 Name : strerror                                 Addr : 0x433bb4   Value: 0x00420410  
-4227328
 Name : seamacgi_main                            Addr : 0x433ec0   Value: 0x00408100  
-4258612
 Name : soapcgi_main                             Addr : 0x433e84   Value: 0x0040fb34  
-1987727364
 Name : __ctype_b                                Addr : 0x433cac   Value: 0x767a5004  
-4288224
 Name : MD5Init                                  Addr : 0x433ee8   Value: 0x00416ee0  
-4234592
 Name : rw_sentry                                Addr : 0x433d08   Value: 0x00409d60  
-4326112
 Name : fprintf                                  Addr : 0x433c60   Value: 0x004202e0  
-4222364
 Name : seama_file_check                         Addr : 0x433b90   Value: 0x00406d9c  
-4326240
 Name : rename                                   Addr : 0x433c20   Value: 0x00420360  
-4326144
 Name : vsnprintf                                Addr : 0x433c50   Value: 0x00420300  
-1987593260
 Name : malloc                                   Addr : 0x433e08   Value: 0x7678442c  
-4233340
 Name : rw_cgdata                                Addr : 0x433ef4   Value: 0x0040987c  
-1987350064
 Name : lockf                                    Addr : 0x433c88   Value: 0x76748e30  
-4283812
 Name : sobj_escape_xml_sc                       Addr : 0x433e2c   Value: 0x00415da4  
-1987727684
 Name : stdout                                   Addr : 0x433d94   Value: 0x767a5144  
-4326432
 Name : srand                                    Addr : 0x433bac   Value: 0x00420420  
-4280540
 Name : sobj_add_char                            Addr : 0x433e28   Value: 0x004150dc  
-1987920040
 Name : __deregister_frame_info                  Addr : 0x433f00   Value: 0x767d40a8  
-4320804
 Name : ixmlElement_init                         Addr : 0x433ddc   Value: 0x0041ee24  
-4255488
 Name : servicecgi_main                          Addr : 0x433c1c   Value: 0x0040ef00  
-4232688
 Name : sess_get_uid                             Addr : 0x433b8c   Value: 0x004095f0  
-4236976
 Name : get_uptime                               Addr : 0x433ba0   Value: 0x0040a6b0  
-4323832
 Name : ixmlDocument_init                        Addr : 0x433d48   Value: 0x0041f9f8  
-4322864
 Name : ixmlDocument_free                        Addr : 0x433d44   Value: 0x0041f630  
-1987479440
 Name : strlen                                   Addr : 0x433de8   Value: 0x76768790  
-4325728
 Name : strncat                                  Addr : 0x433d58   Value: 0x00420160  
-4306272
 Name : Parser_isValidXmlName                    Addr : 0x433ee4   Value: 0x0041b560  
-4206756
 Name : cgibin_verify_seamafile                  Addr : 0x433e7c   Value: 0x004030a4  
-4325312
 Name : feof                                     Addr : 0x433e44   Value: 0x0041ffc0  
-4326192
 Name : fseek                                    Addr : 0x433c38   Value: 0x00420330  
-4236328
 Name : login_antihacker                         Addr : 0x433c64   Value: 0x0040a428  
-0
 Name : _Jv_RegisterClasses                      Addr : 0x433e74   Value: 0x00000000  
-4238668
 Name : authentication                           Addr : 0x433d14   Value: 0x0040ad4c  
-4247888
 Name : authenticationcgi_main                   Addr : 0x433e94   Value: 0x0040d150  
-4227296
 Name : dlapn_main                               Addr : 0x433c6c   Value: 0x004080e0  
-4326320
 Name : getopt                                   Addr : 0x433bfc   Value: 0x004203b0  
-4239784
 Name : sess_generate_captcha                    Addr : 0x433c58   Value: 0x0040b1a8  
-4325088
 Name : inet_aton                                Addr : 0x433ecc   Value: 0x0041fee0  
-4326336
 Name : waitpid                                  Addr : 0x433bf8   Value: 0x004203c0  
-1987731404
 Name : optarg                                   Addr : 0x433b74   Value: 0x767a5fcc  
-4240840
 Name : captchacgi_main                          Addr : 0x433bf0   Value: 0x0040b5c8  
-4325456
 Name : stat                                     Addr : 0x433de0   Value: 0x00420050  
-4303944
 Name : ixmlNode_cloneNode                       Addr : 0x433edc   Value: 0x0041ac48  
-4278496
 Name : sobj_empty                               Addr : 0x433cc4   Value: 0x004148e0  
-4324356
 Name : ixmlNamedNodeMap_free                    Addr : 0x433dc0   Value: 0x0041fc04  
-4240204
 Name : sess_validate                            Addr : 0x433c28   Value: 0x0040b34c  
-4325424
 Name : ioctl                                    Addr : 0x433df0   Value: 0x00420030  
-4301316
 Name : ixmlNode_getElementsByTagName            Addr : 0x433cf8   Value: 0x0041a204  
-4251152
 Name : hmac_md5                                 Addr : 0x433e98   Value: 0x0040de10  
-4278476
 Name : sobj_get_length                          Addr : 0x433d5c   Value: 0x004148cc  
-4279608
 Name : sobj_free                                Addr : 0x433cfc   Value: 0x00414d38  
-4325968
 Name : unlink                                   Addr : 0x433cb4   Value: 0x00420250  
-1987481968
 Name : strcasecmp                               Addr : 0x433e10   Value: 0x76769170  
-4241764
 Name : sessioncgi_main                          Addr : 0x433eb4   Value: 0x0040b964  
-4210500
 Name : cgibin_print_http_status                 Addr : 0x433d34   Value: 0x00403f44  
-4315428
 Name : ixml_membuf_append_str                   Addr : 0x433ccc   Value: 0x0041d924  
-4325840
 Name : write                                    Addr : 0x433d18   Value: 0x004201d0  
-4279716
 Name : sobj_del                                 Addr : 0x433ee0   Value: 0x00414da4  
-4275280
 Name : xmldbc_timer                             Addr : 0x433c48   Value: 0x00413c50  
-4325776
 Name : time                                     Addr : 0x433d2c   Value: 0x00420190  
-4279032
 Name : sobj_strcasecmp                          Addr : 0x433cd8   Value: 0x00414af8  
-4297296
 Name : ixmlNode_appendChild                     Addr : 0x433ef0   Value: 0x00419250  
 =======================================Init GOT Table End==========================================
+=======================================Rebase GOT Table Start=======================================
+ELF('/home/b1ngo/Firmcorn/libc.so.0')
+Name : strncasecmp                              Rebase addr : 0x76769400
+Name : random                                   Rebase addr : 0x76786640
+Name : fdopen                                   Rebase addr : 0x7675cda0
+Name : __errno_location                         Rebase addr : 0x7674ddf0
+Name : strerror                                 Rebase addr : 0x76769300
+Name : __fgetc_unlocked                         Rebase addr : 0x76766d40
+Name : fgets                                    Rebase addr : 0x76765ec0
+Name : getopt                                   Rebase addr : 0x7678b6ec
+Name : lockf                                    Rebase addr : 0x76748e30
+Name : strcasecmp                               Rebase addr : 0x76769170
+Name : vsnprintf                                Rebase addr : 0x7675e030
+Name : strcat                                   Rebase addr : 0x76768490
+Name : strdup                                   Rebase addr : 0x76769270
+Name : read                                     Rebase addr : 0x76744500
+Name : popen                                    Rebase addr : 0x7675e45c
+Name : fcntl                                    Rebase addr : 0x767461a0
+Name : optarg                                   Rebase addr : 0x767a5fcc
+Name : fprintf                                  Rebase addr : 0x7675dd00
+Name : execl                                    Rebase addr : 0x7678a470
+Name : fwrite                                   Rebase addr : 0x767662f0
+Name : remove                                   Rebase addr : 0x7675d740
+Name : lseek                                    Rebase addr : 0x76743670
+Name : fopen                                    Rebase addr : 0x7675cf00
+Name : fputs                                    Rebase addr : 0x76766150
+Name : snprintf                                 Rebase addr : 0x7675dd50
+Name : srandom                                  Rebase addr : 0x7678684c
+Name : __fputc_unlocked                         Rebase addr : 0x76767010
+Name : strcmp                                   Rebase addr : 0x767686a0
+Name : stat                                     Rebase addr : 0x76745db0
+Name : strchr                                   Rebase addr : 0x767684c0
+Name : getenv                                   Rebase addr : 0x76786130
+Name : realloc                                  Rebase addr : 0x76784fc0
+Name : inet_ntoa                                Rebase addr : 0x7677edd4
+Name : rewind                                   Rebase addr : 0x7675d7f0
+Name : sleep                                    Rebase addr : 0x7678bc60
+Name : fork                                     Rebase addr : 0x76741f10
+Name : atoi                                     Rebase addr : 0x767880a0
+Name : access                                   Rebase addr : 0x76741430
+Name : getline                                  Rebase addr : 0x7675d430
+Name : free                                     Rebase addr : 0x767856e0
+Name : strncmp                                  Rebase addr : 0x767688d0
+Name : inet_aton                                Rebase addr : 0x7677ebd0
+Name : munmap                                   Rebase addr : 0x76743e20
+Name : time                                     Rebase addr : 0x76746420
+Name : __ctype_b                                Rebase addr : 0x767a5004
+Name : memcmp                                   Rebase addr : 0x76767c10
+Name : send                                     Rebase addr : 0x767837e0
+Name : strstr                                   Rebase addr : 0x76768cb0
+Name : mmap                                     Rebase addr : 0x76740c80
+Name : vsyslog                                  Rebase addr : 0x76755f80
+Name : strncpy                                  Rebase addr : 0x76768990
+Name : strncat                                  Rebase addr : 0x76768830
+Name : fflush                                   Rebase addr : 0x76765d00
+Name : strrchr                                  Rebase addr : 0x76768b20
+Name : sprintf                                  Rebase addr : 0x7675de30
+Name : strlen                                   Rebase addr : 0x76768790
+Name : getpid                                   Rebase addr : 0x76742c20
+Name : pclose                                   Rebase addr : 0x7675e340
+Name : fsetpos                                  Rebase addr : 0x7675d130
+Name : system                                   Rebase addr : 0x767872d0
+Name : fseek                                    Rebase addr : 0x7675d0f0
+Name : fclose                                   Rebase addr : 0x7675ca10
+Name : stdout                                   Rebase addr : 0x767a5144
+Name : strcpy                                   Rebase addr : 0x767686d0
+Name : malloc                                   Rebase addr : 0x7678442c
+Name : memset                                   Rebase addr : 0x76767a90
+Name : rename                                   Rebase addr : 0x76744710
+Name : puts                                     Rebase addr : 0x7675d600
+Name : __uClibc_main                            Rebase addr : 0x7678cc80
+Name : unlink                                   Rebase addr : 0x76746780
+Name : fileno                                   Rebase addr : 0x76765f90
+Name : fgetpos                                  Rebase addr : 0x7675ce20
+Name : connect                                  Rebase addr : 0x767834a0
+Name : sysinfo                                  Rebase addr : 0x76746360
+Name : select                                   Rebase addr : 0x76744e70
+Name : memcpy                                   Rebase addr : 0x76767950
+Name : fgetc                                    Rebase addr : 0x76765dd0
+Name : ioctl                                    Rebase addr : 0x767432c0
+Name : rand                                     Rebase addr : 0x76786620
+Name : strtok                                   Rebase addr : 0x76769620
+Name : fread                                    Rebase addr : 0x76766210
+Name : waitpid                                  Rebase addr : 0x76746aa0
+Name : feof                                     Rebase addr : 0x76765bc0
+Name : gettimeofday                             Rebase addr : 0x76743080
+Name : printf                                   Rebase addr : 0x7675dc50
+Name : memmove                                  Rebase addr : 0x76767f90
+Name : ftell                                    Rebase addr : 0x7675d210
+Name : ferror                                   Rebase addr : 0x76765c60
+Name : write                                    Rebase addr : 0x76746ac0
+Name : socket                                   Rebase addr : 0x76783a00
+Name : close                                    Rebase addr : 0x76741970
+Name : exit                                     Rebase addr : 0x7678a140
+Name : srand                                    Rebase addr : 0x7678684c
+Name : fputc                                    Rebase addr : 0x76766040
+Name : open                                     Rebase addr : 0x76743fd0
+=======================================Rebase GOT Table End=======================================
 >>> Tracing instruction at 0x40f7dc, instruction size = 0x4
    0:   3c1c0044        lui     gp,0x44
 >>> Tracing instruction at 0x40f7e0, instruction size = 0x4
@@ -545,63 +417,306 @@ Name : ixmlNode_appendChild                     Addr : 0x433ef0   Value: 0x00419
    0:   00002821        move    a1,zero
 >>> Tracing instruction at 0x40f814, instruction size = 0x4
    0:   0320f809        jalr    t9
-find call : 0x40f814  call address : 0x76767a90
-call value
-reg_value : 0x76ffeb80
-reg_value : 0x0
-reg_value : 0x400
-reg_value : 0x0
 >>> Tracing instruction at 0x40f818, instruction size = 0x4
    0:   24060100        li      a2,256
-=================================================================
-=========================Registers Value=========================
-Reg t5 --> 0x57
-Reg gp --> 0x43bb40
-Reg s8 --> 0x0
-Reg s3 --> 0x76ffeb80
-Reg s2 --> 0x1
-Reg s1 --> 0x0
-Reg s0 --> 0x76ffecc0
-Reg s7 --> 0x76ffecb8
-Reg s6 --> 0x4
-Reg s5 --> 0x76ffecd0
-Reg s4 --> 0x76ffed50
-Reg pc --> 0x76767a90
-Reg ra --> 0x40f81c
-Reg fp --> 0x0
-Reg a1 --> 0x0
-Reg a0 --> 0x76ffeb80
-Reg a3 --> 0x0
-Reg a2 --> 0x100
-Reg v0 --> 0x0
-Reg t8 --> 0xcd
-Reg t9 --> 0x76767a90
-Reg t6 --> 0x800
-Reg t7 --> 0x415098
-Reg t4 --> 0x0
-Reg sp --> 0x76ffeb68
-Reg t2 --> 0xfffffff8
-Reg t3 --> 0xffffffe0
-Reg t0 --> 0x29
-Reg t1 --> 0x767aa788
-Reg v1 --> 0x3a
-=================================================================
-=========================Memory Content==========================
-sp+288 0x76ffec88 --> 00000000
-sp+292 0x76ffec8c --> 00000001
-sp+296 0x76ffec90 --> 00000bff
-sp+300 0x76ffec94 --> 0040365c
-sp+304 0x76ffec98 --> 00000000
-sp+308 0x76ffec9c --> 00000000
 >>> Tracing instruction at 0x76767a90, instruction size = 0x4
    0:   28c90008        slti    t1,a2,8
-find func : 0x76767a90 --> memset
-custom func memset##############################################
-func : <bound method FuncEmu.memset of <hook.func_emu.FuncEmu object at 0x7ff84e729a50>> ; argc : [1996483456L, 0L, 1024L, 0L]
-ret_addr : 0x40f81c
-addr:0x0 ch:0x0 n:0x0
-addr -->:
-ret_addr : 4257820; args : [1996483456L, 0L, 1024L, 0L]; res : None
+>>> Tracing instruction at 0x76767a94, instruction size = 0x4
+   0:   1520001b        bnez    t1,0x70
+>>> Tracing instruction at 0x76767a98, instruction size = 0x4
+   0:   00801021        move    v0,a0
+>>> Tracing instruction at 0x76767a9c, instruction size = 0x4
+   0:   10a00005        beqz    a1,0x18
+>>> Tracing instruction at 0x76767aa0, instruction size = 0x4
+   0:   30a500ff        andi    a1,a1,0xff
+>>> Tracing instruction at 0x76767ab4, instruction size = 0x4
+   0:   00044023        negu    t0,a0
+>>> Tracing instruction at 0x76767ab8, instruction size = 0x4
+   0:   31080003        andi    t0,t0,0x3
+>>> Tracing instruction at 0x76767abc, instruction size = 0x4
+   0:   11000003        beqz    t0,0x10
+>>> Tracing instruction at 0x76767ac0, instruction size = 0x4
+   0:   00c83023        subu    a2,a2,t0
+>>> Tracing instruction at 0x76767acc, instruction size = 0x4
+   0:   30c80007        andi    t0,a2,0x7
+>>> Tracing instruction at 0x76767ad0, instruction size = 0x4
+   0:   11060007        beq     t0,a2,0x20
+>>> Tracing instruction at 0x76767ad4, instruction size = 0x4
+   0:   00c83823        subu    a3,a2,t0
+>>> Tracing instruction at 0x76767ad8, instruction size = 0x4
+   0:   00e43821        addu    a3,a3,a0
+>>> Tracing instruction at 0x76767adc, instruction size = 0x4
+   0:   01003021        move    a2,t0
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767af0, instruction size = 0x4
+   0:   30c80004        andi    t0,a2,0x4
+>>> Tracing instruction at 0x76767af4, instruction size = 0x4
+   0:   11000003        beqz    t0,0x10
+>>> Tracing instruction at 0x76767af8, instruction size = 0x4
+   0:   00c83023        subu    a2,a2,t0
+>>> Tracing instruction at 0x76767b04, instruction size = 0x4
+   0:   18c00004        blez    a2,0x14
+>>> Tracing instruction at 0x76767b08, instruction size = 0x4
+   0:   00c43821        addu    a3,a2,a0
+>>> Tracing instruction at 0x76767b18, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76767b1c, instruction size = 0x4
+   0:   00000000        nop
 >>> Tracing instruction at 0x40f81c, instruction size = 0x4
    0:   8e030000        lw      v1,0(s0)
 >>> Tracing instruction at 0x40f820, instruction size = 0x4
@@ -616,59 +731,12 @@ ret_addr : 4257820; args : [1996483456L, 0L, 1024L, 0L]; res : None
    0:   8f998320        lw      t9,-31968(gp)
 >>> Tracing instruction at 0x40f834, instruction size = 0x4
    0:   8e040004        lw      a0,4(s0)
-=================================================================
-=========================Registers Value=========================
-Reg t5 --> 0x57
-Reg gp --> 0x43bb40
-Reg s8 --> 0x0
-Reg s3 --> 0x76ffeb80
-Reg s2 --> 0x1
-Reg s1 --> 0x0
-Reg s0 --> 0x76ffecc0
-Reg s7 --> 0x76ffecb8
-Reg s6 --> 0x4
-Reg s5 --> 0x76ffecd0
-Reg s4 --> 0x76ffed50
-Reg pc --> 0x40f838
-Reg ra --> 0x40f81c
-Reg fp --> 0x0
-Reg a1 --> 0x0
-Reg a0 --> 0x436028
-Reg a3 --> 0x0
-Reg a2 --> 0x100
-Reg v0 --> 0x2
-Reg t8 --> 0xcd
-Reg t9 --> 0x41484c
-Reg t6 --> 0x800
-Reg t7 --> 0x415098
-Reg t4 --> 0x0
-Reg sp --> 0x76ffeb68
-Reg t2 --> 0xfffffff8
-Reg t3 --> 0xffffffe0
-Reg t0 --> 0x29
-Reg t1 --> 0x767aa788
-Reg v1 --> 0x2
-=================================================================
-=========================Memory Content==========================
-sp+288 0x76ffec88 --> 00000000
-sp+292 0x76ffec8c --> 00000001
-sp+296 0x76ffec90 --> 00000bff
-sp+300 0x76ffec94 --> 0040365c
-sp+304 0x76ffec98 --> 00000000
-sp+308 0x76ffec9c --> 00000000
 >>> Tracing instruction at 0x40f838, instruction size = 0x4
    0:   0320f809        jalr    t9
-find call : 0x40f838  call address : 0x41484c
-call value
-reg_value : 0x436028
-reg_value : 0x0
-reg_value : 0x100
-reg_value : 0x0
 >>> Tracing instruction at 0x40f83c, instruction size = 0x4
    0:   00000000        nop
 >>> Tracing instruction at 0x41484c, instruction size = 0x4
    0:   10800007        beqz    a0,0x20
-find func : 0x41484c --> sobj_get_string
 >>> Tracing instruction at 0x414850, instruction size = 0x4
    0:   00001821        move    v1,zero
 >>> Tracing instruction at 0x414854, instruction size = 0x4
@@ -693,58 +761,10 @@ find func : 0x41484c --> sobj_get_string
    0:   00000000        nop
 >>> Tracing instruction at 0x40f850, instruction size = 0x4
    0:   0320f809        jalr    t9
-find call : 0x40f850  call address : 0x4182ec
-call value
-reg_value : 0x436028
-reg_value : 0x0
-reg_value : 0x100
-reg_value : 0x0
-=================================================================
-=========================Registers Value=========================
-Reg t5 --> 0x57
-Reg gp --> 0x43bb40
-Reg s8 --> 0x0
-Reg s3 --> 0x76ffeb80
-Reg s2 --> 0x1
-Reg s1 --> 0x0
-Reg s0 --> 0x76ffecc0
-Reg s7 --> 0x76ffecb8
-Reg s6 --> 0x4
-Reg s5 --> 0x76ffecd0
-Reg s4 --> 0x76ffed50
-Reg pc --> 0x40f854
-Reg ra --> 0x40f858
-Reg fp --> 0x0
-Reg a1 --> 0x0
-Reg a0 --> 0x436028
-Reg a3 --> 0x0
-Reg a2 --> 0x100
-Reg v0 --> 0x4360e0
-Reg t8 --> 0xcd
-Reg t9 --> 0x4182ec
-Reg t6 --> 0x800
-Reg t7 --> 0x415098
-Reg t4 --> 0x0
-Reg sp --> 0x76ffeb68
-Reg t2 --> 0xfffffff8
-Reg t3 --> 0xffffffe0
-Reg t0 --> 0x29
-Reg t1 --> 0x767aa788
-Reg v1 --> 0x4360e0
-=================================================================
-=========================Memory Content==========================
-sp+288 0x76ffec88 --> 00000000
-sp+292 0x76ffec8c --> 00000001
-sp+296 0x76ffec90 --> 00000bff
-sp+300 0x76ffec94 --> 0040365c
-sp+304 0x76ffec98 --> 00000000
-sp+308 0x76ffec9c --> 00000000
-0x4360e0 --> 0x3c3f786d
 >>> Tracing instruction at 0x40f854, instruction size = 0x4
    0:   00402021        move    a0,v0
 >>> Tracing instruction at 0x4182ec, instruction size = 0x4
    0:   27bdffd8        addiu   sp,sp,-40
-find func : 0x4182ec --> ixmlParseBuffer
 >>> Tracing instruction at 0x4182f0, instruction size = 0x4
    0:   afbf0024        sw      ra,36(sp)
 >>> Tracing instruction at 0x4182f4, instruction size = 0x4
@@ -787,7 +807,6 @@ find func : 0x4182ec --> ixmlParseBuffer
    0:   00003021        move    a2,zero
 >>> Tracing instruction at 0x41c154, instruction size = 0x4
    0:   3c1c0044        lui     gp,0x44
-find func : 0x41c154 --> Parser_LoadDocument
 >>> Tracing instruction at 0x41c158, instruction size = 0x4
    0:   27bdff40        addiu   sp,sp,-192
 >>> Tracing instruction at 0x41c15c, instruction size = 0x4
@@ -824,17 +843,10 @@ find func : 0x41c154 --> Parser_LoadDocument
    0:   00a08821        move    s1,a1
 >>> Tracing instruction at 0x41c19c, instruction size = 0x4
    0:   0320f809        jalr    t9
-find call : 0x41c19c  call address : 0x7678442c
-call value
-reg_value : 0x40
-reg_value : 0x4360e0
-reg_value : 0x0
-reg_value : 0x0
 >>> Tracing instruction at 0x41c1a0, instruction size = 0x4
    0:   00c08021        move    s0,a2
 >>> Tracing instruction at 0x7678442c, instruction size = 0x4
    0:   3c1c0003        lui     gp,0x3
-find func : 0x7678442c --> malloc
 >>> Tracing instruction at 0x76784430, instruction size = 0x4
    0:   279c9114        addiu   gp,gp,-28396
 >>> Tracing instruction at 0x76784434, instruction size = 0x4
@@ -873,12 +885,6 @@ find func : 0x7678442c --> malloc
    0:   00808021        move    s0,a0
 >>> Tracing instruction at 0x76784478, instruction size = 0x4
    0:   0320f809        jalr    t9
-find call : 0x76784478  call address : 0x7678ca30
-call value
-reg_value : 0x40
-reg_value : 0x7678c954
-reg_value : 0x767a5410
-reg_value : 0x0
 >>> Tracing instruction at 0x7678447c, instruction size = 0x4
    0:   27a40020        addiu   a0,sp,32
 >>> Tracing instruction at 0x7678ca30, instruction size = 0x4
@@ -907,12 +913,6 @@ reg_value : 0x0
    0:   8f848978        lw      a0,-30344(gp)
 >>> Tracing instruction at 0x7678448c, instruction size = 0x4
    0:   0320f809        jalr    t9
-find call : 0x7678448c  call address : 0x7678c8fc
-call value
-reg_value : 0x767a5410
-reg_value : 0x7678c954
-reg_value : 0x767a5410
-reg_value : 0x0
 >>> Tracing instruction at 0x76784490, instruction size = 0x4
    0:   00000000        nop
 >>> Tracing instruction at 0x7678c8fc, instruction size = 0x4
@@ -1135,12 +1135,6 @@ reg_value : 0x0
    0:   27a40020        addiu   a0,sp,32
 >>> Tracing instruction at 0x76784e38, instruction size = 0x4
    0:   0320f809        jalr    t9
-find call : 0x76784e38  call address : 0x7678ca88
-call value
-reg_value : 0x76ffea40
-reg_value : 0x436120
-reg_value : 0x767aa788
-reg_value : 0x0
 >>> Tracing instruction at 0x76784e3c, instruction size = 0x4
    0:   24050001        li      a1,1
 >>> Tracing instruction at 0x7678ca88, instruction size = 0x4
@@ -1205,64 +1199,114 @@ reg_value : 0x0
    0:   24060040        li      a2,64
 >>> Tracing instruction at 0x41c1c0, instruction size = 0x4
    0:   0320f809        jalr    t9
-find call : 0x41c1c0  call address : 0x76767a90
-call value
-reg_value : 0x76ffea40
-reg_value : 0x0
-reg_value : 0x40
-reg_value : 0x0
 >>> Tracing instruction at 0x41c1c4, instruction size = 0x4
    0:   00402021        move    a0,v0
-=================================================================
-=========================Registers Value=========================
-Reg t5 --> 0x57
-Reg gp --> 0x43bb40
-Reg s8 --> 0x0
-Reg s3 --> 0x76ffeb80
-Reg s2 --> 0x436128
-Reg s1 --> 0x4360e0
-Reg s0 --> 0x0
-Reg s7 --> 0x76ffecb8
-Reg s6 --> 0x4
-Reg s5 --> 0x76ffecd0
-Reg s4 --> 0x66
-Reg pc --> 0x76767a90
-Reg ra --> 0x41c1c8
-Reg fp --> 0x0
-Reg a1 --> 0x0
-Reg a0 --> 0x436128
-Reg a3 --> 0x0
-Reg a2 --> 0x40
-Reg v0 --> 0x436128
-Reg t8 --> 0xcd
-Reg t9 --> 0x76767a90
-Reg t6 --> 0x800
-Reg t7 --> 0x415098
-Reg t4 --> 0x0
-Reg sp --> 0x76ffea80
-Reg t2 --> 0xfffffff8
-Reg t3 --> 0xffffffe0
-Reg t0 --> 0x767aa804
-Reg t1 --> 0x3
-Reg v1 --> 0x49
-=================================================================
-=========================Memory Content==========================
-sp+288 0x76ffeba0 --> 00000000
-sp+292 0x76ffeba4 --> 00000000
-sp+296 0x76ffeba8 --> 00000000
-sp+300 0x76ffebac --> 76ffebb0
-sp+304 0x76ffebb0 --> 00000000
-sp+308 0x76ffebb4 --> 00000000
-0x436128 --> 0x00000000
 >>> Tracing instruction at 0x76767a90, instruction size = 0x4
    0:   28c90008        slti    t1,a2,8
-find func : 0x76767a90 --> memset
-custom func memset##############################################
-func : <bound method FuncEmu.memset of <hook.func_emu.FuncEmu object at 0x7ff84e729a50>> ; argc : [1996483136L, 0L, 64L, 0L]
-ret_addr : 0x41c1c8
-addr:0x0 ch:0x0 n:0x0
-addr -->:
-ret_addr : 4309448; args : [1996483136L, 0L, 64L, 0L]; res : None
+>>> Tracing instruction at 0x76767a94, instruction size = 0x4
+   0:   1520001b        bnez    t1,0x70
+>>> Tracing instruction at 0x76767a98, instruction size = 0x4
+   0:   00801021        move    v0,a0
+>>> Tracing instruction at 0x76767a9c, instruction size = 0x4
+   0:   10a00005        beqz    a1,0x18
+>>> Tracing instruction at 0x76767aa0, instruction size = 0x4
+   0:   30a500ff        andi    a1,a1,0xff
+>>> Tracing instruction at 0x76767ab4, instruction size = 0x4
+   0:   00044023        negu    t0,a0
+>>> Tracing instruction at 0x76767ab8, instruction size = 0x4
+   0:   31080003        andi    t0,t0,0x3
+>>> Tracing instruction at 0x76767abc, instruction size = 0x4
+   0:   11000003        beqz    t0,0x10
+>>> Tracing instruction at 0x76767ac0, instruction size = 0x4
+   0:   00c83023        subu    a2,a2,t0
+>>> Tracing instruction at 0x76767acc, instruction size = 0x4
+   0:   30c80007        andi    t0,a2,0x7
+>>> Tracing instruction at 0x76767ad0, instruction size = 0x4
+   0:   11060007        beq     t0,a2,0x20
+>>> Tracing instruction at 0x76767ad4, instruction size = 0x4
+   0:   00c83823        subu    a3,a2,t0
+>>> Tracing instruction at 0x76767ad8, instruction size = 0x4
+   0:   00e43821        addu    a3,a3,a0
+>>> Tracing instruction at 0x76767adc, instruction size = 0x4
+   0:   01003021        move    a2,t0
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767ae0, instruction size = 0x4
+   0:   24840008        addiu   a0,a0,8
+>>> Tracing instruction at 0x76767ae4, instruction size = 0x4
+   0:   ac85fff8        sw      a1,-8(a0)
+>>> Tracing instruction at 0x76767ae8, instruction size = 0x4
+   0:   1487fffd        bne     a0,a3,0xfffffff8
+>>> Tracing instruction at 0x76767aec, instruction size = 0x4
+   0:   ac85fffc        sw      a1,-4(a0)
+>>> Tracing instruction at 0x76767af0, instruction size = 0x4
+   0:   30c80004        andi    t0,a2,0x4
+>>> Tracing instruction at 0x76767af4, instruction size = 0x4
+   0:   11000003        beqz    t0,0x10
+>>> Tracing instruction at 0x76767af8, instruction size = 0x4
+   0:   00c83023        subu    a2,a2,t0
+>>> Tracing instruction at 0x76767b04, instruction size = 0x4
+   0:   18c00004        blez    a2,0x14
+>>> Tracing instruction at 0x76767b08, instruction size = 0x4
+   0:   00c43821        addu    a3,a2,a0
+>>> Tracing instruction at 0x76767b18, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76767b1c, instruction size = 0x4
+   0:   00000000        nop
 >>> Tracing instruction at 0x41c1c8, instruction size = 0x4
    0:   8fbc0010        lw      gp,16(sp)
 >>> Tracing instruction at 0x41c1cc, instruction size = 0x4
@@ -1275,17 +1319,10 @@ ret_addr : 4309448; args : [1996483136L, 0L, 64L, 0L]; res : None
    0:   00000000        nop
 >>> Tracing instruction at 0x41c1dc, instruction size = 0x4
    0:   0320f809        jalr    t9
-find call : 0x41c1dc  call address : 0x41d6d0
-call value
-reg_value : 0x436144
-reg_value : 0x0
-reg_value : 0x40
-reg_value : 0x0
 >>> Tracing instruction at 0x41c1e0, instruction size = 0x4
    0:   265e000c        addiu   s8,s2,12
 >>> Tracing instruction at 0x41d6d0, instruction size = 0x4
    0:   24020014        li      v0,20
-find func : 0x41d6d0 --> ixml_membuf_init
 >>> Tracing instruction at 0x41d6d4, instruction size = 0x4
    0:   ac82000c        sw      v0,12(a0)
 >>> Tracing instruction at 0x41d6d8, instruction size = 0x4
@@ -1306,17 +1343,10 @@ find func : 0x41d6d0 --> ixml_membuf_init
    0:   00000000        nop
 >>> Tracing instruction at 0x41c1f4, instruction size = 0x4
    0:   0320f809        jalr    t9
-find call : 0x41c1f4  call address : 0x41d6d0
-call value
-reg_value : 0x436144
-reg_value : 0x0
-reg_value : 0x40
-reg_value : 0x0
 >>> Tracing instruction at 0x41c1f8, instruction size = 0x4
    0:   03c02021        move    a0,s8
 >>> Tracing instruction at 0x41d6d0, instruction size = 0x4
    0:   24020014        li      v0,20
-find func : 0x41d6d0 --> ixml_membuf_init
 >>> Tracing instruction at 0x41d6d4, instruction size = 0x4
    0:   ac82000c        sw      v0,12(a0)
 >>> Tracing instruction at 0x41d6d8, instruction size = 0x4
@@ -1339,119 +1369,2190 @@ find func : 0x41d6d0 --> ixml_membuf_init
    0:   00000000        nop
 >>> Tracing instruction at 0x41c2b8, instruction size = 0x4
    0:   0320f809        jalr    t9
-find call : 0x41c2b8  call address : 0x420450
-call value
-reg_value : 0x4360e0
-reg_value : 0x0
-reg_value : 0x40
-reg_value : 0x0
 >>> Tracing instruction at 0x41c2bc, instruction size = 0x4
    0:   24140066        li      s4,102
 >>> Tracing instruction at 0x420450, instruction size = 0x4
    0:   8f998010        lw      t9,-32752(gp)
-find func : 0x420450 --> strdup
-custom func strdup##############################################
-func : <bound method FuncEmu.strdup of <hook.func_emu.FuncEmu object at 0x7ff84e729a50>> ; argc : [4415712L, 0L, 64L, 0L]
+find unresolved function : strdup
+func : <bound method FuncEmu.strdup of <hook.func_emu.FuncEmu object at 0x7f9be956e750>> 
 ret_addr : 0x41c2c0
 strdup
-src_addr : 0x<built-in method encode of str object at 0x7ff84e720800>
-func : <bound method FuncEmu.strdup of <hook.func_emu.FuncEmu object at 0x7ff84e729a50>> ; argc : [4415712L, 0L, 64L, 0L]
-ret_addr : 0x41c2c0
-strdup
-src_addr : 0x<built-in method encode of str object at 0x7ff84e720aa8>
-func : <bound method FuncEmu.strdup of <hook.func_emu.FuncEmu object at 0x7ff84e729a50>> ; argc : [4415712L, 0L, 64L, 0L]
-ret_addr : 0x41c2c0
-strdup
-src_addr : 0x<built-in method encode of str object at 0x7ff84e720aa8>
->>> Tracing instruction at 0x420454, instruction size = 0x4
-   0:   03e07821        move    t7,ra
->>> Tracing instruction at 0x420458, instruction size = 0x4
+src_addr : 0x4360e0
+src_str : <?xml version="1.0" encoding="UTF-8"?><body><A></A></body>
+            I                                                                    ™                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+call num : 0
+ret_addr : 0x41c2c0; res : 24576
+>>> Tracing instruction at 0x41c2c0, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41c2c4, instruction size = 0x4
+   0:   1040001a        beqz    v0,0x6c
+>>> Tracing instruction at 0x41c2c8, instruction size = 0x4
+   0:   ae420000        sw      v0,0(s2)
+>>> Tracing instruction at 0x41c2cc, instruction size = 0x4
+   0:   8e420000        lw      v0,0(s2)
+>>> Tracing instruction at 0x41c2d0, instruction size = 0x4
+   0:   8f998270        lw      t9,-32144(gp)
+>>> Tracing instruction at 0x41c2d4, instruction size = 0x4
+   0:   27b60034        addiu   s6,sp,52
+>>> Tracing instruction at 0x41c2d8, instruction size = 0x4
+   0:   ae420004        sw      v0,4(s2)
+>>> Tracing instruction at 0x41c2dc, instruction size = 0x4
+   0:   02c02021        move    a0,s6
+>>> Tracing instruction at 0x41c2e0, instruction size = 0x4
+   0:   afa00018        sw      zero,24(sp)
+>>> Tracing instruction at 0x41c2e4, instruction size = 0x4
+   0:   afa0001c        sw      zero,28(sp)
+>>> Tracing instruction at 0x41c2e8, instruction size = 0x4
    0:   0320f809        jalr    t9
-find call : 0x420458  call address : 0x767ed330
-call value
-reg_value : 0x4360e0
-reg_value : 0x0
-reg_value : 0x40
-reg_value : 0x0
->>> Tracing instruction at 0x42045c, instruction size = 0x4
-   0:   24180018        li      t8,24
->>> Tracing instruction at 0x767ed330, instruction size = 0x4
-   0:   03801821        move    v1,gp
->>> Tracing instruction at 0x767ed334, instruction size = 0x4
-   0:   27bdffd8        addiu   sp,sp,-40
->>> Tracing instruction at 0x767ed338, instruction size = 0x4
-   0:   2739000c        addiu   t9,t9,12
->>> Tracing instruction at 0x767ed33c, instruction size = 0x4
-   0:   3c1c0002        lui     gp,0x2
->>> Tracing instruction at 0x767ed340, instruction size = 0x4
-   0:   279c8cd4        addiu   gp,gp,-29484
->>> Tracing instruction at 0x767ed344, instruction size = 0x4
-   0:   0399e021        addu    gp,gp,t9
->>> Tracing instruction at 0x767ed348, instruction size = 0x4
-   0:   03e01021        move    v0,ra
->>> Tracing instruction at 0x767ed34c, instruction size = 0x4
-   0:   afbc0020        sw      gp,32(sp)
->>> Tracing instruction at 0x767ed350, instruction size = 0x4
-   0:   afaf0024        sw      t7,36(sp)
->>> Tracing instruction at 0x767ed354, instruction size = 0x4
-   0:   afa40010        sw      a0,16(sp)
->>> Tracing instruction at 0x767ed358, instruction size = 0x4
-   0:   afa50014        sw      a1,20(sp)
->>> Tracing instruction at 0x767ed35c, instruction size = 0x4
-   0:   afa60018        sw      a2,24(sp)
->>> Tracing instruction at 0x767ed360, instruction size = 0x4
-   0:   afa7001c        sw      a3,28(sp)
->>> Tracing instruction at 0x767ed364, instruction size = 0x4
-   0:   03002021        move    a0,t8
->>> Tracing instruction at 0x767ed368, instruction size = 0x4
-   0:   00602821        move    a1,v1
->>> Tracing instruction at 0x767ed36c, instruction size = 0x4
-   0:   8f9980bc        lw      t9,-32580(gp)
->>> Tracing instruction at 0x767ed370, instruction size = 0x4
-   0:   0320f809        jalr    t9
-find call : 0x767ed370  call address : 0x767ead4c
-call value
-reg_value : 0x18
-reg_value : 0x43bb40
-reg_value : 0x40
-reg_value : 0x0
->>> Tracing instruction at 0x767ed374, instruction size = 0x4
+>>> Tracing instruction at 0x41c2ec, instruction size = 0x4
+   0:   afa00020        sw      zero,32(sp)
+>>> Tracing instruction at 0x41a82c, instruction size = 0x4
+   0:   ac800030        sw      zero,48(a0)
+>>> Tracing instruction at 0x41a830, instruction size = 0x4
+   0:   ac800000        sw      zero,0(a0)
+>>> Tracing instruction at 0x41a834, instruction size = 0x4
+   0:   ac800004        sw      zero,4(a0)
+>>> Tracing instruction at 0x41a838, instruction size = 0x4
+   0:   ac800008        sw      zero,8(a0)
+>>> Tracing instruction at 0x41a83c, instruction size = 0x4
+   0:   ac80000c        sw      zero,12(a0)
+>>> Tracing instruction at 0x41a840, instruction size = 0x4
+   0:   ac800010        sw      zero,16(a0)
+>>> Tracing instruction at 0x41a844, instruction size = 0x4
+   0:   ac800014        sw      zero,20(a0)
+>>> Tracing instruction at 0x41a848, instruction size = 0x4
+   0:   ac800018        sw      zero,24(a0)
+>>> Tracing instruction at 0x41a84c, instruction size = 0x4
+   0:   ac80001c        sw      zero,28(a0)
+>>> Tracing instruction at 0x41a850, instruction size = 0x4
+   0:   ac800020        sw      zero,32(a0)
+>>> Tracing instruction at 0x41a854, instruction size = 0x4
+   0:   ac800024        sw      zero,36(a0)
+>>> Tracing instruction at 0x41a858, instruction size = 0x4
+   0:   ac800028        sw      zero,40(a0)
+>>> Tracing instruction at 0x41a85c, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x41a860, instruction size = 0x4
+   0:   ac80002c        sw      zero,44(a0)
+>>> Tracing instruction at 0x41c2f0, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41c2f4, instruction size = 0x4
    0:   00000000        nop
->>> Tracing instruction at 0x767ead4c, instruction size = 0x4
-   0:   3c1c0002        lui     gp,0x2
->>> Tracing instruction at 0x767ead50, instruction size = 0x4
-   0:   279cb2c4        addiu   gp,gp,-19772
->>> Tracing instruction at 0x767ead54, instruction size = 0x4
-   0:   0399e021        addu    gp,gp,t9
->>> Tracing instruction at 0x767ead58, instruction size = 0x4
-   0:   27bdffc8        addiu   sp,sp,-56
->>> Tracing instruction at 0x767ead5c, instruction size = 0x4
-   0:   afbe0030        sw      s8,48(sp)
->>> Tracing instruction at 0x767ead60, instruction size = 0x4
-   0:   03a0f021        move    s8,sp
->>> Tracing instruction at 0x767ead64, instruction size = 0x4
-   0:   afbf0034        sw      ra,52(sp)
->>> Tracing instruction at 0x767ead68, instruction size = 0x4
-   0:   afb5002c        sw      s5,44(sp)
->>> Tracing instruction at 0x767ead6c, instruction size = 0x4
-   0:   afb40028        sw      s4,40(sp)
->>> Tracing instruction at 0x767ead70, instruction size = 0x4
-   0:   afb30024        sw      s3,36(sp)
->>> Tracing instruction at 0x767ead74, instruction size = 0x4
-   0:   afb20020        sw      s2,32(sp)
->>> Tracing instruction at 0x767ead78, instruction size = 0x4
-   0:   afb1001c        sw      s1,28(sp)
->>> Tracing instruction at 0x767ead7c, instruction size = 0x4
-   0:   afb00018        sw      s0,24(sp)
->>> Tracing instruction at 0x767ead80, instruction size = 0x4
+>>> Tracing instruction at 0x41c2f8, instruction size = 0x4
+   0:   8f99810c        lw      t9,-32500(gp)
+>>> Tracing instruction at 0x41c2fc, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41c300, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41c304, instruction size = 0x4
+   0:   27a40018        addiu   a0,sp,24
+>>> Tracing instruction at 0x41fa30, instruction size = 0x4
+   0:   3c1c0044        lui     gp,0x44
+>>> Tracing instruction at 0x41fa34, instruction size = 0x4
+   0:   27bdffd8        addiu   sp,sp,-40
+>>> Tracing instruction at 0x41fa38, instruction size = 0x4
+   0:   279cbb40        addiu   gp,gp,-17600
+>>> Tracing instruction at 0x41fa3c, instruction size = 0x4
+   0:   afbf0024        sw      ra,36(sp)
+>>> Tracing instruction at 0x41fa40, instruction size = 0x4
+   0:   afb10020        sw      s1,32(sp)
+>>> Tracing instruction at 0x41fa44, instruction size = 0x4
+   0:   afb0001c        sw      s0,28(sp)
+>>> Tracing instruction at 0x41fa48, instruction size = 0x4
    0:   afbc0010        sw      gp,16(sp)
->>> Tracing instruction at 0x767ead84, instruction size = 0x4
-   0:   24b48010        addiu   s4,a1,-32752
->>> Tracing instruction at 0x767ead88, instruction size = 0x4
-   0:   8e830004        lw      v1,4(s4)
->>> Tracing instruction at 0x767ead8c, instruction size = 0x4
-   0:   00041100        sll     v0,a0,0x4
->>> Tracing instruction at 0x767ead90, instruction size = 0x4
-   0:   0080a821        move    s5,a0
->>> Tracing instruction at 0x767ead94, instruction size = 0x4
-   0:   8c640058        lw      a0,88(v1)
+>>> Tracing instruction at 0x41fa4c, instruction size = 0x4
+   0:   8f9982c8        lw      t9,-32056(gp)
+>>> Tracing instruction at 0x41fa50, instruction size = 0x4
+   0:   00808821        move    s1,a0
+>>> Tracing instruction at 0x41fa54, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41fa58, instruction size = 0x4
+   0:   24040034        li      a0,52
+>>> Tracing instruction at 0x7678442c, instruction size = 0x4
+   0:   3c1c0003        lui     gp,0x3
+>>> Tracing instruction at 0x76784430, instruction size = 0x4
+   0:   279c9114        addiu   gp,gp,-28396
+>>> Tracing instruction at 0x76784434, instruction size = 0x4
+   0:   0399e021        addu    gp,gp,t9
+>>> Tracing instruction at 0x76784438, instruction size = 0x4
+   0:   27bdffa0        addiu   sp,sp,-96
+>>> Tracing instruction at 0x7678443c, instruction size = 0x4
+   0:   afbf005c        sw      ra,92(sp)
+>>> Tracing instruction at 0x76784440, instruction size = 0x4
+   0:   afbe0058        sw      s8,88(sp)
+>>> Tracing instruction at 0x76784444, instruction size = 0x4
+   0:   afb70054        sw      s7,84(sp)
+>>> Tracing instruction at 0x76784448, instruction size = 0x4
+   0:   afb60050        sw      s6,80(sp)
+>>> Tracing instruction at 0x7678444c, instruction size = 0x4
+   0:   afb5004c        sw      s5,76(sp)
+>>> Tracing instruction at 0x76784450, instruction size = 0x4
+   0:   afb40048        sw      s4,72(sp)
+>>> Tracing instruction at 0x76784454, instruction size = 0x4
+   0:   afb30044        sw      s3,68(sp)
+>>> Tracing instruction at 0x76784458, instruction size = 0x4
+   0:   afb20040        sw      s2,64(sp)
+>>> Tracing instruction at 0x7678445c, instruction size = 0x4
+   0:   afb1003c        sw      s1,60(sp)
+>>> Tracing instruction at 0x76784460, instruction size = 0x4
+   0:   afb00038        sw      s0,56(sp)
+>>> Tracing instruction at 0x76784464, instruction size = 0x4
+   0:   afbc0018        sw      gp,24(sp)
+>>> Tracing instruction at 0x76784468, instruction size = 0x4
+   0:   8f998974        lw      t9,-30348(gp)
+>>> Tracing instruction at 0x7678446c, instruction size = 0x4
+   0:   8f8589c4        lw      a1,-30268(gp)
+>>> Tracing instruction at 0x76784470, instruction size = 0x4
+   0:   8f868978        lw      a2,-30344(gp)
+>>> Tracing instruction at 0x76784474, instruction size = 0x4
+   0:   00808021        move    s0,a0
+>>> Tracing instruction at 0x76784478, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x7678447c, instruction size = 0x4
+   0:   27a40020        addiu   a0,sp,32
+>>> Tracing instruction at 0x7678ca30, instruction size = 0x4
+   0:   3c1c0002        lui     gp,0x2
+>>> Tracing instruction at 0x7678ca34, instruction size = 0x4
+   0:   279c0b10        addiu   gp,gp,2832
+>>> Tracing instruction at 0x7678ca38, instruction size = 0x4
+   0:   0399e021        addu    gp,gp,t9
+>>> Tracing instruction at 0x7678ca3c, instruction size = 0x4
+   0:   8f828890        lw      v0,-30576(gp)
+>>> Tracing instruction at 0x7678ca40, instruction size = 0x4
+   0:   8c5900ac        lw      t9,172(v0)
+>>> Tracing instruction at 0x7678ca44, instruction size = 0x4
+   0:   13200003        beqz    t9,0x10
+>>> Tracing instruction at 0x7678ca48, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x7678ca54, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x7678ca58, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x76784480, instruction size = 0x4
+   0:   8fbc0018        lw      gp,24(sp)
+>>> Tracing instruction at 0x76784484, instruction size = 0x4
+   0:   8f9980e8        lw      t9,-32536(gp)
+>>> Tracing instruction at 0x76784488, instruction size = 0x4
+   0:   8f848978        lw      a0,-30344(gp)
+>>> Tracing instruction at 0x7678448c, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x76784490, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x7678c8fc, instruction size = 0x4
+   0:   3c1c0002        lui     gp,0x2
+>>> Tracing instruction at 0x7678c900, instruction size = 0x4
+   0:   279c0c44        addiu   gp,gp,3140
+>>> Tracing instruction at 0x7678c904, instruction size = 0x4
+   0:   0399e021        addu    gp,gp,t9
+>>> Tracing instruction at 0x7678c908, instruction size = 0x4
+   0:   8f828890        lw      v0,-30576(gp)
+>>> Tracing instruction at 0x7678c90c, instruction size = 0x4
+   0:   8c590068        lw      t9,104(v0)
+>>> Tracing instruction at 0x7678c910, instruction size = 0x4
+   0:   17200003        bnez    t9,0x10
+>>> Tracing instruction at 0x7678c914, instruction size = 0x4
+   0:   00001021        move    v0,zero
+>>> Tracing instruction at 0x7678c918, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x7678c91c, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x76784494, instruction size = 0x4
+   0:   2e02ffe0        sltiu   v0,s0,-32
+>>> Tracing instruction at 0x76784498, instruction size = 0x4
+   0:   14400008        bnez    v0,0x24
+>>> Tracing instruction at 0x7678449c, instruction size = 0x4
+   0:   8fbc0018        lw      gp,24(sp)
+>>> Tracing instruction at 0x767844bc, instruction size = 0x4
+   0:   2604000b        addiu   a0,s0,11
+>>> Tracing instruction at 0x767844c0, instruction size = 0x4
+   0:   2c820010        sltiu   v0,a0,16
+>>> Tracing instruction at 0x767844c4, instruction size = 0x4
+   0:   14400003        bnez    v0,0x10
+>>> Tracing instruction at 0x767844c8, instruction size = 0x4
+   0:   24120010        li      s2,16
+>>> Tracing instruction at 0x767844cc, instruction size = 0x4
+   0:   2402fff8        li      v0,-8
+>>> Tracing instruction at 0x767844d0, instruction size = 0x4
+   0:   00829024        and     s2,a0,v0
+>>> Tracing instruction at 0x767844d4, instruction size = 0x4
+   0:   8f8489dc        lw      a0,-30244(gp)
+>>> Tracing instruction at 0x767844d8, instruction size = 0x4
+   0:   8c900000        lw      s0,0(a0)
+>>> Tracing instruction at 0x767844dc, instruction size = 0x4
+   0:   32020001        andi    v0,s0,0x1
+>>> Tracing instruction at 0x767844e0, instruction size = 0x4
+   0:   14400008        bnez    v0,0x24
+>>> Tracing instruction at 0x767844e4, instruction size = 0x4
+   0:   0212102b        sltu    v0,s0,s2
+>>> Tracing instruction at 0x76784504, instruction size = 0x4
+   0:   1440000b        bnez    v0,0x30
+>>> Tracing instruction at 0x76784508, instruction size = 0x4
+   0:   2e420100        sltiu   v0,s2,256
+>>> Tracing instruction at 0x7678450c, instruction size = 0x4
+   0:   00121042        srl     v0,s2,0x1
+>>> Tracing instruction at 0x76784510, instruction size = 0x4
+   0:   2442fff8        addiu   v0,v0,-8
+>>> Tracing instruction at 0x76784514, instruction size = 0x4
+   0:   00822021        addu    a0,a0,v0
+>>> Tracing instruction at 0x76784518, instruction size = 0x4
+   0:   8c830004        lw      v1,4(a0)
+>>> Tracing instruction at 0x7678451c, instruction size = 0x4
+   0:   10600005        beqz    v1,0x18
+>>> Tracing instruction at 0x76784520, instruction size = 0x4
+   0:   2e420100        sltiu   v0,s2,256
+>>> Tracing instruction at 0x76784534, instruction size = 0x4
+   0:   10400013        beqz    v0,0x50
+>>> Tracing instruction at 0x76784538, instruction size = 0x4
+   0:   0012a0c2        srl     s4,s2,0x3
+>>> Tracing instruction at 0x7678453c, instruction size = 0x4
+   0:   24020001        li      v0,1
+>>> Tracing instruction at 0x76784540, instruction size = 0x4
+   0:   00541023        subu    v0,v0,s4
+>>> Tracing instruction at 0x76784544, instruction size = 0x4
+   0:   2404fff8        li      a0,-8
+>>> Tracing instruction at 0x76784548, instruction size = 0x4
+   0:   70442802        0x70442802
+>>> Tracing instruction at 0x7678454c, instruction size = 0x4
+   0:   8f8389dc        lw      v1,-30244(gp)
+>>> Tracing instruction at 0x76784550, instruction size = 0x4
+   0:   24630034        addiu   v1,v1,52
+>>> Tracing instruction at 0x76784554, instruction size = 0x4
+   0:   00a33021        addu    a2,a1,v1
+>>> Tracing instruction at 0x76784558, instruction size = 0x4
+   0:   8cc5000c        lw      a1,12(a2)
+>>> Tracing instruction at 0x7678455c, instruction size = 0x4
+   0:   10a60067        beq     a1,a2,0x1a0
+>>> Tracing instruction at 0x76784560, instruction size = 0x4
+   0:   00b21021        addu    v0,a1,s2
+>>> Tracing instruction at 0x767846fc, instruction size = 0x4
+   0:   8f9589dc        lw      s5,-30244(gp)
+>>> Tracing instruction at 0x76784700, instruction size = 0x4
+   0:   2e560100        sltiu   s6,s2,256
+>>> Tracing instruction at 0x76784704, instruction size = 0x4
+   0:   26570010        addiu   s7,s2,16
+>>> Tracing instruction at 0x76784708, instruction size = 0x4
+   0:   26b30034        addiu   s3,s5,52
+>>> Tracing instruction at 0x7678470c, instruction size = 0x4
+   0:   241e0001        li      s8,1
+>>> Tracing instruction at 0x76784710, instruction size = 0x4
+   0:   8e71000c        lw      s1,12(s3)
+>>> Tracing instruction at 0x76784714, instruction size = 0x4
+   0:   5633ffa9        0x5633ffa9
+>>> Tracing instruction at 0x7678471c, instruction size = 0x4
+   0:   56c00032        0x56c00032
+>>> Tracing instruction at 0x76784720, instruction size = 0x4
+   0:   26840001        addiu   a0,s4,1
+>>> Tracing instruction at 0x767847e8, instruction size = 0x4
+   0:   24050001        li      a1,1
+>>> Tracing instruction at 0x767847ec, instruction size = 0x4
+   0:   00a41823        subu    v1,a1,a0
+>>> Tracing instruction at 0x767847f0, instruction size = 0x4
+   0:   2402fff8        li      v0,-8
+>>> Tracing instruction at 0x767847f4, instruction size = 0x4
+   0:   70623002        0x70623002
+>>> Tracing instruction at 0x767847f8, instruction size = 0x4
+   0:   00044942        srl     t1,a0,0x5
+>>> Tracing instruction at 0x767847fc, instruction size = 0x4
+   0:   8f8389dc        lw      v1,-30244(gp)
+>>> Tracing instruction at 0x76784800, instruction size = 0x4
+   0:   252200cc        addiu   v0,t1,204
+>>> Tracing instruction at 0x76784804, instruction size = 0x4
+   0:   00021080        sll     v0,v0,0x2
+>>> Tracing instruction at 0x76784808, instruction size = 0x4
+   0:   00621021        addu    v0,v1,v0
+>>> Tracing instruction at 0x7678480c, instruction size = 0x4
+   0:   8c470004        lw      a3,4(v0)
+>>> Tracing instruction at 0x76784810, instruction size = 0x4
+   0:   00852004        sllv    a0,a1,a0
+>>> Tracing instruction at 0x76784814, instruction size = 0x4
+   0:   240bffe0        li      t3,-32
+>>> Tracing instruction at 0x76784818, instruction size = 0x4
+   0:   00602821        move    a1,v1
+>>> Tracing instruction at 0x7678481c, instruction size = 0x4
+   0:   240afff8        li      t2,-8
+>>> Tracing instruction at 0x76784820, instruction size = 0x4
+   0:   00d14021        addu    t0,a2,s1
+>>> Tracing instruction at 0x76784824, instruction size = 0x4
+   0:   00e4102b        sltu    v0,a3,a0
+>>> Tracing instruction at 0x76784828, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x7678482c, instruction size = 0x4
+   0:   25290001        addiu   t1,t1,1
+>>> Tracing instruction at 0x7678483c, instruction size = 0x4
+   0:   2d220003        sltiu   v0,t1,3
+>>> Tracing instruction at 0x76784840, instruction size = 0x4
+   0:   10400039        beqz    v0,0xe8
+>>> Tracing instruction at 0x76784844, instruction size = 0x4
+   0:   252200cc        addiu   v0,t1,204
+>>> Tracing instruction at 0x76784848, instruction size = 0x4
+   0:   00021080        sll     v0,v0,0x2
+>>> Tracing instruction at 0x7678484c, instruction size = 0x4
+   0:   00a21021        addu    v0,a1,v0
+>>> Tracing instruction at 0x76784850, instruction size = 0x4
+   0:   8c470004        lw      a3,4(v0)
+>>> Tracing instruction at 0x76784854, instruction size = 0x4
+   0:   50e0fff9        0x50e0fff9
+>>> Tracing instruction at 0x76784858, instruction size = 0x4
+   0:   25290001        addiu   t1,t1,1
+>>> Tracing instruction at 0x7678483c, instruction size = 0x4
+   0:   2d220003        sltiu   v0,t1,3
+>>> Tracing instruction at 0x76784840, instruction size = 0x4
+   0:   10400039        beqz    v0,0xe8
+>>> Tracing instruction at 0x76784844, instruction size = 0x4
+   0:   252200cc        addiu   v0,t1,204
+>>> Tracing instruction at 0x76784848, instruction size = 0x4
+   0:   00021080        sll     v0,v0,0x2
+>>> Tracing instruction at 0x7678484c, instruction size = 0x4
+   0:   00a21021        addu    v0,a1,v0
+>>> Tracing instruction at 0x76784850, instruction size = 0x4
+   0:   8c470004        lw      a3,4(v0)
+>>> Tracing instruction at 0x76784854, instruction size = 0x4
+   0:   50e0fff9        0x50e0fff9
+>>> Tracing instruction at 0x76784858, instruction size = 0x4
+   0:   25290001        addiu   t1,t1,1
+>>> Tracing instruction at 0x7678483c, instruction size = 0x4
+   0:   2d220003        sltiu   v0,t1,3
+>>> Tracing instruction at 0x76784840, instruction size = 0x4
+   0:   10400039        beqz    v0,0xe8
+>>> Tracing instruction at 0x76784844, instruction size = 0x4
+   0:   252200cc        addiu   v0,t1,204
+>>> Tracing instruction at 0x76784928, instruction size = 0x4
+   0:   8f8689dc        lw      a2,-30244(gp)
+>>> Tracing instruction at 0x7678492c, instruction size = 0x4
+   0:   26440010        addiu   a0,s2,16
+>>> Tracing instruction at 0x76784930, instruction size = 0x4
+   0:   afa40030        sw      a0,48(sp)
+>>> Tracing instruction at 0x76784934, instruction size = 0x4
+   0:   8cc5002c        lw      a1,44(a2)
+>>> Tracing instruction at 0x76784938, instruction size = 0x4
+   0:   2403fffc        li      v1,-4
+>>> Tracing instruction at 0x7678493c, instruction size = 0x4
+   0:   8ca20004        lw      v0,4(a1)
+>>> Tracing instruction at 0x76784940, instruction size = 0x4
+   0:   00431824        and     v1,v0,v1
+>>> Tracing instruction at 0x76784944, instruction size = 0x4
+   0:   0064102b        sltu    v0,v1,a0
+>>> Tracing instruction at 0x76784948, instruction size = 0x4
+   0:   14400009        bnez    v0,0x28
+>>> Tracing instruction at 0x7678494c, instruction size = 0x4
+   0:   00721023        subu    v0,v1,s2
+>>> Tracing instruction at 0x76784950, instruction size = 0x4
+   0:   00b22021        addu    a0,a1,s2
+>>> Tracing instruction at 0x76784954, instruction size = 0x4
+   0:   34420001        ori     v0,v0,0x1
+>>> Tracing instruction at 0x76784958, instruction size = 0x4
+   0:   36430001        ori     v1,s2,0x1
+>>> Tracing instruction at 0x7678495c, instruction size = 0x4
+   0:   acc4002c        sw      a0,44(a2)
+>>> Tracing instruction at 0x76784960, instruction size = 0x4
+   0:   24b00008        addiu   s0,a1,8
+>>> Tracing instruction at 0x76784964, instruction size = 0x4
+   0:   aca30004        sw      v1,4(a1)
+>>> Tracing instruction at 0x76784968, instruction size = 0x4
+   0:   10000131        b       0x4c8
+>>> Tracing instruction at 0x7678496c, instruction size = 0x4
+   0:   ac820004        sw      v0,4(a0)
+>>> Tracing instruction at 0x76784e30, instruction size = 0x4
+   0:   8f998a0c        lw      t9,-30196(gp)
+>>> Tracing instruction at 0x76784e34, instruction size = 0x4
+   0:   27a40020        addiu   a0,sp,32
+>>> Tracing instruction at 0x76784e38, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x76784e3c, instruction size = 0x4
+   0:   24050001        li      a1,1
+>>> Tracing instruction at 0x7678ca88, instruction size = 0x4
+   0:   3c1c0002        lui     gp,0x2
+>>> Tracing instruction at 0x7678ca8c, instruction size = 0x4
+   0:   279c0ab8        addiu   gp,gp,2744
+>>> Tracing instruction at 0x7678ca90, instruction size = 0x4
+   0:   0399e021        addu    gp,gp,t9
+>>> Tracing instruction at 0x7678ca94, instruction size = 0x4
+   0:   8f828890        lw      v0,-30576(gp)
+>>> Tracing instruction at 0x7678ca98, instruction size = 0x4
+   0:   8c5900b4        lw      t9,180(v0)
+>>> Tracing instruction at 0x7678ca9c, instruction size = 0x4
+   0:   13200003        beqz    t9,0x10
+>>> Tracing instruction at 0x7678caa0, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x7678caac, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x7678cab0, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x76784e40, instruction size = 0x4
+   0:   8fbc0018        lw      gp,24(sp)
+>>> Tracing instruction at 0x76784e44, instruction size = 0x4
+   0:   8fbf005c        lw      ra,92(sp)
+>>> Tracing instruction at 0x76784e48, instruction size = 0x4
+   0:   02001021        move    v0,s0
+>>> Tracing instruction at 0x76784e4c, instruction size = 0x4
+   0:   8fbe0058        lw      s8,88(sp)
+>>> Tracing instruction at 0x76784e50, instruction size = 0x4
+   0:   8fb70054        lw      s7,84(sp)
+>>> Tracing instruction at 0x76784e54, instruction size = 0x4
+   0:   8fb60050        lw      s6,80(sp)
+>>> Tracing instruction at 0x76784e58, instruction size = 0x4
+   0:   8fb5004c        lw      s5,76(sp)
+>>> Tracing instruction at 0x76784e5c, instruction size = 0x4
+   0:   8fb40048        lw      s4,72(sp)
+>>> Tracing instruction at 0x76784e60, instruction size = 0x4
+   0:   8fb30044        lw      s3,68(sp)
+>>> Tracing instruction at 0x76784e64, instruction size = 0x4
+   0:   8fb20040        lw      s2,64(sp)
+>>> Tracing instruction at 0x76784e68, instruction size = 0x4
+   0:   8fb1003c        lw      s1,60(sp)
+>>> Tracing instruction at 0x76784e6c, instruction size = 0x4
+   0:   8fb00038        lw      s0,56(sp)
+>>> Tracing instruction at 0x76784e70, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76784e74, instruction size = 0x4
+   0:   27bd0060        addiu   sp,sp,96
+>>> Tracing instruction at 0x41fa5c, instruction size = 0x4
+   0:   00408021        move    s0,v0
+>>> Tracing instruction at 0x41fa60, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41fa64, instruction size = 0x4
+   0:   12000019        beqz    s0,0x68
+>>> Tracing instruction at 0x41fa68, instruction size = 0x4
+   0:   24020066        li      v0,102
+>>> Tracing instruction at 0x41fa6c, instruction size = 0x4
+   0:   8f998058        lw      t9,-32680(gp)
+>>> Tracing instruction at 0x41fa70, instruction size = 0x4
+   0:   3c040042        lui     a0,0x42
+>>> Tracing instruction at 0x41fa74, instruction size = 0x4
+   0:   ae000000        sw      zero,0(s0)
+>>> Tracing instruction at 0x41fa78, instruction size = 0x4
+   0:   ae000004        sw      zero,4(s0)
+>>> Tracing instruction at 0x41fa7c, instruction size = 0x4
+   0:   ae000008        sw      zero,8(s0)
+>>> Tracing instruction at 0x41fa80, instruction size = 0x4
+   0:   ae00000c        sw      zero,12(s0)
+>>> Tracing instruction at 0x41fa84, instruction size = 0x4
+   0:   ae000010        sw      zero,16(s0)
+>>> Tracing instruction at 0x41fa88, instruction size = 0x4
+   0:   ae000014        sw      zero,20(s0)
+>>> Tracing instruction at 0x41fa8c, instruction size = 0x4
+   0:   ae000018        sw      zero,24(s0)
+>>> Tracing instruction at 0x41fa90, instruction size = 0x4
+   0:   ae00001c        sw      zero,28(s0)
+>>> Tracing instruction at 0x41fa94, instruction size = 0x4
+   0:   ae000020        sw      zero,32(s0)
+>>> Tracing instruction at 0x41fa98, instruction size = 0x4
+   0:   ae000024        sw      zero,36(s0)
+>>> Tracing instruction at 0x41fa9c, instruction size = 0x4
+   0:   ae000028        sw      zero,40(s0)
+>>> Tracing instruction at 0x41faa0, instruction size = 0x4
+   0:   ae00002c        sw      zero,44(s0)
+>>> Tracing instruction at 0x41faa4, instruction size = 0x4
+   0:   ae000030        sw      zero,48(s0)
+>>> Tracing instruction at 0x41faa8, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41faac, instruction size = 0x4
+   0:   24843334        addiu   a0,a0,13108
+>>> Tracing instruction at 0x420450, instruction size = 0x4
+   0:   8f998010        lw      t9,-32752(gp)
+find unresolved function : strdup
+func : <bound method FuncEmu.strdup of <hook.func_emu.FuncEmu object at 0x7f9be956e750>> 
+ret_addr : 0x41fab0
+strdup
+src_addr : 0x423334
+src_str : #document   ÿýî ÿýïŒÿýï\ÿýï@ÿýï,ÿýî ÿýî ÿýî ÿýî ÿýîø        &#x &#  rb  #cdata-section  ]]> #text   xmlns   xmlns:  <?xml   <!DOCTYPE   
+	     <!--    <?xml?  --> <![CDATA[   0123456789ABCDEFabcdef  0123456789  http://www.w3.org/XML/1998/namespace    http://www.w3.org/2000/xmlns/       ÿÿÿÿ    ÿÿÿÿ         Bd    @D4 Bt    @Cð B|    @C¬ Bˆ    @Ch B    @C$ Bœ    @Bà B¤   
+ @P, B°    @Aà B¸    @Aœ             B3¨ B3° B3¼ B!° B3Ä B3Ì B2€ B3Ô B2Œ B" B3Ø B3Œ B3ä B3ü                         C50 C50         C5@ C5@                        C5` C5`         C5p C5p         C5€ C5€         C5 C5 C5˜ C5˜     B0Ø    B0ä C5° C5°        \$"`    \"'     €                                                                : : A Z _ _ a z À Ö Ø ö ø ÿ 14>AHJ~€ÃÍðôõúP¨»Á††ˆŠŒŒŽ¡£ÎÐÖÚÚÜÜÞÞààâóOQ\^ÄÇÈËÌÐëîõøù1VYYa†Ðêðò!:AJq·º¾ÀÎÐÓÕÕåæ		9	=	=	X	a	…	Œ			“	¨	ª	°	²	²	¶	¹	Ü	Ý	ß	á	ð	ñ
+
+
+
+
+
+
+(
+*
+0
+2
+3
+5
+6
+8
+9
+Y
+\
+^
+^
+r
+t
+call num : 1
+ret_addr : 0x41fab0; res : 1073152
+>>> Tracing instruction at 0x41fab0, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41fab4, instruction size = 0x4
+   0:   1040000b        beqz    v0,0x30
+>>> Tracing instruction at 0x41fab8, instruction size = 0x4
+   0:   ae020000        sw      v0,0(s0)
+>>> Tracing instruction at 0x41fabc, instruction size = 0x4
+   0:   24020009        li      v0,9
+>>> Tracing instruction at 0x41fac0, instruction size = 0x4
+   0:   ae020008        sw      v0,8(s0)
+>>> Tracing instruction at 0x41fac4, instruction size = 0x4
+   0:   ae100030        sw      s0,48(s0)
+>>> Tracing instruction at 0x41fac8, instruction size = 0x4
+   0:   00001021        move    v0,zero
+>>> Tracing instruction at 0x41facc, instruction size = 0x4
+   0:   8fbf0024        lw      ra,36(sp)
+>>> Tracing instruction at 0x41fad0, instruction size = 0x4
+   0:   ae300000        sw      s0,0(s1)
+>>> Tracing instruction at 0x41fad4, instruction size = 0x4
+   0:   8fb10020        lw      s1,32(sp)
+>>> Tracing instruction at 0x41fad8, instruction size = 0x4
+   0:   8fb0001c        lw      s0,28(sp)
+>>> Tracing instruction at 0x41fadc, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x41fae0, instruction size = 0x4
+   0:   27bd0028        addiu   sp,sp,40
+>>> Tracing instruction at 0x41c308, instruction size = 0x4
+   0:   1040000e        beqz    v0,0x3c
+>>> Tracing instruction at 0x41c30c, instruction size = 0x4
+   0:   0040a021        move    s4,v0
+>>> Tracing instruction at 0x41c344, instruction size = 0x4
+   0:   8fa20018        lw      v0,24(sp)
+>>> Tracing instruction at 0x41c348, instruction size = 0x4
+   0:   02402021        move    a0,s2
+>>> Tracing instruction at 0x41c34c, instruction size = 0x4
+   0:   0c106c18        jal     0x41b060
+>>> Tracing instruction at 0x41c350, instruction size = 0x4
+   0:   ae420034        sw      v0,52(s2)
+>>> Tracing instruction at 0x41b060, instruction size = 0x4
+   0:   3c1c0044        lui     gp,0x44
+>>> Tracing instruction at 0x41b064, instruction size = 0x4
+   0:   27bdffd8        addiu   sp,sp,-40
+>>> Tracing instruction at 0x41b068, instruction size = 0x4
+   0:   279cbb40        addiu   gp,gp,-17600
+>>> Tracing instruction at 0x41b06c, instruction size = 0x4
+   0:   afbf0024        sw      ra,36(sp)
+>>> Tracing instruction at 0x41b070, instruction size = 0x4
+   0:   afb20020        sw      s2,32(sp)
+>>> Tracing instruction at 0x41b074, instruction size = 0x4
+   0:   afb1001c        sw      s1,28(sp)
+>>> Tracing instruction at 0x41b078, instruction size = 0x4
+   0:   afb00018        sw      s0,24(sp)
+>>> Tracing instruction at 0x41b07c, instruction size = 0x4
+   0:   afbc0010        sw      gp,16(sp)
+>>> Tracing instruction at 0x41b080, instruction size = 0x4
+   0:   8c900004        lw      s0,4(a0)
+>>> Tracing instruction at 0x41b084, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b088, instruction size = 0x4
+   0:   82050000        lb      a1,0(s0)
+>>> Tracing instruction at 0x41b08c, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b090, instruction size = 0x4
+   0:   10a00011        beqz    a1,0x48
+>>> Tracing instruction at 0x41b094, instruction size = 0x4
+   0:   00809021        move    s2,a0
+>>> Tracing instruction at 0x41b098, instruction size = 0x4
+   0:   3c020043        lui     v0,0x43
+>>> Tracing instruction at 0x41b09c, instruction size = 0x4
+   0:   8c5134e8        lw      s1,13544(v0)
+>>> Tracing instruction at 0x41b0a0, instruction size = 0x4
+   0:   10000006        b       0x1c
+>>> Tracing instruction at 0x41b0a4, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b0bc, instruction size = 0x4
+   0:   8f998088        lw      t9,-32632(gp)
+>>> Tracing instruction at 0x41b0c0, instruction size = 0x4
+   0:   02202021        move    a0,s1
+>>> Tracing instruction at 0x41b0c4, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b0c8, instruction size = 0x4
+   0:   26100001        addiu   s0,s0,1
+>>> Tracing instruction at 0x767684c0, instruction size = 0x4
+   0:   10000005        b       0x18
+>>> Tracing instruction at 0x767684c4, instruction size = 0x4
+   0:   30a700ff        andi    a3,a1,0xff
+>>> Tracing instruction at 0x767684d8, instruction size = 0x4
+   0:   30820003        andi    v0,a0,0x3
+>>> Tracing instruction at 0x767684dc, instruction size = 0x4
+   0:   5440fffa        0x5440fffa
+>>> Tracing instruction at 0x767684e4, instruction size = 0x4
+   0:   00071200        sll     v0,a3,0x8
+>>> Tracing instruction at 0x767684e8, instruction size = 0x4
+   0:   00471025        or      v0,v0,a3
+>>> Tracing instruction at 0x767684ec, instruction size = 0x4
+   0:   00021c00        sll     v1,v0,0x10
+>>> Tracing instruction at 0x767684f0, instruction size = 0x4
+   0:   00624825        or      t1,v1,v0
+>>> Tracing instruction at 0x767684f4, instruction size = 0x4
+   0:   3c027efe        lui     v0,0x7efe
+>>> Tracing instruction at 0x767684f8, instruction size = 0x4
+   0:   344afeff        ori     t2,v0,0xfeff
+>>> Tracing instruction at 0x767684fc, instruction size = 0x4
+   0:   3c028101        lui     v0,0x8101
+>>> Tracing instruction at 0x76768500, instruction size = 0x4
+   0:   00803021        move    a2,a0
+>>> Tracing instruction at 0x76768504, instruction size = 0x4
+   0:   344b0100        ori     t3,v0,0x100
+>>> Tracing instruction at 0x76768508, instruction size = 0x4
+   0:   8cc30000        lw      v1,0(a2)
+>>> Tracing instruction at 0x7676850c, instruction size = 0x4
+   0:   24c60004        addiu   a2,a2,4
+>>> Tracing instruction at 0x76768510, instruction size = 0x4
+   0:   00691026        xor     v0,v1,t1
+>>> Tracing instruction at 0x76768514, instruction size = 0x4
+   0:   004a2021        addu    a0,v0,t2
+>>> Tracing instruction at 0x76768518, instruction size = 0x4
+   0:   006a2821        addu    a1,v1,t2
+>>> Tracing instruction at 0x7676851c, instruction size = 0x4
+   0:   00021027        nor     v0,zero,v0
+>>> Tracing instruction at 0x76768520, instruction size = 0x4
+   0:   00031827        nor     v1,zero,v1
+>>> Tracing instruction at 0x76768524, instruction size = 0x4
+   0:   00441026        xor     v0,v0,a0
+>>> Tracing instruction at 0x76768528, instruction size = 0x4
+   0:   00651826        xor     v1,v1,a1
+>>> Tracing instruction at 0x7676852c, instruction size = 0x4
+   0:   00431025        or      v0,v0,v1
+>>> Tracing instruction at 0x76768530, instruction size = 0x4
+   0:   004b1024        and     v0,v0,t3
+>>> Tracing instruction at 0x76768534, instruction size = 0x4
+   0:   1040fff4        beqz    v0,0xffffffd4
+>>> Tracing instruction at 0x76768538, instruction size = 0x4
+   0:   24c8fffc        addiu   t0,a2,-4
+>>> Tracing instruction at 0x76768508, instruction size = 0x4
+   0:   8cc30000        lw      v1,0(a2)
+>>> Tracing instruction at 0x7676850c, instruction size = 0x4
+   0:   24c60004        addiu   a2,a2,4
+>>> Tracing instruction at 0x76768510, instruction size = 0x4
+   0:   00691026        xor     v0,v1,t1
+>>> Tracing instruction at 0x76768514, instruction size = 0x4
+   0:   004a2021        addu    a0,v0,t2
+>>> Tracing instruction at 0x76768518, instruction size = 0x4
+   0:   006a2821        addu    a1,v1,t2
+>>> Tracing instruction at 0x7676851c, instruction size = 0x4
+   0:   00021027        nor     v0,zero,v0
+>>> Tracing instruction at 0x76768520, instruction size = 0x4
+   0:   00031827        nor     v1,zero,v1
+>>> Tracing instruction at 0x76768524, instruction size = 0x4
+   0:   00441026        xor     v0,v0,a0
+>>> Tracing instruction at 0x76768528, instruction size = 0x4
+   0:   00651826        xor     v1,v1,a1
+>>> Tracing instruction at 0x7676852c, instruction size = 0x4
+   0:   00431025        or      v0,v0,v1
+>>> Tracing instruction at 0x76768530, instruction size = 0x4
+   0:   004b1024        and     v0,v0,t3
+>>> Tracing instruction at 0x76768534, instruction size = 0x4
+   0:   1040fff4        beqz    v0,0xffffffd4
+>>> Tracing instruction at 0x76768538, instruction size = 0x4
+   0:   24c8fffc        addiu   t0,a2,-4
+>>> Tracing instruction at 0x7676853c, instruction size = 0x4
+   0:   90c3fffc        lbu     v1,-4(a2)
+>>> Tracing instruction at 0x76768540, instruction size = 0x4
+   0:   24c2fffd        addiu   v0,a2,-3
+>>> Tracing instruction at 0x76768544, instruction size = 0x4
+   0:   14670003        bne     v1,a3,0x10
+>>> Tracing instruction at 0x76768548, instruction size = 0x4
+   0:   24c5fffe        addiu   a1,a2,-2
+>>> Tracing instruction at 0x76768554, instruction size = 0x4
+   0:   50600013        0x50600013
+>>> Tracing instruction at 0x76768558, instruction size = 0x4
+   0:   00001021        move    v0,zero
+>>> Tracing instruction at 0x767685a4, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x767685a8, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b0cc, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b0d0, instruction size = 0x4
+   0:   1440fff5        bnez    v0,0xffffffd8
+>>> Tracing instruction at 0x41b0d4, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b0d8, instruction size = 0x4
+   0:   8fbf0024        lw      ra,36(sp)
+>>> Tracing instruction at 0x41b0dc, instruction size = 0x4
+   0:   8fb20020        lw      s2,32(sp)
+>>> Tracing instruction at 0x41b0e0, instruction size = 0x4
+   0:   8fb1001c        lw      s1,28(sp)
+>>> Tracing instruction at 0x41b0e4, instruction size = 0x4
+   0:   8fb00018        lw      s0,24(sp)
+>>> Tracing instruction at 0x41b0e8, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x41b0ec, instruction size = 0x4
+   0:   27bd0028        addiu   sp,sp,40
+>>> Tracing instruction at 0x41c354, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41c358, instruction size = 0x4
+   0:   3c020043        lui     v0,0x43
+>>> Tracing instruction at 0x41c35c, instruction size = 0x4
+   0:   8c4234e0        lw      v0,13536(v0)
+>>> Tracing instruction at 0x41c360, instruction size = 0x4
+   0:   8f9982a8        lw      t9,-32088(gp)
+>>> Tracing instruction at 0x41c364, instruction size = 0x4
+   0:   00402021        move    a0,v0
+>>> Tracing instruction at 0x41c368, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41c36c, instruction size = 0x4
+   0:   afa20068        sw      v0,104(sp)
+>>> Tracing instruction at 0x76768790, instruction size = 0x4
+   0:   10000004        b       0x14
+>>> Tracing instruction at 0x76768794, instruction size = 0x4
+   0:   00802821        move    a1,a0
+>>> Tracing instruction at 0x767687a4, instruction size = 0x4
+   0:   30820003        andi    v0,a0,0x3
+>>> Tracing instruction at 0x767687a8, instruction size = 0x4
+   0:   5440fffb        0x5440fffb
+>>> Tracing instruction at 0x767687b0, instruction size = 0x4
+   0:   3c02fefe        lui     v0,0xfefe
+>>> Tracing instruction at 0x767687b4, instruction size = 0x4
+   0:   3447feff        ori     a3,v0,0xfeff
+>>> Tracing instruction at 0x767687b8, instruction size = 0x4
+   0:   3c028080        lui     v0,0x8080
+>>> Tracing instruction at 0x767687bc, instruction size = 0x4
+   0:   00801821        move    v1,a0
+>>> Tracing instruction at 0x767687c0, instruction size = 0x4
+   0:   34468080        ori     a2,v0,0x8080
+>>> Tracing instruction at 0x767687c4, instruction size = 0x4
+   0:   8c620000        lw      v0,0(v1)
+>>> Tracing instruction at 0x767687c8, instruction size = 0x4
+   0:   24630004        addiu   v1,v1,4
+>>> Tracing instruction at 0x767687cc, instruction size = 0x4
+   0:   00471021        addu    v0,v0,a3
+>>> Tracing instruction at 0x767687d0, instruction size = 0x4
+   0:   00461024        and     v0,v0,a2
+>>> Tracing instruction at 0x767687d4, instruction size = 0x4
+   0:   1040fffb        beqz    v0,0xfffffff0
+>>> Tracing instruction at 0x767687d8, instruction size = 0x4
+   0:   2464fffc        addiu   a0,v1,-4
+>>> Tracing instruction at 0x767687c4, instruction size = 0x4
+   0:   8c620000        lw      v0,0(v1)
+>>> Tracing instruction at 0x767687c8, instruction size = 0x4
+   0:   24630004        addiu   v1,v1,4
+>>> Tracing instruction at 0x767687cc, instruction size = 0x4
+   0:   00471021        addu    v0,v0,a3
+>>> Tracing instruction at 0x767687d0, instruction size = 0x4
+   0:   00461024        and     v0,v0,a2
+>>> Tracing instruction at 0x767687d4, instruction size = 0x4
+   0:   1040fffb        beqz    v0,0xfffffff0
+>>> Tracing instruction at 0x767687d8, instruction size = 0x4
+   0:   2464fffc        addiu   a0,v1,-4
+>>> Tracing instruction at 0x767687dc, instruction size = 0x4
+   0:   8062fffc        lb      v0,-4(v1)
+>>> Tracing instruction at 0x767687e0, instruction size = 0x4
+   0:   54400003        0x54400003
+>>> Tracing instruction at 0x767687e4, instruction size = 0x4
+   0:   80820001        lb      v0,1(a0)
+>>> Tracing instruction at 0x767687f0, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x767687f4, instruction size = 0x4
+   0:   80820002        lb      v0,2(a0)
+>>> Tracing instruction at 0x76768804, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x7676880c, instruction size = 0x4
+   0:   00851023        subu    v0,a0,a1
+>>> Tracing instruction at 0x76768810, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768814, instruction size = 0x4
+   0:   24420002        addiu   v0,v0,2
+>>> Tracing instruction at 0x41c370, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41c374, instruction size = 0x4
+   0:   8e440004        lw      a0,4(s2)
+>>> Tracing instruction at 0x41c378, instruction size = 0x4
+   0:   8fa50068        lw      a1,104(sp)
+>>> Tracing instruction at 0x41c37c, instruction size = 0x4
+   0:   8f9982bc        lw      t9,-32068(gp)
+>>> Tracing instruction at 0x41c380, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41c384, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41c388, instruction size = 0x4
+   0:   00403021        move    a2,v0
+>>> Tracing instruction at 0x767688d0, instruction size = 0x4
+   0:   2cc20004        sltiu   v0,a2,4
+>>> Tracing instruction at 0x767688d4, instruction size = 0x4
+   0:   10400004        beqz    v0,0x14
+>>> Tracing instruction at 0x767688d8, instruction size = 0x4
+   0:   00063882        srl     a3,a2,0x2
+>>> Tracing instruction at 0x767688e8, instruction size = 0x4
+   0:   90820000        lbu     v0,0(a0)
+>>> Tracing instruction at 0x767688ec, instruction size = 0x4
+   0:   24e7ffff        addiu   a3,a3,-1
+>>> Tracing instruction at 0x767688f0, instruction size = 0x4
+   0:   1040000d        beqz    v0,0x38
+>>> Tracing instruction at 0x767688f4, instruction size = 0x4
+   0:   90a30000        lbu     v1,0(a1)
+>>> Tracing instruction at 0x767688f8, instruction size = 0x4
+   0:   1443000b        bne     v0,v1,0x30
+>>> Tracing instruction at 0x767688fc, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x76768900, instruction size = 0x4
+   0:   90820001        lbu     v0,1(a0)
+>>> Tracing instruction at 0x76768904, instruction size = 0x4
+   0:   10400008        beqz    v0,0x24
+>>> Tracing instruction at 0x76768908, instruction size = 0x4
+   0:   90a30001        lbu     v1,1(a1)
+>>> Tracing instruction at 0x7676890c, instruction size = 0x4
+   0:   14430006        bne     v0,v1,0x1c
+>>> Tracing instruction at 0x76768910, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x76768914, instruction size = 0x4
+   0:   90820002        lbu     v0,2(a0)
+>>> Tracing instruction at 0x76768918, instruction size = 0x4
+   0:   10400003        beqz    v0,0x10
+>>> Tracing instruction at 0x7676891c, instruction size = 0x4
+   0:   90a30002        lbu     v1,2(a1)
+>>> Tracing instruction at 0x76768920, instruction size = 0x4
+   0:   50430003        0x50430003
+>>> Tracing instruction at 0x76768924, instruction size = 0x4
+   0:   90830003        lbu     v1,3(a0)
+>>> Tracing instruction at 0x76768930, instruction size = 0x4
+   0:   90a20003        lbu     v0,3(a1)
+>>> Tracing instruction at 0x76768934, instruction size = 0x4
+   0:   24840004        addiu   a0,a0,4
+>>> Tracing instruction at 0x76768938, instruction size = 0x4
+   0:   1060000e        beqz    v1,0x3c
+>>> Tracing instruction at 0x7676893c, instruction size = 0x4
+   0:   24a50004        addiu   a1,a1,4
+>>> Tracing instruction at 0x76768940, instruction size = 0x4
+   0:   1462000c        bne     v1,v0,0x34
+>>> Tracing instruction at 0x76768944, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x76768948, instruction size = 0x4
+   0:   54e0ffe8        0x54e0ffe8
+>>> Tracing instruction at 0x76768950, instruction size = 0x4
+   0:   1000000a        b       0x2c
+>>> Tracing instruction at 0x76768954, instruction size = 0x4
+   0:   30c60003        andi    a2,a2,0x3
+>>> Tracing instruction at 0x7676897c, instruction size = 0x4
+   0:   54c0fff6        0x54c0fff6
+>>> Tracing instruction at 0x76768980, instruction size = 0x4
+   0:   90830000        lbu     v1,0(a0)
+>>> Tracing instruction at 0x76768958, instruction size = 0x4
+   0:   90a20000        lbu     v0,0(a1)
+>>> Tracing instruction at 0x7676895c, instruction size = 0x4
+   0:   24c6ffff        addiu   a2,a2,-1
+>>> Tracing instruction at 0x76768960, instruction size = 0x4
+   0:   24840001        addiu   a0,a0,1
+>>> Tracing instruction at 0x76768964, instruction size = 0x4
+   0:   10600003        beqz    v1,0x10
+>>> Tracing instruction at 0x76768968, instruction size = 0x4
+   0:   24a50001        addiu   a1,a1,1
+>>> Tracing instruction at 0x7676896c, instruction size = 0x4
+   0:   10620003        beq     v1,v0,0x10
+>>> Tracing instruction at 0x76768970, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x7676897c, instruction size = 0x4
+   0:   54c0fff6        0x54c0fff6
+>>> Tracing instruction at 0x76768980, instruction size = 0x4
+   0:   90830000        lbu     v1,0(a0)
+>>> Tracing instruction at 0x76768958, instruction size = 0x4
+   0:   90a20000        lbu     v0,0(a1)
+>>> Tracing instruction at 0x7676895c, instruction size = 0x4
+   0:   24c6ffff        addiu   a2,a2,-1
+>>> Tracing instruction at 0x76768960, instruction size = 0x4
+   0:   24840001        addiu   a0,a0,1
+>>> Tracing instruction at 0x76768964, instruction size = 0x4
+   0:   10600003        beqz    v1,0x10
+>>> Tracing instruction at 0x76768968, instruction size = 0x4
+   0:   24a50001        addiu   a1,a1,1
+>>> Tracing instruction at 0x7676896c, instruction size = 0x4
+   0:   10620003        beq     v1,v0,0x10
+>>> Tracing instruction at 0x76768970, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x7676897c, instruction size = 0x4
+   0:   54c0fff6        0x54c0fff6
+>>> Tracing instruction at 0x76768984, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768988, instruction size = 0x4
+   0:   00621023        subu    v0,v1,v0
+>>> Tracing instruction at 0x41c38c, instruction size = 0x4
+   0:   14400009        bnez    v0,0x28
+>>> Tracing instruction at 0x41c390, instruction size = 0x4
+   0:   3c020043        lui     v0,0x43
+>>> Tracing instruction at 0x41c394, instruction size = 0x4
+   0:   8c4534ec        lw      a1,13548(v0)
+>>> Tracing instruction at 0x41c398, instruction size = 0x4
+   0:   0c106d81        jal     0x41b604
+>>> Tracing instruction at 0x41c39c, instruction size = 0x4
+   0:   26440004        addiu   a0,s2,4
+>>> Tracing instruction at 0x41b604, instruction size = 0x4
+   0:   3c1c0044        lui     gp,0x44
+>>> Tracing instruction at 0x41b608, instruction size = 0x4
+   0:   27bdffd0        addiu   sp,sp,-48
+>>> Tracing instruction at 0x41b60c, instruction size = 0x4
+   0:   279cbb40        addiu   gp,gp,-17600
+>>> Tracing instruction at 0x41b610, instruction size = 0x4
+   0:   afbf002c        sw      ra,44(sp)
+>>> Tracing instruction at 0x41b614, instruction size = 0x4
+   0:   afb40028        sw      s4,40(sp)
+>>> Tracing instruction at 0x41b618, instruction size = 0x4
+   0:   afb30024        sw      s3,36(sp)
+>>> Tracing instruction at 0x41b61c, instruction size = 0x4
+   0:   afb20020        sw      s2,32(sp)
+>>> Tracing instruction at 0x41b620, instruction size = 0x4
+   0:   afb1001c        sw      s1,28(sp)
+>>> Tracing instruction at 0x41b624, instruction size = 0x4
+   0:   afb00018        sw      s0,24(sp)
+>>> Tracing instruction at 0x41b628, instruction size = 0x4
+   0:   afbc0010        sw      gp,16(sp)
+>>> Tracing instruction at 0x41b62c, instruction size = 0x4
+   0:   8c900000        lw      s0,0(a0)
+>>> Tracing instruction at 0x41b630, instruction size = 0x4
+   0:   0080a021        move    s4,a0
+>>> Tracing instruction at 0x41b634, instruction size = 0x4
+   0:   1200002e        beqz    s0,0xbc
+>>> Tracing instruction at 0x41b638, instruction size = 0x4
+   0:   00a09821        move    s3,a1
+>>> Tracing instruction at 0x41b63c, instruction size = 0x4
+   0:   14a00013        bnez    a1,0x50
+>>> Tracing instruction at 0x41b640, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b68c, instruction size = 0x4
+   0:   82110000        lb      s1,0(s0)
+>>> Tracing instruction at 0x41b690, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b694, instruction size = 0x4
+   0:   1620ffed        bnez    s1,0xffffffb8
+>>> Tracing instruction at 0x41b698, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b64c, instruction size = 0x4
+   0:   8f9982a8        lw      t9,-32088(gp)
+>>> Tracing instruction at 0x41b650, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b654, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b658, instruction size = 0x4
+   0:   02602021        move    a0,s3
+>>> Tracing instruction at 0x76768790, instruction size = 0x4
+   0:   10000004        b       0x14
+>>> Tracing instruction at 0x76768794, instruction size = 0x4
+   0:   00802821        move    a1,a0
+>>> Tracing instruction at 0x767687a4, instruction size = 0x4
+   0:   30820003        andi    v0,a0,0x3
+>>> Tracing instruction at 0x767687a8, instruction size = 0x4
+   0:   5440fffb        0x5440fffb
+>>> Tracing instruction at 0x767687b0, instruction size = 0x4
+   0:   3c02fefe        lui     v0,0xfefe
+>>> Tracing instruction at 0x767687b4, instruction size = 0x4
+   0:   3447feff        ori     a3,v0,0xfeff
+>>> Tracing instruction at 0x767687b8, instruction size = 0x4
+   0:   3c028080        lui     v0,0x8080
+>>> Tracing instruction at 0x767687bc, instruction size = 0x4
+   0:   00801821        move    v1,a0
+>>> Tracing instruction at 0x767687c0, instruction size = 0x4
+   0:   34468080        ori     a2,v0,0x8080
+>>> Tracing instruction at 0x767687c4, instruction size = 0x4
+   0:   8c620000        lw      v0,0(v1)
+>>> Tracing instruction at 0x767687c8, instruction size = 0x4
+   0:   24630004        addiu   v1,v1,4
+>>> Tracing instruction at 0x767687cc, instruction size = 0x4
+   0:   00471021        addu    v0,v0,a3
+>>> Tracing instruction at 0x767687d0, instruction size = 0x4
+   0:   00461024        and     v0,v0,a2
+>>> Tracing instruction at 0x767687d4, instruction size = 0x4
+   0:   1040fffb        beqz    v0,0xfffffff0
+>>> Tracing instruction at 0x767687d8, instruction size = 0x4
+   0:   2464fffc        addiu   a0,v1,-4
+>>> Tracing instruction at 0x767687dc, instruction size = 0x4
+   0:   8062fffc        lb      v0,-4(v1)
+>>> Tracing instruction at 0x767687e0, instruction size = 0x4
+   0:   54400003        0x54400003
+>>> Tracing instruction at 0x767687e4, instruction size = 0x4
+   0:   80820001        lb      v0,1(a0)
+>>> Tracing instruction at 0x767687f0, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x767687f4, instruction size = 0x4
+   0:   80820002        lb      v0,2(a0)
+>>> Tracing instruction at 0x76768804, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x7676880c, instruction size = 0x4
+   0:   00851023        subu    v0,a0,a1
+>>> Tracing instruction at 0x76768810, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768814, instruction size = 0x4
+   0:   24420002        addiu   v0,v0,2
+>>> Tracing instruction at 0x41b65c, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b660, instruction size = 0x4
+   0:   02002021        move    a0,s0
+>>> Tracing instruction at 0x41b664, instruction size = 0x4
+   0:   02602821        move    a1,s3
+>>> Tracing instruction at 0x41b668, instruction size = 0x4
+   0:   8f9982bc        lw      t9,-32068(gp)
+>>> Tracing instruction at 0x41b66c, instruction size = 0x4
+   0:   00403021        move    a2,v0
+>>> Tracing instruction at 0x41b670, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b674, instruction size = 0x4
+   0:   00409021        move    s2,v0
+>>> Tracing instruction at 0x767688d0, instruction size = 0x4
+   0:   2cc20004        sltiu   v0,a2,4
+>>> Tracing instruction at 0x767688d4, instruction size = 0x4
+   0:   10400004        beqz    v0,0x14
+>>> Tracing instruction at 0x767688d8, instruction size = 0x4
+   0:   00063882        srl     a3,a2,0x2
+>>> Tracing instruction at 0x767688dc, instruction size = 0x4
+   0:   00001821        move    v1,zero
+>>> Tracing instruction at 0x767688e0, instruction size = 0x4
+   0:   10000026        b       0x9c
+>>> Tracing instruction at 0x767688e4, instruction size = 0x4
+   0:   00001021        move    v0,zero
+>>> Tracing instruction at 0x7676897c, instruction size = 0x4
+   0:   54c0fff6        0x54c0fff6
+>>> Tracing instruction at 0x76768980, instruction size = 0x4
+   0:   90830000        lbu     v1,0(a0)
+>>> Tracing instruction at 0x76768958, instruction size = 0x4
+   0:   90a20000        lbu     v0,0(a1)
+>>> Tracing instruction at 0x7676895c, instruction size = 0x4
+   0:   24c6ffff        addiu   a2,a2,-1
+>>> Tracing instruction at 0x76768960, instruction size = 0x4
+   0:   24840001        addiu   a0,a0,1
+>>> Tracing instruction at 0x76768964, instruction size = 0x4
+   0:   10600003        beqz    v1,0x10
+>>> Tracing instruction at 0x76768968, instruction size = 0x4
+   0:   24a50001        addiu   a1,a1,1
+>>> Tracing instruction at 0x7676896c, instruction size = 0x4
+   0:   10620003        beq     v1,v0,0x10
+>>> Tracing instruction at 0x76768970, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x76768974, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768978, instruction size = 0x4
+   0:   00621023        subu    v0,v1,v0
+>>> Tracing instruction at 0x41b678, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b67c, instruction size = 0x4
+   0:   10400010        beqz    v0,0x44
+>>> Tracing instruction at 0x41b680, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b684, instruction size = 0x4
+   0:   26100001        addiu   s0,s0,1
+>>> Tracing instruction at 0x41b688, instruction size = 0x4
+   0:   ae900000        sw      s0,0(s4)
+>>> Tracing instruction at 0x41b68c, instruction size = 0x4
+   0:   82110000        lb      s1,0(s0)
+>>> Tracing instruction at 0x41b690, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b694, instruction size = 0x4
+   0:   1620ffed        bnez    s1,0xffffffb8
+>>> Tracing instruction at 0x41b698, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b64c, instruction size = 0x4
+   0:   8f9982a8        lw      t9,-32088(gp)
+>>> Tracing instruction at 0x41b650, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b654, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b658, instruction size = 0x4
+   0:   02602021        move    a0,s3
+>>> Tracing instruction at 0x76768790, instruction size = 0x4
+   0:   10000004        b       0x14
+>>> Tracing instruction at 0x76768794, instruction size = 0x4
+   0:   00802821        move    a1,a0
+>>> Tracing instruction at 0x767687a4, instruction size = 0x4
+   0:   30820003        andi    v0,a0,0x3
+>>> Tracing instruction at 0x767687a8, instruction size = 0x4
+   0:   5440fffb        0x5440fffb
+>>> Tracing instruction at 0x767687b0, instruction size = 0x4
+   0:   3c02fefe        lui     v0,0xfefe
+>>> Tracing instruction at 0x767687b4, instruction size = 0x4
+   0:   3447feff        ori     a3,v0,0xfeff
+>>> Tracing instruction at 0x767687b8, instruction size = 0x4
+   0:   3c028080        lui     v0,0x8080
+>>> Tracing instruction at 0x767687bc, instruction size = 0x4
+   0:   00801821        move    v1,a0
+>>> Tracing instruction at 0x767687c0, instruction size = 0x4
+   0:   34468080        ori     a2,v0,0x8080
+>>> Tracing instruction at 0x767687c4, instruction size = 0x4
+   0:   8c620000        lw      v0,0(v1)
+>>> Tracing instruction at 0x767687c8, instruction size = 0x4
+   0:   24630004        addiu   v1,v1,4
+>>> Tracing instruction at 0x767687cc, instruction size = 0x4
+   0:   00471021        addu    v0,v0,a3
+>>> Tracing instruction at 0x767687d0, instruction size = 0x4
+   0:   00461024        and     v0,v0,a2
+>>> Tracing instruction at 0x767687d4, instruction size = 0x4
+   0:   1040fffb        beqz    v0,0xfffffff0
+>>> Tracing instruction at 0x767687d8, instruction size = 0x4
+   0:   2464fffc        addiu   a0,v1,-4
+>>> Tracing instruction at 0x767687dc, instruction size = 0x4
+   0:   8062fffc        lb      v0,-4(v1)
+>>> Tracing instruction at 0x767687e0, instruction size = 0x4
+   0:   54400003        0x54400003
+>>> Tracing instruction at 0x767687e4, instruction size = 0x4
+   0:   80820001        lb      v0,1(a0)
+>>> Tracing instruction at 0x767687f0, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x767687f4, instruction size = 0x4
+   0:   80820002        lb      v0,2(a0)
+>>> Tracing instruction at 0x76768804, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x7676880c, instruction size = 0x4
+   0:   00851023        subu    v0,a0,a1
+>>> Tracing instruction at 0x76768810, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768814, instruction size = 0x4
+   0:   24420002        addiu   v0,v0,2
+>>> Tracing instruction at 0x41b65c, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b660, instruction size = 0x4
+   0:   02002021        move    a0,s0
+>>> Tracing instruction at 0x41b664, instruction size = 0x4
+   0:   02602821        move    a1,s3
+>>> Tracing instruction at 0x41b668, instruction size = 0x4
+   0:   8f9982bc        lw      t9,-32068(gp)
+>>> Tracing instruction at 0x41b66c, instruction size = 0x4
+   0:   00403021        move    a2,v0
+>>> Tracing instruction at 0x41b670, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b674, instruction size = 0x4
+   0:   00409021        move    s2,v0
+>>> Tracing instruction at 0x767688d0, instruction size = 0x4
+   0:   2cc20004        sltiu   v0,a2,4
+>>> Tracing instruction at 0x767688d4, instruction size = 0x4
+   0:   10400004        beqz    v0,0x14
+>>> Tracing instruction at 0x767688d8, instruction size = 0x4
+   0:   00063882        srl     a3,a2,0x2
+>>> Tracing instruction at 0x767688dc, instruction size = 0x4
+   0:   00001821        move    v1,zero
+>>> Tracing instruction at 0x767688e0, instruction size = 0x4
+   0:   10000026        b       0x9c
+>>> Tracing instruction at 0x767688e4, instruction size = 0x4
+   0:   00001021        move    v0,zero
+>>> Tracing instruction at 0x7676897c, instruction size = 0x4
+   0:   54c0fff6        0x54c0fff6
+>>> Tracing instruction at 0x76768980, instruction size = 0x4
+   0:   90830000        lbu     v1,0(a0)
+>>> Tracing instruction at 0x76768958, instruction size = 0x4
+   0:   90a20000        lbu     v0,0(a1)
+>>> Tracing instruction at 0x7676895c, instruction size = 0x4
+   0:   24c6ffff        addiu   a2,a2,-1
+>>> Tracing instruction at 0x76768960, instruction size = 0x4
+   0:   24840001        addiu   a0,a0,1
+>>> Tracing instruction at 0x76768964, instruction size = 0x4
+   0:   10600003        beqz    v1,0x10
+>>> Tracing instruction at 0x76768968, instruction size = 0x4
+   0:   24a50001        addiu   a1,a1,1
+>>> Tracing instruction at 0x7676896c, instruction size = 0x4
+   0:   10620003        beq     v1,v0,0x10
+>>> Tracing instruction at 0x76768970, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x7676897c, instruction size = 0x4
+   0:   54c0fff6        0x54c0fff6
+>>> Tracing instruction at 0x76768980, instruction size = 0x4
+   0:   90830000        lbu     v1,0(a0)
+>>> Tracing instruction at 0x76768958, instruction size = 0x4
+   0:   90a20000        lbu     v0,0(a1)
+>>> Tracing instruction at 0x7676895c, instruction size = 0x4
+   0:   24c6ffff        addiu   a2,a2,-1
+>>> Tracing instruction at 0x76768960, instruction size = 0x4
+   0:   24840001        addiu   a0,a0,1
+>>> Tracing instruction at 0x76768964, instruction size = 0x4
+   0:   10600003        beqz    v1,0x10
+>>> Tracing instruction at 0x76768968, instruction size = 0x4
+   0:   24a50001        addiu   a1,a1,1
+>>> Tracing instruction at 0x7676896c, instruction size = 0x4
+   0:   10620003        beq     v1,v0,0x10
+>>> Tracing instruction at 0x76768970, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x76768974, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768978, instruction size = 0x4
+   0:   00621023        subu    v0,v1,v0
+>>> Tracing instruction at 0x41b678, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b67c, instruction size = 0x4
+   0:   10400010        beqz    v0,0x44
+>>> Tracing instruction at 0x41b680, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b684, instruction size = 0x4
+   0:   26100001        addiu   s0,s0,1
+>>> Tracing instruction at 0x41b688, instruction size = 0x4
+   0:   ae900000        sw      s0,0(s4)
+>>> Tracing instruction at 0x41b68c, instruction size = 0x4
+   0:   82110000        lb      s1,0(s0)
+>>> Tracing instruction at 0x41b690, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b694, instruction size = 0x4
+   0:   1620ffed        bnez    s1,0xffffffb8
+>>> Tracing instruction at 0x41b698, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b64c, instruction size = 0x4
+   0:   8f9982a8        lw      t9,-32088(gp)
+>>> Tracing instruction at 0x41b650, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b654, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b658, instruction size = 0x4
+   0:   02602021        move    a0,s3
+>>> Tracing instruction at 0x76768790, instruction size = 0x4
+   0:   10000004        b       0x14
+>>> Tracing instruction at 0x76768794, instruction size = 0x4
+   0:   00802821        move    a1,a0
+>>> Tracing instruction at 0x767687a4, instruction size = 0x4
+   0:   30820003        andi    v0,a0,0x3
+>>> Tracing instruction at 0x767687a8, instruction size = 0x4
+   0:   5440fffb        0x5440fffb
+>>> Tracing instruction at 0x767687b0, instruction size = 0x4
+   0:   3c02fefe        lui     v0,0xfefe
+>>> Tracing instruction at 0x767687b4, instruction size = 0x4
+   0:   3447feff        ori     a3,v0,0xfeff
+>>> Tracing instruction at 0x767687b8, instruction size = 0x4
+   0:   3c028080        lui     v0,0x8080
+>>> Tracing instruction at 0x767687bc, instruction size = 0x4
+   0:   00801821        move    v1,a0
+>>> Tracing instruction at 0x767687c0, instruction size = 0x4
+   0:   34468080        ori     a2,v0,0x8080
+>>> Tracing instruction at 0x767687c4, instruction size = 0x4
+   0:   8c620000        lw      v0,0(v1)
+>>> Tracing instruction at 0x767687c8, instruction size = 0x4
+   0:   24630004        addiu   v1,v1,4
+>>> Tracing instruction at 0x767687cc, instruction size = 0x4
+   0:   00471021        addu    v0,v0,a3
+>>> Tracing instruction at 0x767687d0, instruction size = 0x4
+   0:   00461024        and     v0,v0,a2
+>>> Tracing instruction at 0x767687d4, instruction size = 0x4
+   0:   1040fffb        beqz    v0,0xfffffff0
+>>> Tracing instruction at 0x767687d8, instruction size = 0x4
+   0:   2464fffc        addiu   a0,v1,-4
+>>> Tracing instruction at 0x767687dc, instruction size = 0x4
+   0:   8062fffc        lb      v0,-4(v1)
+>>> Tracing instruction at 0x767687e0, instruction size = 0x4
+   0:   54400003        0x54400003
+>>> Tracing instruction at 0x767687e4, instruction size = 0x4
+   0:   80820001        lb      v0,1(a0)
+>>> Tracing instruction at 0x767687f0, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x767687f4, instruction size = 0x4
+   0:   80820002        lb      v0,2(a0)
+>>> Tracing instruction at 0x76768804, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x7676880c, instruction size = 0x4
+   0:   00851023        subu    v0,a0,a1
+>>> Tracing instruction at 0x76768810, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768814, instruction size = 0x4
+   0:   24420002        addiu   v0,v0,2
+>>> Tracing instruction at 0x41b65c, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b660, instruction size = 0x4
+   0:   02002021        move    a0,s0
+>>> Tracing instruction at 0x41b664, instruction size = 0x4
+   0:   02602821        move    a1,s3
+>>> Tracing instruction at 0x41b668, instruction size = 0x4
+   0:   8f9982bc        lw      t9,-32068(gp)
+>>> Tracing instruction at 0x41b66c, instruction size = 0x4
+   0:   00403021        move    a2,v0
+>>> Tracing instruction at 0x41b670, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b674, instruction size = 0x4
+   0:   00409021        move    s2,v0
+>>> Tracing instruction at 0x767688d0, instruction size = 0x4
+   0:   2cc20004        sltiu   v0,a2,4
+>>> Tracing instruction at 0x767688d4, instruction size = 0x4
+   0:   10400004        beqz    v0,0x14
+>>> Tracing instruction at 0x767688d8, instruction size = 0x4
+   0:   00063882        srl     a3,a2,0x2
+>>> Tracing instruction at 0x767688dc, instruction size = 0x4
+   0:   00001821        move    v1,zero
+>>> Tracing instruction at 0x767688e0, instruction size = 0x4
+   0:   10000026        b       0x9c
+>>> Tracing instruction at 0x767688e4, instruction size = 0x4
+   0:   00001021        move    v0,zero
+>>> Tracing instruction at 0x7676897c, instruction size = 0x4
+   0:   54c0fff6        0x54c0fff6
+>>> Tracing instruction at 0x76768980, instruction size = 0x4
+   0:   90830000        lbu     v1,0(a0)
+>>> Tracing instruction at 0x76768958, instruction size = 0x4
+   0:   90a20000        lbu     v0,0(a1)
+>>> Tracing instruction at 0x7676895c, instruction size = 0x4
+   0:   24c6ffff        addiu   a2,a2,-1
+>>> Tracing instruction at 0x76768960, instruction size = 0x4
+   0:   24840001        addiu   a0,a0,1
+>>> Tracing instruction at 0x76768964, instruction size = 0x4
+   0:   10600003        beqz    v1,0x10
+>>> Tracing instruction at 0x76768968, instruction size = 0x4
+   0:   24a50001        addiu   a1,a1,1
+>>> Tracing instruction at 0x7676896c, instruction size = 0x4
+   0:   10620003        beq     v1,v0,0x10
+>>> Tracing instruction at 0x76768970, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x76768974, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768978, instruction size = 0x4
+   0:   00621023        subu    v0,v1,v0
+>>> Tracing instruction at 0x41b678, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b67c, instruction size = 0x4
+   0:   10400010        beqz    v0,0x44
+>>> Tracing instruction at 0x41b680, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b684, instruction size = 0x4
+   0:   26100001        addiu   s0,s0,1
+>>> Tracing instruction at 0x41b688, instruction size = 0x4
+   0:   ae900000        sw      s0,0(s4)
+>>> Tracing instruction at 0x41b68c, instruction size = 0x4
+   0:   82110000        lb      s1,0(s0)
+>>> Tracing instruction at 0x41b690, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b694, instruction size = 0x4
+   0:   1620ffed        bnez    s1,0xffffffb8
+>>> Tracing instruction at 0x41b698, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b64c, instruction size = 0x4
+   0:   8f9982a8        lw      t9,-32088(gp)
+>>> Tracing instruction at 0x41b650, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b654, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b658, instruction size = 0x4
+   0:   02602021        move    a0,s3
+>>> Tracing instruction at 0x76768790, instruction size = 0x4
+   0:   10000004        b       0x14
+>>> Tracing instruction at 0x76768794, instruction size = 0x4
+   0:   00802821        move    a1,a0
+>>> Tracing instruction at 0x767687a4, instruction size = 0x4
+   0:   30820003        andi    v0,a0,0x3
+>>> Tracing instruction at 0x767687a8, instruction size = 0x4
+   0:   5440fffb        0x5440fffb
+>>> Tracing instruction at 0x767687b0, instruction size = 0x4
+   0:   3c02fefe        lui     v0,0xfefe
+>>> Tracing instruction at 0x767687b4, instruction size = 0x4
+   0:   3447feff        ori     a3,v0,0xfeff
+>>> Tracing instruction at 0x767687b8, instruction size = 0x4
+   0:   3c028080        lui     v0,0x8080
+>>> Tracing instruction at 0x767687bc, instruction size = 0x4
+   0:   00801821        move    v1,a0
+>>> Tracing instruction at 0x767687c0, instruction size = 0x4
+   0:   34468080        ori     a2,v0,0x8080
+>>> Tracing instruction at 0x767687c4, instruction size = 0x4
+   0:   8c620000        lw      v0,0(v1)
+>>> Tracing instruction at 0x767687c8, instruction size = 0x4
+   0:   24630004        addiu   v1,v1,4
+>>> Tracing instruction at 0x767687cc, instruction size = 0x4
+   0:   00471021        addu    v0,v0,a3
+>>> Tracing instruction at 0x767687d0, instruction size = 0x4
+   0:   00461024        and     v0,v0,a2
+>>> Tracing instruction at 0x767687d4, instruction size = 0x4
+   0:   1040fffb        beqz    v0,0xfffffff0
+>>> Tracing instruction at 0x767687d8, instruction size = 0x4
+   0:   2464fffc        addiu   a0,v1,-4
+>>> Tracing instruction at 0x767687dc, instruction size = 0x4
+   0:   8062fffc        lb      v0,-4(v1)
+>>> Tracing instruction at 0x767687e0, instruction size = 0x4
+   0:   54400003        0x54400003
+>>> Tracing instruction at 0x767687e4, instruction size = 0x4
+   0:   80820001        lb      v0,1(a0)
+>>> Tracing instruction at 0x767687f0, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x767687f4, instruction size = 0x4
+   0:   80820002        lb      v0,2(a0)
+>>> Tracing instruction at 0x76768804, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x7676880c, instruction size = 0x4
+   0:   00851023        subu    v0,a0,a1
+>>> Tracing instruction at 0x76768810, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768814, instruction size = 0x4
+   0:   24420002        addiu   v0,v0,2
+>>> Tracing instruction at 0x41b65c, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b660, instruction size = 0x4
+   0:   02002021        move    a0,s0
+>>> Tracing instruction at 0x41b664, instruction size = 0x4
+   0:   02602821        move    a1,s3
+>>> Tracing instruction at 0x41b668, instruction size = 0x4
+   0:   8f9982bc        lw      t9,-32068(gp)
+>>> Tracing instruction at 0x41b66c, instruction size = 0x4
+   0:   00403021        move    a2,v0
+>>> Tracing instruction at 0x41b670, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b674, instruction size = 0x4
+   0:   00409021        move    s2,v0
+>>> Tracing instruction at 0x767688d0, instruction size = 0x4
+   0:   2cc20004        sltiu   v0,a2,4
+>>> Tracing instruction at 0x767688d4, instruction size = 0x4
+   0:   10400004        beqz    v0,0x14
+>>> Tracing instruction at 0x767688d8, instruction size = 0x4
+   0:   00063882        srl     a3,a2,0x2
+>>> Tracing instruction at 0x767688dc, instruction size = 0x4
+   0:   00001821        move    v1,zero
+>>> Tracing instruction at 0x767688e0, instruction size = 0x4
+   0:   10000026        b       0x9c
+>>> Tracing instruction at 0x767688e4, instruction size = 0x4
+   0:   00001021        move    v0,zero
+>>> Tracing instruction at 0x7676897c, instruction size = 0x4
+   0:   54c0fff6        0x54c0fff6
+>>> Tracing instruction at 0x76768980, instruction size = 0x4
+   0:   90830000        lbu     v1,0(a0)
+>>> Tracing instruction at 0x76768958, instruction size = 0x4
+   0:   90a20000        lbu     v0,0(a1)
+>>> Tracing instruction at 0x7676895c, instruction size = 0x4
+   0:   24c6ffff        addiu   a2,a2,-1
+>>> Tracing instruction at 0x76768960, instruction size = 0x4
+   0:   24840001        addiu   a0,a0,1
+>>> Tracing instruction at 0x76768964, instruction size = 0x4
+   0:   10600003        beqz    v1,0x10
+>>> Tracing instruction at 0x76768968, instruction size = 0x4
+   0:   24a50001        addiu   a1,a1,1
+>>> Tracing instruction at 0x7676896c, instruction size = 0x4
+   0:   10620003        beq     v1,v0,0x10
+>>> Tracing instruction at 0x76768970, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x76768974, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768978, instruction size = 0x4
+   0:   00621023        subu    v0,v1,v0
+>>> Tracing instruction at 0x41b678, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b67c, instruction size = 0x4
+   0:   10400010        beqz    v0,0x44
+>>> Tracing instruction at 0x41b680, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b684, instruction size = 0x4
+   0:   26100001        addiu   s0,s0,1
+>>> Tracing instruction at 0x41b688, instruction size = 0x4
+   0:   ae900000        sw      s0,0(s4)
+>>> Tracing instruction at 0x41b68c, instruction size = 0x4
+   0:   82110000        lb      s1,0(s0)
+>>> Tracing instruction at 0x41b690, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b694, instruction size = 0x4
+   0:   1620ffed        bnez    s1,0xffffffb8
+>>> Tracing instruction at 0x41b698, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b64c, instruction size = 0x4
+   0:   8f9982a8        lw      t9,-32088(gp)
+>>> Tracing instruction at 0x41b650, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b654, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b658, instruction size = 0x4
+   0:   02602021        move    a0,s3
+>>> Tracing instruction at 0x76768790, instruction size = 0x4
+   0:   10000004        b       0x14
+>>> Tracing instruction at 0x76768794, instruction size = 0x4
+   0:   00802821        move    a1,a0
+>>> Tracing instruction at 0x767687a4, instruction size = 0x4
+   0:   30820003        andi    v0,a0,0x3
+>>> Tracing instruction at 0x767687a8, instruction size = 0x4
+   0:   5440fffb        0x5440fffb
+>>> Tracing instruction at 0x767687b0, instruction size = 0x4
+   0:   3c02fefe        lui     v0,0xfefe
+>>> Tracing instruction at 0x767687b4, instruction size = 0x4
+   0:   3447feff        ori     a3,v0,0xfeff
+>>> Tracing instruction at 0x767687b8, instruction size = 0x4
+   0:   3c028080        lui     v0,0x8080
+>>> Tracing instruction at 0x767687bc, instruction size = 0x4
+   0:   00801821        move    v1,a0
+>>> Tracing instruction at 0x767687c0, instruction size = 0x4
+   0:   34468080        ori     a2,v0,0x8080
+>>> Tracing instruction at 0x767687c4, instruction size = 0x4
+   0:   8c620000        lw      v0,0(v1)
+>>> Tracing instruction at 0x767687c8, instruction size = 0x4
+   0:   24630004        addiu   v1,v1,4
+>>> Tracing instruction at 0x767687cc, instruction size = 0x4
+   0:   00471021        addu    v0,v0,a3
+>>> Tracing instruction at 0x767687d0, instruction size = 0x4
+   0:   00461024        and     v0,v0,a2
+>>> Tracing instruction at 0x767687d4, instruction size = 0x4
+   0:   1040fffb        beqz    v0,0xfffffff0
+>>> Tracing instruction at 0x767687d8, instruction size = 0x4
+   0:   2464fffc        addiu   a0,v1,-4
+>>> Tracing instruction at 0x767687dc, instruction size = 0x4
+   0:   8062fffc        lb      v0,-4(v1)
+>>> Tracing instruction at 0x767687e0, instruction size = 0x4
+   0:   54400003        0x54400003
+>>> Tracing instruction at 0x767687e4, instruction size = 0x4
+   0:   80820001        lb      v0,1(a0)
+>>> Tracing instruction at 0x767687f0, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x767687f4, instruction size = 0x4
+   0:   80820002        lb      v0,2(a0)
+>>> Tracing instruction at 0x76768804, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x7676880c, instruction size = 0x4
+   0:   00851023        subu    v0,a0,a1
+>>> Tracing instruction at 0x76768810, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768814, instruction size = 0x4
+   0:   24420002        addiu   v0,v0,2
+>>> Tracing instruction at 0x41b65c, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b660, instruction size = 0x4
+   0:   02002021        move    a0,s0
+>>> Tracing instruction at 0x41b664, instruction size = 0x4
+   0:   02602821        move    a1,s3
+>>> Tracing instruction at 0x41b668, instruction size = 0x4
+   0:   8f9982bc        lw      t9,-32068(gp)
+>>> Tracing instruction at 0x41b66c, instruction size = 0x4
+   0:   00403021        move    a2,v0
+>>> Tracing instruction at 0x41b670, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b674, instruction size = 0x4
+   0:   00409021        move    s2,v0
+>>> Tracing instruction at 0x767688d0, instruction size = 0x4
+   0:   2cc20004        sltiu   v0,a2,4
+>>> Tracing instruction at 0x767688d4, instruction size = 0x4
+   0:   10400004        beqz    v0,0x14
+>>> Tracing instruction at 0x767688d8, instruction size = 0x4
+   0:   00063882        srl     a3,a2,0x2
+>>> Tracing instruction at 0x767688dc, instruction size = 0x4
+   0:   00001821        move    v1,zero
+>>> Tracing instruction at 0x767688e0, instruction size = 0x4
+   0:   10000026        b       0x9c
+>>> Tracing instruction at 0x767688e4, instruction size = 0x4
+   0:   00001021        move    v0,zero
+>>> Tracing instruction at 0x7676897c, instruction size = 0x4
+   0:   54c0fff6        0x54c0fff6
+>>> Tracing instruction at 0x76768980, instruction size = 0x4
+   0:   90830000        lbu     v1,0(a0)
+>>> Tracing instruction at 0x76768958, instruction size = 0x4
+   0:   90a20000        lbu     v0,0(a1)
+>>> Tracing instruction at 0x7676895c, instruction size = 0x4
+   0:   24c6ffff        addiu   a2,a2,-1
+>>> Tracing instruction at 0x76768960, instruction size = 0x4
+   0:   24840001        addiu   a0,a0,1
+>>> Tracing instruction at 0x76768964, instruction size = 0x4
+   0:   10600003        beqz    v1,0x10
+>>> Tracing instruction at 0x76768968, instruction size = 0x4
+   0:   24a50001        addiu   a1,a1,1
+>>> Tracing instruction at 0x7676896c, instruction size = 0x4
+   0:   10620003        beq     v1,v0,0x10
+>>> Tracing instruction at 0x76768970, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x76768974, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768978, instruction size = 0x4
+   0:   00621023        subu    v0,v1,v0
+>>> Tracing instruction at 0x41b678, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b67c, instruction size = 0x4
+   0:   10400010        beqz    v0,0x44
+>>> Tracing instruction at 0x41b680, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b684, instruction size = 0x4
+   0:   26100001        addiu   s0,s0,1
+>>> Tracing instruction at 0x41b688, instruction size = 0x4
+   0:   ae900000        sw      s0,0(s4)
+>>> Tracing instruction at 0x41b68c, instruction size = 0x4
+   0:   82110000        lb      s1,0(s0)
+>>> Tracing instruction at 0x41b690, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b694, instruction size = 0x4
+   0:   1620ffed        bnez    s1,0xffffffb8
+>>> Tracing instruction at 0x41b698, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b64c, instruction size = 0x4
+   0:   8f9982a8        lw      t9,-32088(gp)
+>>> Tracing instruction at 0x41b650, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b654, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b658, instruction size = 0x4
+   0:   02602021        move    a0,s3
+>>> Tracing instruction at 0x76768790, instruction size = 0x4
+   0:   10000004        b       0x14
+>>> Tracing instruction at 0x76768794, instruction size = 0x4
+   0:   00802821        move    a1,a0
+>>> Tracing instruction at 0x767687a4, instruction size = 0x4
+   0:   30820003        andi    v0,a0,0x3
+>>> Tracing instruction at 0x767687a8, instruction size = 0x4
+   0:   5440fffb        0x5440fffb
+>>> Tracing instruction at 0x767687b0, instruction size = 0x4
+   0:   3c02fefe        lui     v0,0xfefe
+>>> Tracing instruction at 0x767687b4, instruction size = 0x4
+   0:   3447feff        ori     a3,v0,0xfeff
+>>> Tracing instruction at 0x767687b8, instruction size = 0x4
+   0:   3c028080        lui     v0,0x8080
+>>> Tracing instruction at 0x767687bc, instruction size = 0x4
+   0:   00801821        move    v1,a0
+>>> Tracing instruction at 0x767687c0, instruction size = 0x4
+   0:   34468080        ori     a2,v0,0x8080
+>>> Tracing instruction at 0x767687c4, instruction size = 0x4
+   0:   8c620000        lw      v0,0(v1)
+>>> Tracing instruction at 0x767687c8, instruction size = 0x4
+   0:   24630004        addiu   v1,v1,4
+>>> Tracing instruction at 0x767687cc, instruction size = 0x4
+   0:   00471021        addu    v0,v0,a3
+>>> Tracing instruction at 0x767687d0, instruction size = 0x4
+   0:   00461024        and     v0,v0,a2
+>>> Tracing instruction at 0x767687d4, instruction size = 0x4
+   0:   1040fffb        beqz    v0,0xfffffff0
+>>> Tracing instruction at 0x767687d8, instruction size = 0x4
+   0:   2464fffc        addiu   a0,v1,-4
+>>> Tracing instruction at 0x767687dc, instruction size = 0x4
+   0:   8062fffc        lb      v0,-4(v1)
+>>> Tracing instruction at 0x767687e0, instruction size = 0x4
+   0:   54400003        0x54400003
+>>> Tracing instruction at 0x767687e4, instruction size = 0x4
+   0:   80820001        lb      v0,1(a0)
+>>> Tracing instruction at 0x767687f0, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x767687f4, instruction size = 0x4
+   0:   80820002        lb      v0,2(a0)
+>>> Tracing instruction at 0x76768804, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x7676880c, instruction size = 0x4
+   0:   00851023        subu    v0,a0,a1
+>>> Tracing instruction at 0x76768810, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768814, instruction size = 0x4
+   0:   24420002        addiu   v0,v0,2
+>>> Tracing instruction at 0x41b65c, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b660, instruction size = 0x4
+   0:   02002021        move    a0,s0
+>>> Tracing instruction at 0x41b664, instruction size = 0x4
+   0:   02602821        move    a1,s3
+>>> Tracing instruction at 0x41b668, instruction size = 0x4
+   0:   8f9982bc        lw      t9,-32068(gp)
+>>> Tracing instruction at 0x41b66c, instruction size = 0x4
+   0:   00403021        move    a2,v0
+>>> Tracing instruction at 0x41b670, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b674, instruction size = 0x4
+   0:   00409021        move    s2,v0
+>>> Tracing instruction at 0x767688d0, instruction size = 0x4
+   0:   2cc20004        sltiu   v0,a2,4
+>>> Tracing instruction at 0x767688d4, instruction size = 0x4
+   0:   10400004        beqz    v0,0x14
+>>> Tracing instruction at 0x767688d8, instruction size = 0x4
+   0:   00063882        srl     a3,a2,0x2
+>>> Tracing instruction at 0x767688dc, instruction size = 0x4
+   0:   00001821        move    v1,zero
+>>> Tracing instruction at 0x767688e0, instruction size = 0x4
+   0:   10000026        b       0x9c
+>>> Tracing instruction at 0x767688e4, instruction size = 0x4
+   0:   00001021        move    v0,zero
+>>> Tracing instruction at 0x7676897c, instruction size = 0x4
+   0:   54c0fff6        0x54c0fff6
+>>> Tracing instruction at 0x76768980, instruction size = 0x4
+   0:   90830000        lbu     v1,0(a0)
+>>> Tracing instruction at 0x76768958, instruction size = 0x4
+   0:   90a20000        lbu     v0,0(a1)
+>>> Tracing instruction at 0x7676895c, instruction size = 0x4
+   0:   24c6ffff        addiu   a2,a2,-1
+>>> Tracing instruction at 0x76768960, instruction size = 0x4
+   0:   24840001        addiu   a0,a0,1
+>>> Tracing instruction at 0x76768964, instruction size = 0x4
+   0:   10600003        beqz    v1,0x10
+>>> Tracing instruction at 0x76768968, instruction size = 0x4
+   0:   24a50001        addiu   a1,a1,1
+>>> Tracing instruction at 0x7676896c, instruction size = 0x4
+   0:   10620003        beq     v1,v0,0x10
+>>> Tracing instruction at 0x76768970, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x76768974, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768978, instruction size = 0x4
+   0:   00621023        subu    v0,v1,v0
+>>> Tracing instruction at 0x41b678, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b67c, instruction size = 0x4
+   0:   10400010        beqz    v0,0x44
+>>> Tracing instruction at 0x41b680, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b684, instruction size = 0x4
+   0:   26100001        addiu   s0,s0,1
+>>> Tracing instruction at 0x41b688, instruction size = 0x4
+   0:   ae900000        sw      s0,0(s4)
+>>> Tracing instruction at 0x41b68c, instruction size = 0x4
+   0:   82110000        lb      s1,0(s0)
+>>> Tracing instruction at 0x41b690, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b694, instruction size = 0x4
+   0:   1620ffed        bnez    s1,0xffffffb8
+>>> Tracing instruction at 0x41b698, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b64c, instruction size = 0x4
+   0:   8f9982a8        lw      t9,-32088(gp)
+>>> Tracing instruction at 0x41b650, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b654, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b658, instruction size = 0x4
+   0:   02602021        move    a0,s3
+>>> Tracing instruction at 0x76768790, instruction size = 0x4
+   0:   10000004        b       0x14
+>>> Tracing instruction at 0x76768794, instruction size = 0x4
+   0:   00802821        move    a1,a0
+>>> Tracing instruction at 0x767687a4, instruction size = 0x4
+   0:   30820003        andi    v0,a0,0x3
+>>> Tracing instruction at 0x767687a8, instruction size = 0x4
+   0:   5440fffb        0x5440fffb
+>>> Tracing instruction at 0x767687b0, instruction size = 0x4
+   0:   3c02fefe        lui     v0,0xfefe
+>>> Tracing instruction at 0x767687b4, instruction size = 0x4
+   0:   3447feff        ori     a3,v0,0xfeff
+>>> Tracing instruction at 0x767687b8, instruction size = 0x4
+   0:   3c028080        lui     v0,0x8080
+>>> Tracing instruction at 0x767687bc, instruction size = 0x4
+   0:   00801821        move    v1,a0
+>>> Tracing instruction at 0x767687c0, instruction size = 0x4
+   0:   34468080        ori     a2,v0,0x8080
+>>> Tracing instruction at 0x767687c4, instruction size = 0x4
+   0:   8c620000        lw      v0,0(v1)
+>>> Tracing instruction at 0x767687c8, instruction size = 0x4
+   0:   24630004        addiu   v1,v1,4
+>>> Tracing instruction at 0x767687cc, instruction size = 0x4
+   0:   00471021        addu    v0,v0,a3
+>>> Tracing instruction at 0x767687d0, instruction size = 0x4
+   0:   00461024        and     v0,v0,a2
+>>> Tracing instruction at 0x767687d4, instruction size = 0x4
+   0:   1040fffb        beqz    v0,0xfffffff0
+>>> Tracing instruction at 0x767687d8, instruction size = 0x4
+   0:   2464fffc        addiu   a0,v1,-4
+>>> Tracing instruction at 0x767687dc, instruction size = 0x4
+   0:   8062fffc        lb      v0,-4(v1)
+>>> Tracing instruction at 0x767687e0, instruction size = 0x4
+   0:   54400003        0x54400003
+>>> Tracing instruction at 0x767687e4, instruction size = 0x4
+   0:   80820001        lb      v0,1(a0)
+>>> Tracing instruction at 0x767687f0, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x767687f4, instruction size = 0x4
+   0:   80820002        lb      v0,2(a0)
+>>> Tracing instruction at 0x76768804, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x7676880c, instruction size = 0x4
+   0:   00851023        subu    v0,a0,a1
+>>> Tracing instruction at 0x76768810, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768814, instruction size = 0x4
+   0:   24420002        addiu   v0,v0,2
+>>> Tracing instruction at 0x41b65c, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b660, instruction size = 0x4
+   0:   02002021        move    a0,s0
+>>> Tracing instruction at 0x41b664, instruction size = 0x4
+   0:   02602821        move    a1,s3
+>>> Tracing instruction at 0x41b668, instruction size = 0x4
+   0:   8f9982bc        lw      t9,-32068(gp)
+>>> Tracing instruction at 0x41b66c, instruction size = 0x4
+   0:   00403021        move    a2,v0
+>>> Tracing instruction at 0x41b670, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b674, instruction size = 0x4
+   0:   00409021        move    s2,v0
+>>> Tracing instruction at 0x767688d0, instruction size = 0x4
+   0:   2cc20004        sltiu   v0,a2,4
+>>> Tracing instruction at 0x767688d4, instruction size = 0x4
+   0:   10400004        beqz    v0,0x14
+>>> Tracing instruction at 0x767688d8, instruction size = 0x4
+   0:   00063882        srl     a3,a2,0x2
+>>> Tracing instruction at 0x767688dc, instruction size = 0x4
+   0:   00001821        move    v1,zero
+>>> Tracing instruction at 0x767688e0, instruction size = 0x4
+   0:   10000026        b       0x9c
+>>> Tracing instruction at 0x767688e4, instruction size = 0x4
+   0:   00001021        move    v0,zero
+>>> Tracing instruction at 0x7676897c, instruction size = 0x4
+   0:   54c0fff6        0x54c0fff6
+>>> Tracing instruction at 0x76768980, instruction size = 0x4
+   0:   90830000        lbu     v1,0(a0)
+>>> Tracing instruction at 0x76768958, instruction size = 0x4
+   0:   90a20000        lbu     v0,0(a1)
+>>> Tracing instruction at 0x7676895c, instruction size = 0x4
+   0:   24c6ffff        addiu   a2,a2,-1
+>>> Tracing instruction at 0x76768960, instruction size = 0x4
+   0:   24840001        addiu   a0,a0,1
+>>> Tracing instruction at 0x76768964, instruction size = 0x4
+   0:   10600003        beqz    v1,0x10
+>>> Tracing instruction at 0x76768968, instruction size = 0x4
+   0:   24a50001        addiu   a1,a1,1
+>>> Tracing instruction at 0x7676896c, instruction size = 0x4
+   0:   10620003        beq     v1,v0,0x10
+>>> Tracing instruction at 0x76768970, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x76768974, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768978, instruction size = 0x4
+   0:   00621023        subu    v0,v1,v0
+>>> Tracing instruction at 0x41b678, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b67c, instruction size = 0x4
+   0:   10400010        beqz    v0,0x44
+>>> Tracing instruction at 0x41b680, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b684, instruction size = 0x4
+   0:   26100001        addiu   s0,s0,1
+>>> Tracing instruction at 0x41b688, instruction size = 0x4
+   0:   ae900000        sw      s0,0(s4)
+>>> Tracing instruction at 0x41b68c, instruction size = 0x4
+   0:   82110000        lb      s1,0(s0)
+>>> Tracing instruction at 0x41b690, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b694, instruction size = 0x4
+   0:   1620ffed        bnez    s1,0xffffffb8
+>>> Tracing instruction at 0x41b698, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b64c, instruction size = 0x4
+   0:   8f9982a8        lw      t9,-32088(gp)
+>>> Tracing instruction at 0x41b650, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b654, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b658, instruction size = 0x4
+   0:   02602021        move    a0,s3
+>>> Tracing instruction at 0x76768790, instruction size = 0x4
+   0:   10000004        b       0x14
+>>> Tracing instruction at 0x76768794, instruction size = 0x4
+   0:   00802821        move    a1,a0
+>>> Tracing instruction at 0x767687a4, instruction size = 0x4
+   0:   30820003        andi    v0,a0,0x3
+>>> Tracing instruction at 0x767687a8, instruction size = 0x4
+   0:   5440fffb        0x5440fffb
+>>> Tracing instruction at 0x767687b0, instruction size = 0x4
+   0:   3c02fefe        lui     v0,0xfefe
+>>> Tracing instruction at 0x767687b4, instruction size = 0x4
+   0:   3447feff        ori     a3,v0,0xfeff
+>>> Tracing instruction at 0x767687b8, instruction size = 0x4
+   0:   3c028080        lui     v0,0x8080
+>>> Tracing instruction at 0x767687bc, instruction size = 0x4
+   0:   00801821        move    v1,a0
+>>> Tracing instruction at 0x767687c0, instruction size = 0x4
+   0:   34468080        ori     a2,v0,0x8080
+>>> Tracing instruction at 0x767687c4, instruction size = 0x4
+   0:   8c620000        lw      v0,0(v1)
+>>> Tracing instruction at 0x767687c8, instruction size = 0x4
+   0:   24630004        addiu   v1,v1,4
+>>> Tracing instruction at 0x767687cc, instruction size = 0x4
+   0:   00471021        addu    v0,v0,a3
+>>> Tracing instruction at 0x767687d0, instruction size = 0x4
+   0:   00461024        and     v0,v0,a2
+>>> Tracing instruction at 0x767687d4, instruction size = 0x4
+   0:   1040fffb        beqz    v0,0xfffffff0
+>>> Tracing instruction at 0x767687d8, instruction size = 0x4
+   0:   2464fffc        addiu   a0,v1,-4
+>>> Tracing instruction at 0x767687dc, instruction size = 0x4
+   0:   8062fffc        lb      v0,-4(v1)
+>>> Tracing instruction at 0x767687e0, instruction size = 0x4
+   0:   54400003        0x54400003
+>>> Tracing instruction at 0x767687e4, instruction size = 0x4
+   0:   80820001        lb      v0,1(a0)
+>>> Tracing instruction at 0x767687f0, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x767687f4, instruction size = 0x4
+   0:   80820002        lb      v0,2(a0)
+>>> Tracing instruction at 0x76768804, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x7676880c, instruction size = 0x4
+   0:   00851023        subu    v0,a0,a1
+>>> Tracing instruction at 0x76768810, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768814, instruction size = 0x4
+   0:   24420002        addiu   v0,v0,2
+>>> Tracing instruction at 0x41b65c, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b660, instruction size = 0x4
+   0:   02002021        move    a0,s0
+>>> Tracing instruction at 0x41b664, instruction size = 0x4
+   0:   02602821        move    a1,s3
+>>> Tracing instruction at 0x41b668, instruction size = 0x4
+   0:   8f9982bc        lw      t9,-32068(gp)
+>>> Tracing instruction at 0x41b66c, instruction size = 0x4
+   0:   00403021        move    a2,v0
+>>> Tracing instruction at 0x41b670, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b674, instruction size = 0x4
+   0:   00409021        move    s2,v0
+>>> Tracing instruction at 0x767688d0, instruction size = 0x4
+   0:   2cc20004        sltiu   v0,a2,4
+>>> Tracing instruction at 0x767688d4, instruction size = 0x4
+   0:   10400004        beqz    v0,0x14
+>>> Tracing instruction at 0x767688d8, instruction size = 0x4
+   0:   00063882        srl     a3,a2,0x2
+>>> Tracing instruction at 0x767688dc, instruction size = 0x4
+   0:   00001821        move    v1,zero
+>>> Tracing instruction at 0x767688e0, instruction size = 0x4
+   0:   10000026        b       0x9c
+>>> Tracing instruction at 0x767688e4, instruction size = 0x4
+   0:   00001021        move    v0,zero
+>>> Tracing instruction at 0x7676897c, instruction size = 0x4
+   0:   54c0fff6        0x54c0fff6
+>>> Tracing instruction at 0x76768980, instruction size = 0x4
+   0:   90830000        lbu     v1,0(a0)
+>>> Tracing instruction at 0x76768958, instruction size = 0x4
+   0:   90a20000        lbu     v0,0(a1)
+>>> Tracing instruction at 0x7676895c, instruction size = 0x4
+   0:   24c6ffff        addiu   a2,a2,-1
+>>> Tracing instruction at 0x76768960, instruction size = 0x4
+   0:   24840001        addiu   a0,a0,1
+>>> Tracing instruction at 0x76768964, instruction size = 0x4
+   0:   10600003        beqz    v1,0x10
+>>> Tracing instruction at 0x76768968, instruction size = 0x4
+   0:   24a50001        addiu   a1,a1,1
+>>> Tracing instruction at 0x7676896c, instruction size = 0x4
+   0:   10620003        beq     v1,v0,0x10
+>>> Tracing instruction at 0x76768970, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x76768974, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768978, instruction size = 0x4
+   0:   00621023        subu    v0,v1,v0
+>>> Tracing instruction at 0x41b678, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b67c, instruction size = 0x4
+   0:   10400010        beqz    v0,0x44
+>>> Tracing instruction at 0x41b680, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b684, instruction size = 0x4
+   0:   26100001        addiu   s0,s0,1
+>>> Tracing instruction at 0x41b688, instruction size = 0x4
+   0:   ae900000        sw      s0,0(s4)
+>>> Tracing instruction at 0x41b68c, instruction size = 0x4
+   0:   82110000        lb      s1,0(s0)
+>>> Tracing instruction at 0x41b690, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b694, instruction size = 0x4
+   0:   1620ffed        bnez    s1,0xffffffb8
+>>> Tracing instruction at 0x41b698, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b64c, instruction size = 0x4
+   0:   8f9982a8        lw      t9,-32088(gp)
+>>> Tracing instruction at 0x41b650, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b654, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b658, instruction size = 0x4
+   0:   02602021        move    a0,s3
+>>> Tracing instruction at 0x76768790, instruction size = 0x4
+   0:   10000004        b       0x14
+>>> Tracing instruction at 0x76768794, instruction size = 0x4
+   0:   00802821        move    a1,a0
+>>> Tracing instruction at 0x767687a4, instruction size = 0x4
+   0:   30820003        andi    v0,a0,0x3
+>>> Tracing instruction at 0x767687a8, instruction size = 0x4
+   0:   5440fffb        0x5440fffb
+>>> Tracing instruction at 0x767687b0, instruction size = 0x4
+   0:   3c02fefe        lui     v0,0xfefe
+>>> Tracing instruction at 0x767687b4, instruction size = 0x4
+   0:   3447feff        ori     a3,v0,0xfeff
+>>> Tracing instruction at 0x767687b8, instruction size = 0x4
+   0:   3c028080        lui     v0,0x8080
+>>> Tracing instruction at 0x767687bc, instruction size = 0x4
+   0:   00801821        move    v1,a0
+>>> Tracing instruction at 0x767687c0, instruction size = 0x4
+   0:   34468080        ori     a2,v0,0x8080
+>>> Tracing instruction at 0x767687c4, instruction size = 0x4
+   0:   8c620000        lw      v0,0(v1)
+>>> Tracing instruction at 0x767687c8, instruction size = 0x4
+   0:   24630004        addiu   v1,v1,4
+>>> Tracing instruction at 0x767687cc, instruction size = 0x4
+   0:   00471021        addu    v0,v0,a3
+>>> Tracing instruction at 0x767687d0, instruction size = 0x4
+   0:   00461024        and     v0,v0,a2
+>>> Tracing instruction at 0x767687d4, instruction size = 0x4
+   0:   1040fffb        beqz    v0,0xfffffff0
+>>> Tracing instruction at 0x767687d8, instruction size = 0x4
+   0:   2464fffc        addiu   a0,v1,-4
+>>> Tracing instruction at 0x767687dc, instruction size = 0x4
+   0:   8062fffc        lb      v0,-4(v1)
+>>> Tracing instruction at 0x767687e0, instruction size = 0x4
+   0:   54400003        0x54400003
+>>> Tracing instruction at 0x767687e4, instruction size = 0x4
+   0:   80820001        lb      v0,1(a0)
+>>> Tracing instruction at 0x767687f0, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x767687f4, instruction size = 0x4
+   0:   80820002        lb      v0,2(a0)
+>>> Tracing instruction at 0x76768804, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x7676880c, instruction size = 0x4
+   0:   00851023        subu    v0,a0,a1
+>>> Tracing instruction at 0x76768810, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768814, instruction size = 0x4
+   0:   24420002        addiu   v0,v0,2
+>>> Tracing instruction at 0x41b65c, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b660, instruction size = 0x4
+   0:   02002021        move    a0,s0
+>>> Tracing instruction at 0x41b664, instruction size = 0x4
+   0:   02602821        move    a1,s3
+>>> Tracing instruction at 0x41b668, instruction size = 0x4
+   0:   8f9982bc        lw      t9,-32068(gp)
+>>> Tracing instruction at 0x41b66c, instruction size = 0x4
+   0:   00403021        move    a2,v0
+>>> Tracing instruction at 0x41b670, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b674, instruction size = 0x4
+   0:   00409021        move    s2,v0
+>>> Tracing instruction at 0x767688d0, instruction size = 0x4
+   0:   2cc20004        sltiu   v0,a2,4
+>>> Tracing instruction at 0x767688d4, instruction size = 0x4
+   0:   10400004        beqz    v0,0x14
+>>> Tracing instruction at 0x767688d8, instruction size = 0x4
+   0:   00063882        srl     a3,a2,0x2
+>>> Tracing instruction at 0x767688dc, instruction size = 0x4
+   0:   00001821        move    v1,zero
+>>> Tracing instruction at 0x767688e0, instruction size = 0x4
+   0:   10000026        b       0x9c
+>>> Tracing instruction at 0x767688e4, instruction size = 0x4
+   0:   00001021        move    v0,zero
+>>> Tracing instruction at 0x7676897c, instruction size = 0x4
+   0:   54c0fff6        0x54c0fff6
+>>> Tracing instruction at 0x76768980, instruction size = 0x4
+   0:   90830000        lbu     v1,0(a0)
+>>> Tracing instruction at 0x76768958, instruction size = 0x4
+   0:   90a20000        lbu     v0,0(a1)
+>>> Tracing instruction at 0x7676895c, instruction size = 0x4
+   0:   24c6ffff        addiu   a2,a2,-1
+>>> Tracing instruction at 0x76768960, instruction size = 0x4
+   0:   24840001        addiu   a0,a0,1
+>>> Tracing instruction at 0x76768964, instruction size = 0x4
+   0:   10600003        beqz    v1,0x10
+>>> Tracing instruction at 0x76768968, instruction size = 0x4
+   0:   24a50001        addiu   a1,a1,1
+>>> Tracing instruction at 0x7676896c, instruction size = 0x4
+   0:   10620003        beq     v1,v0,0x10
+>>> Tracing instruction at 0x76768970, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x76768974, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768978, instruction size = 0x4
+   0:   00621023        subu    v0,v1,v0
+>>> Tracing instruction at 0x41b678, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b67c, instruction size = 0x4
+   0:   10400010        beqz    v0,0x44
+>>> Tracing instruction at 0x41b680, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b684, instruction size = 0x4
+   0:   26100001        addiu   s0,s0,1
+>>> Tracing instruction at 0x41b688, instruction size = 0x4
+   0:   ae900000        sw      s0,0(s4)
+>>> Tracing instruction at 0x41b68c, instruction size = 0x4
+   0:   82110000        lb      s1,0(s0)
+>>> Tracing instruction at 0x41b690, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b694, instruction size = 0x4
+   0:   1620ffed        bnez    s1,0xffffffb8
+>>> Tracing instruction at 0x41b698, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b64c, instruction size = 0x4
+   0:   8f9982a8        lw      t9,-32088(gp)
+>>> Tracing instruction at 0x41b650, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b654, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b658, instruction size = 0x4
+   0:   02602021        move    a0,s3
+>>> Tracing instruction at 0x76768790, instruction size = 0x4
+   0:   10000004        b       0x14
+>>> Tracing instruction at 0x76768794, instruction size = 0x4
+   0:   00802821        move    a1,a0
+>>> Tracing instruction at 0x767687a4, instruction size = 0x4
+   0:   30820003        andi    v0,a0,0x3
+>>> Tracing instruction at 0x767687a8, instruction size = 0x4
+   0:   5440fffb        0x5440fffb
+>>> Tracing instruction at 0x767687b0, instruction size = 0x4
+   0:   3c02fefe        lui     v0,0xfefe
+>>> Tracing instruction at 0x767687b4, instruction size = 0x4
+   0:   3447feff        ori     a3,v0,0xfeff
+>>> Tracing instruction at 0x767687b8, instruction size = 0x4
+   0:   3c028080        lui     v0,0x8080
+>>> Tracing instruction at 0x767687bc, instruction size = 0x4
+   0:   00801821        move    v1,a0
+>>> Tracing instruction at 0x767687c0, instruction size = 0x4
+   0:   34468080        ori     a2,v0,0x8080
+>>> Tracing instruction at 0x767687c4, instruction size = 0x4
+   0:   8c620000        lw      v0,0(v1)
+>>> Tracing instruction at 0x767687c8, instruction size = 0x4
+   0:   24630004        addiu   v1,v1,4
+>>> Tracing instruction at 0x767687cc, instruction size = 0x4
+   0:   00471021        addu    v0,v0,a3
+>>> Tracing instruction at 0x767687d0, instruction size = 0x4
+   0:   00461024        and     v0,v0,a2
+>>> Tracing instruction at 0x767687d4, instruction size = 0x4
+   0:   1040fffb        beqz    v0,0xfffffff0
+>>> Tracing instruction at 0x767687d8, instruction size = 0x4
+   0:   2464fffc        addiu   a0,v1,-4
+>>> Tracing instruction at 0x767687dc, instruction size = 0x4
+   0:   8062fffc        lb      v0,-4(v1)
+>>> Tracing instruction at 0x767687e0, instruction size = 0x4
+   0:   54400003        0x54400003
+>>> Tracing instruction at 0x767687e4, instruction size = 0x4
+   0:   80820001        lb      v0,1(a0)
+>>> Tracing instruction at 0x767687f0, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x767687f4, instruction size = 0x4
+   0:   80820002        lb      v0,2(a0)
+>>> Tracing instruction at 0x76768804, instruction size = 0x4
+   0:   54400004        0x54400004
+>>> Tracing instruction at 0x7676880c, instruction size = 0x4
+   0:   00851023        subu    v0,a0,a1
+>>> Tracing instruction at 0x76768810, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768814, instruction size = 0x4
+   0:   24420002        addiu   v0,v0,2
+>>> Tracing instruction at 0x41b65c, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b660, instruction size = 0x4
+   0:   02002021        move    a0,s0
+>>> Tracing instruction at 0x41b664, instruction size = 0x4
+   0:   02602821        move    a1,s3
+>>> Tracing instruction at 0x41b668, instruction size = 0x4
+   0:   8f9982bc        lw      t9,-32068(gp)
+>>> Tracing instruction at 0x41b66c, instruction size = 0x4
+   0:   00403021        move    a2,v0
+>>> Tracing instruction at 0x41b670, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>>> Tracing instruction at 0x41b674, instruction size = 0x4
+   0:   00409021        move    s2,v0
+>>> Tracing instruction at 0x767688d0, instruction size = 0x4
+   0:   2cc20004        sltiu   v0,a2,4
+>>> Tracing instruction at 0x767688d4, instruction size = 0x4
+   0:   10400004        beqz    v0,0x14
+>>> Tracing instruction at 0x767688d8, instruction size = 0x4
+   0:   00063882        srl     a3,a2,0x2
+>>> Tracing instruction at 0x767688dc, instruction size = 0x4
+   0:   00001821        move    v1,zero
+>>> Tracing instruction at 0x767688e0, instruction size = 0x4
+   0:   10000026        b       0x9c
+>>> Tracing instruction at 0x767688e4, instruction size = 0x4
+   0:   00001021        move    v0,zero
+>>> Tracing instruction at 0x7676897c, instruction size = 0x4
+   0:   54c0fff6        0x54c0fff6
+>>> Tracing instruction at 0x76768980, instruction size = 0x4
+   0:   90830000        lbu     v1,0(a0)
+>>> Tracing instruction at 0x76768958, instruction size = 0x4
+   0:   90a20000        lbu     v0,0(a1)
+>>> Tracing instruction at 0x7676895c, instruction size = 0x4
+   0:   24c6ffff        addiu   a2,a2,-1
+>>> Tracing instruction at 0x76768960, instruction size = 0x4
+   0:   24840001        addiu   a0,a0,1
+>>> Tracing instruction at 0x76768964, instruction size = 0x4
+   0:   10600003        beqz    v1,0x10
+>>> Tracing instruction at 0x76768968, instruction size = 0x4
+   0:   24a50001        addiu   a1,a1,1
+>>> Tracing instruction at 0x7676896c, instruction size = 0x4
+   0:   10620003        beq     v1,v0,0x10
+>>> Tracing instruction at 0x76768970, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x76768974, instruction size = 0x4
+   0:   03e00008        jr      ra
+>>> Tracing instruction at 0x76768978, instruction size = 0x4
+   0:   00621023        subu    v0,v1,v0
+>>> Tracing instruction at 0x41b678, instruction size = 0x4
+   0:   8fbc0010        lw      gp,16(sp)
+>>> Tracing instruction at 0x41b67c, instruction size = 0x4
+   0:   10400010        beqz    v0,0x44
+>>> Tracing instruction at 0x41b680, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b684, instruction size = 0x4
+   0:   26100001        addiu   s0,s0,1
+>>> Tracing instruction at 0x41b688, instruction size = 0x4
+   0:   ae900000        sw      s0,0(s4)
+>>> Tracing instruction at 0x41b68c, instruction size = 0x4
+   0:   82110000        lb      s1,0(s0)
+>>> Tracing instruction at 0x41b690, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b694, instruction size = 0x4
+   0:   1620ffed        bnez    s1,0xffffffb8
+>>> Tracing instruction at 0x41b698, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b64c, instruction size = 0x4
+   0:   8f9982a8        lw      t9,-32088(gp)
+>>> Tracing instruction at 0x41b650, instruction size = 0x4
+   0:   00000000        nop
+>>> Tracing instruction at 0x41b654, instruction size = 0x4
+   0:   0320f809        jalr    t9
+>

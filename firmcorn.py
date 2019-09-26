@@ -48,18 +48,18 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         self.trace_start_addr = 0
         self.trace_end_addr = 0
         self.dbg_addr_list = []
+        self.instrs = []
 
-    def load_context(self , context_dir , binary ):
+    def load_context(self , context_dir , binary , libc):
         self.context_dir = context_dir
-        self.binary = binary
+        self.elf = ELF(binary)
+        self.libc = ELF(libc)
+        self.got = self.elf.got
 
     def _load_context(self):
         """
         load context and binary actual
         """
-        self.elf = ELF(self.binary)
-        self.got = self.elf.got
-
         context_json = os.path.join( self.context_dir, CONTEXT_JSON)
         if not os.path.isfile(context_json):
             raise Exception("Contex json not found")
@@ -104,7 +104,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             raise Exception("Error arch")
         
         self.get_common_regs()
-
+        
         # endian to uc_endian
         if self.endian == "big":
             self.uc_endian =  UC_MODE_BIG_ENDIAN
@@ -121,24 +121,46 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         segments_list = context['segments'] # 
         if not self.set_memory(segments_list):
             raise Exception("Error in setup memory")
-
         self.init_got()
+        self.rebase_got()
 
+    def load_library(self , libc):
+        self.libc = ELF(libc)
+        
 
     def init_got(self , enable_debug = True):
         """
         Read GOT table entries in memory 
         """
         print "=======================================Init GOT Table Start======================================="
-        if self.got is not None and self.enable_debug:
-            print self.got  
-
+        print self.got.items()
         for name , addr in self.got.items():
-            print int(str(self.mem_read(addr , self.size)).encode("hex") , 16)
-            self.got.update({ int(str(self.mem_read(addr , self.size)).encode("hex") , 16): name})
+            del self.got[name]
+            self.got.update({ int(str(self.mem_read(addr , self.size)).encode("hex") , 16) : name})
             print "Name : {:<40} Addr : {:<10} Value: 0x{:<10}".format( name, hex(addr) , str(self.mem_read(addr , self.size)).encode("hex"))
         print "=======================================Init GOT Table End=========================================="
-    
+        
+    def rebase_got(self):
+        """
+        reload GOT table entries
+        """
+        self.rebase_got = dict()
+        print "=======================================Rebase GOT Table Start=======================================" 
+        for addr , name in self.got.items():
+            if int(addr) & 0xff000000 != 0:
+                dl_resolve_addr = addr 
+                dl_resolve_name = name 
+                break
+        print self.libc
+        libc_base = dl_resolve_addr - self.libc.symbols[dl_resolve_name] 
+        for addr , name  in self.got.items():
+            if self.libc.symbols.has_key(name):
+                self.rebase_got.update( { name :  libc_base + self.libc.symbols[name]   })
+                print "Name : {:<40} Rebase addr : {}".format(name , hex(libc_base + self.libc.symbols[name]) )
+                
+        raw_input()
+        print "=======================================Rebase GOT Table End=======================================" 
+
     def dbg_hook_code(mu, address, size, user_data):  
         print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
 
@@ -149,6 +171,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         dbg_mu = Uc(UC_ARCH_MIPS, UC_MODE_MIPS32 + UC_MODE_BIG_ENDIAN)
         dbg_mu.hook_add(UC_HOOK_CODE, self.dbg_hook_code)
         dbg_mu.emu_start(start_addr )
+
 
     def set_reg(self , regs, regs_map , debug_func = True ):
         self.enable_debug = debug_func
@@ -322,9 +345,8 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         self.trace_start_addr = trace_start_addr
         self.trace_end_addr = trace_end_addr
 
-
     def _set_trace(self , uc , address , size , user_data):
-        if address >= self.trace_start_addr and address <= self.trace_end_addr:
+        if address >= self.trace_start_addr and address:
             if self.enable_debug:
                 print "trace address"
             print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
@@ -338,11 +360,19 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
                 print "{}".format( disasm(instr , arch="{}".format("i386")))
             print "{}".format( disasm(instr , arch="{}".format("mips")))
     
+    def show_debug_info(self , dbg_addr_list):
+        self.dbg_addr_list = dbg_addr_list
+
     def _show_debug_info(self, uc , address , size , user_data ):
         """
         show registers and memory info when debug
         """
-        
+        if address in self.dbg_addr_list:
+            self.show_reg_value()
+            self.show_memory_layout()
+
+
+    def show_reg_value(self):
         context_json = os.path.join( self.context_dir, CONTEXT_JSON)
         if not os.path.isfile(context_json):
             raise Exception("Contex json not found")
@@ -354,41 +384,50 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         regs_map = self.get_regs_by_arch(self.arch)
         regs = context['regs']
         
-        if address in self.dbg_addr_list:
-            # show registers value
-            print("=================================================================")
-            print("=========================Registers Value=========================")
-            for register , value in regs.iteritems():
-                try:
-                    print("Reg {} --> {}".format(register.lower() ,hex(self.reg_read(regs_map[register.lower()])) ))
-                except Exception as e:
-                    print "ERROR writing register: {}, value: {} -- {}".format(register, value, repr(e))
-            
+        # show registers value
+        print("=========================Registers Value=========================")
+        for register , value in regs.iteritems():
+            try:
+                print("Reg {} --> {:<51} {}".format(register.lower() ,hex(self.reg_read(regs_map[register.lower()])), "||"))
+            except Exception as e:
+                print "ERROR writing register: {}, value: {} -- {}".format(register, value, repr(e))
+        print("=================================================================")
 
-            print("=================================================================")
-            # print("")
-            print("=========================Memory Content==========================")
-            # show stack memory
-            for i in range(6):
-                reg_sp = self.reg_read(self.REG_SP , size)
-                stack_addr = reg_sp + 0x14 + 4*i
-                mem_cont = self.mem_read(stack_addr, 4)
-                print("sp+{} {} --> {}".format( 0x14 + 4*i , hex(stack_addr) ,str(mem_cont).encode("hex")))
-            
-            # show other memory
-            #addr = self.reg_read(UC_MIPS_REG_V0, size) 
-            #print("{} --> 0x{}".format( 0x4361b0 , str(self.mem_read(0x4361b0, 4)).encode("hex")))
-            raw_input()
 
-    def show_debug_info(self , dbg_addr_list):
-        self.dbg_addr_list = dbg_addr_list
+    def show_memory_layout(self):
+        print("=========================Memory Layout==========================")
+        # show stack memory
+        for i in range(6):
+            reg_sp = self.reg_read(self.REG_SP , size)
+            stack_addr = reg_sp + 0x14 + 4*i
+            mem_cont = self.mem_read(stack_addr, 4)
+            print("sp+{} {} --> {:<51} {}".format( 0x14 + 4*i , hex(stack_addr) ,str(mem_cont).encode("hex") , "||"))
+        print("=================================================================")
+
+    def show_instrs(self):
+        """
+        print crash location instruction
+        """
+        print "=========================Instructions=========================="
+        for instr in self.instrs[:-50:-1]:
+            print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(instr, self.size))
+        print "==============================================================="
+
+    def log_instrs(self , uc , address , size , user_data):
+        self.instrs.append(address)
+
+
+
+
+    def add_func(self , func_list):
+        self.unresolved_funcs = func_list
 
 
     def add_fuzz(self, fuzzTarget):
         """
         use to add a fuzz targrt object
         """
-        if init_clfuzzTarget is not None:
+        if fuzzTarget is not None:
             fuzzTarget.init(self, self.arch)
             self.hook_add(UC_HOOK_CODE , fuzzTarget.fuzz_func_alt)
 
@@ -405,6 +444,9 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         rounds = 0
         while True:
             self._load_context()
+            """
+            some hook function
+            """
             if self.hookcode.func_skip_list is not None:
                 self.hook_add(UC_HOOK_CODE , self.hookcode._func_skip)
             if self.dbg_addr_list is not None:
@@ -412,13 +454,16 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             if self.trace_start_addr!=0 and self.trace_end_addr!=0:
                 self.hook_add(UC_HOOK_CODE , self._set_trace)
             if self.got is not None:
-                self.hook_add(UC_HOOK_CODE , self.hookcode.func_alt_auto)
+                # self.hook_add(UC_HOOK_CODE , self.hookcode.func_alt_auto_libc)
+                pass
+            if self.unresolved_funcs is not None:
+                self.hook_add(UC_HOOK_CODE , self.hookcode.hook_unresolved_func)
             self.hook_add( UC_HOOK_MEM_READ_UNMAPPED | UC_HOOK_MEM_WRITE_UNMAPPED, self.crash.mem_crash_check)
+            self.hook_add(UC_HOOK_CODE , self.log_instrs)
             uc_result = self.emu_start(start_address , end_address)
             print "Round : {}".format(rounds)
             rounds += 1
             raw_input()
-
 
 
     def init_class(self): 
@@ -430,7 +475,6 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         self.funcemu = FuncEmu(self , self.hookcode)
         self.crash = CrashLoader(self)
         
-
 
     def get_regs_by_arch(self , arch):
         if arch == "arm64le" or arch == "arm64be":

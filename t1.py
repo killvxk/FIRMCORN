@@ -1,5 +1,8 @@
-print "1"
 
-print "2"
-
-print "3"
+t = {
+    'a': '1',
+    'b': '2',
+    'c': '3',
+}
+if t.get('d') is None:
+    print "sss"

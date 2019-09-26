@@ -38,6 +38,12 @@ class FuncEmu(object):
         self.func_list.update({ 'free': self.free})
         self.func_list.update({ 'snprintf': self.snprintf})
         self.func_list.update({ 'socket': self.socket})
+        self.func_list.update({ 'fcntl': self.fcntl})
+        self.func_list.update({ 'connect': self.connect})
+        self.func_list.update({ 'send': self.send})
+        self.func_list.update({ 'close': self.close})
+        self.func_list.update({ 'getpid': self.getpid})
+        self.func_list.update({ 'open': self.open_})
         self.strdup_call_num = 0
 
     def strcpy(self):
@@ -80,3 +86,27 @@ class FuncEmu(object):
     def socket(self):
         socketEmu = socket(self.fc, self.hc)
         socketEmu.run()
+
+    def fcntl(self):
+        fcntlEmu = fcntl(self.fc, self.hc)
+        fcntlEmu.run()
+
+    def connect(self):
+        connectEmu = connect(self.fc, self.hc)
+        connectEmu.run()
+
+    def send(self):
+        connectEmu = send(self.fc, self.hc)
+        connectEmu.run()
+
+    def close(self):
+        connectEmu = close(self.fc, self.hc)
+        connectEmu.run()
+
+    def getpid(self):
+        getpidEmu = getpid(self.fc, self.hc)
+        getpidEmu.run()
+
+    def open_(self):
+        open_Emu = open_(self.fc, self.hc)
+        open_Emu.run()
