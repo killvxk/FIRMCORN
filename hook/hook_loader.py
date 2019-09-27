@@ -2,11 +2,10 @@ import sys
 import logging 
 import os
 import json
-import ctypes
-import ctypes.util
-import zlib
-from struct import unpack, pack, unpack_from, calcsize
 from pwn import *
+
+from func_emu import *
+from hook_auto import *
 
 from unicorn import *
 from unicorn.arm_const import *
@@ -14,21 +13,21 @@ from unicorn.arm64_const import *
 from unicorn.x86_const import *
 from unicorn.mips_const import *
 
-# https://github.com/36hours/idaemu
-# very enlightening
+
 COMPILE_GCC = 1
 COMPILE_MSVC = 2
 
 # The class for hook and  hijack function
-class Hooker(object):
-    def __init__(self , fc , arch , compiler=COMPILE_GCC, enable_debug = False):
+class HookLoader(object):
+    def __init__(self , fc ,  compiler=COMPILE_GCC, enable_debug = False):
         # pass
         self.fc = fc 
-        self.arch = arch
+        self.arch = self.fc.arch
         self.func_alt_addr = {}
         self.func_skip_list = []
         self.compiler = compiler
-
+        self.funcemu = FuncEmu(self.fc , self)
+        self.hookauto = HookAuto(self.fc , self)
         self.debug_func = enable_debug
         self.get_common_regs() 
         self.get_common_ret() 
@@ -142,20 +141,20 @@ class Hooker(object):
             self.fc.reg_write( self.REG_PC ,  address+size)
 
     def hook_unresolved_func(self , uc , address , size , user_data):
-        if self.fc.got.get(address):
-            if self.fc.got[address]  in  self.fc.unresolved_funcs:
-                print "find unresolved function : {}".format(self.fc.got[address])
-                self.func_alt( address , self.fc.funcemu.func_list[self.fc.got[address]] )
+        if self.fc.mem_got.get(address):
+            if self.fc.mem_got[address]  in  self.fc.unresolved_funcs:
+                print "find unresolved function : {}".format(self.fc.mem_got[address])
+                self.func_alt( address , self.funcemu.func_list[self.fc.mem_got[address]] )
                 self.fc.hook_add(UC_HOOK_CODE , self._func_alt) 
 
     def func_alt_auto(self, uc , address , size , user_data):
         instr = uc.mem_read(address , size)
-        if self.fc.got.has_key(address):
-            print "find func : {} --> {}".format(hex(address) , self.fc.got[address])
-            if self.fc.funcemu.func_list.has_key(self.fc.got[address]):
-                print "custom func {}##############################################".format(self.fc.got[address])
+        if self.fc.mem_got.has_key(address):
+            print "find func : {} --> {}".format(hex(address) , self.fc.mem_got[address])
+            if self.funcemu.func_list.has_key(self.fc.mem_got[address]):
+                print "custom func {}##############################################".format(self.fc.mem_got[address])
                 #fc.hookcode.func_alt(memset_addr2 , fc.funcemu.memset  , 2)
-                self.func_alt( address , self.fc.funcemu.func_list[self.fc.got[address]]  , 2)
+                self.func_alt( address , self.funcemu.func_list[self.fc.mem_got[address]]  , 2)
                 if self.func_alt_addr is not None:
                     self.fc.hook_add(UC_HOOK_CODE , self._func_alt) 
                     # reg_sp = self.fc.reg_read(self.REG_SP)
@@ -166,13 +165,13 @@ class Hooker(object):
                     #     ret_addr = self.fc.reg_read(self.REG_RA)
 
     def func_alt_auto_libc(self , uc, address , size , user_data):
-        if self.fc.got.get(address) is not None and self.fc.rebase_got.get( self.fc.got[address] ) is not None:
-            print "find got table func : {} --> {}".format(hex(address) , self.fc.got[address]) 
+        if self.fc.mem_got.get(address) is not None and self.fc.rebase_got.get( self.fc.mem_got[address] ) is not None:
+            print "find got table func : {} --> {}".format(hex(address) , self.fc.mem_got[address]) 
             # determaine if it has beed replaced 
-            if self.fc.reg_read(self.fc.REG_PC) != self.fc.rebase_got[ self.fc.got[address] ]: 
-                if self.fc.rebase_got.get(self.fc.got[address]):
-                    print "find libc func : {} --> {}".format(hex(self.fc.rebase_got[ self.fc.got[address] ]) , self.fc.got[address] )
-                    self.fc.reg_write(self.fc.REG_PC , self.fc.rebase_got[ self.fc.got[address] ])
+            if self.fc.reg_read(self.fc.REG_PC) != self.fc.rebase_got[ self.fc.mem_got[address] ]: 
+                if self.fc.rebase_got.get(self.fc.mem_got[address]):
+                    print "find libc func : {} --> {}".format(hex(self.fc.rebase_got[ self.fc.mem_got[address] ]) , self.fc.mem_got[address] )
+                    self.fc.reg_write(self.fc.REG_PC , self.fc.rebase_got[ self.fc.mem_got[address] ])
                     raw_input()
 
     def get_common_ret(self):

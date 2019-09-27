@@ -2,10 +2,7 @@ import sys
 import logging 
 import os
 import json
-import ctypes
-import ctypes.util
 import binascii
-import zlib
 from pwn import * 
 # import unicorn
 
@@ -19,7 +16,7 @@ from unicorn.mips_const import *
 
 # custom module import 
 from hook.hook_loader import *
-from hook.func_emu import *
+
 from fuzz.fuzz_loader import *
 from crash.crash_loader import *
 
@@ -123,7 +120,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         if not self.set_memory(segments_list):
             raise Exception("Error in setup memory")
         self.init_got()
-        self.rebase_got()
+        self.rebased_got()
 
     def load_library(self , libc):
         self.libc = ELF(libc)
@@ -131,35 +128,36 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
 
     def init_got(self , enable_debug = True):
         """
-        Read GOT table entries in memory 
+        read GOT table entries in memory 
         """
         print "=======================================Init GOT Table Start======================================="
         print self.got.items()
+        self.mem_got = dict()
         for name , addr in self.got.items():
-            del self.got[name]
-            self.got.update({ int(str(self.mem_read(addr , self.size)).encode("hex") , 16) : name})
+            #del self.got[name]
+            self.mem_got.update({ int(str(self.mem_read(addr , self.size)).encode("hex") , 16) : name})
             print "Name : {:<40} Addr : {:<10} Value: 0x{:<10}".format( name, hex(addr) , str(self.mem_read(addr , self.size)).encode("hex"))
         print "=======================================Init GOT Table End=========================================="
         
-    def rebase_got(self):
+    def rebased_got(self):
         """
         reload GOT table entries
         """
         self.rebase_got = dict()
         print "=======================================Rebase GOT Table Start=======================================" 
-        for addr , name in self.got.items():
+        for addr , name in self.mem_got.items():
             if int(addr) & 0xff000000 != 0:
                 dl_resolve_addr = addr 
                 dl_resolve_name = name 
                 break
         print self.libc
         libc_base = dl_resolve_addr - self.libc.symbols[dl_resolve_name] 
-        for addr , name  in self.got.items():
+        for addr , name  in self.mem_got.items():
             if self.libc.symbols.has_key(name):
                 self.rebase_got.update( { name :  libc_base + self.libc.symbols[name]   })
                 print "Name : {:<40} Rebase addr : {}".format(name , hex(libc_base + self.libc.symbols[name]) )
                 
-        raw_input()
+        #raw_input()
         print "=======================================Rebase GOT Table End=======================================" 
 
     def dbg_hook_code(mu, address, size, user_data):  
@@ -426,13 +424,15 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
 
     def add_fuzz(self, fuzzTarget):
         """
-        use to add a fuzz targrt object
+        add a fuzz targrt object
         """
         if fuzzTarget is not None:
             fuzzTarget.init(self, self.arch)
             self.hook_add(UC_HOOK_CODE , fuzzTarget.fuzz_func_alt)
 
-    def start_run(self , start_address , end_address , fuzzTarget=None):
+
+
+    def start_find(self , start_address , end_address , fuzzTarget=None):
         print "  ______ _____ _____  __  __  _____ ____  _____  _   _  "
         print " |  ____|_   _|  __ \|  \/  |/ ____/ __ \|  __ \| \ | | "
         print " | |__    | | | |__) | \  / | |   | |  | | |__) |  \| | "
@@ -441,7 +441,54 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         print " |_|    |_____|_|  \_\_|  |_|\_____\____/|_|  \_\_| \_| "
         print "                                                        "
         # uc_result = self.emu_start(start_address , end_address)
+        self.unresolved_funcs = []
+        rounds = 0
+        while True:
+            self._load_context()
+            """
+            some hook function
+            """
+            last_round_list_len = len(self.unresolved_funcs)
+            if self.hookcode.func_skip_list is not None:
+                self.hook_add(UC_HOOK_CODE , self.hookcode._func_skip)
+            if self.dbg_addr_list is not None:
+                self.hook_add(UC_HOOK_CODE, self._show_debug_info)
+            if self.trace_start_addr!=0 and self.trace_end_addr!=0:
+                self.hook_add(UC_HOOK_CODE , self._set_trace)
+            if self.unresolved_funcs is not None:
+                self.hook_add(UC_HOOK_CODE , self.hookcode.hook_unresolved_func)
+            # self.hook_add( UC_HOOK_MEM_READ_UNMAPPED | UC_HOOK_MEM_WRITE_UNMAPPED  , self.crash.mem_crash_check)
+            # self.hook_add(UC_ERR_FETCH_UNMAPPED , self.crash.crash_check_dbg)
+            self.hook_add(UC_HOOK_CODE , self.log_instrs)
+            self.hook_add(UC_HOOK_CODE , self.hookcode.hookauto.record_last_func)
+            self.hook_add( UC_HOOK_MEM_READ_UNMAPPED | UC_HOOK_MEM_WRITE_UNMAPPED  , self.hookcode.hookauto.find_unresolved_func)
+            try:
+                uc_result = self.emu_start(start_address , end_address)
+            except UcError as e:
+                print "next round"
+                print "Round : {}".format(rounds)
+                rounds += 1
+                print  "find all unresolved funcs : {}".format(self.unresolved_funcs)
+                # raw_input()
+            # raw_input()
+            if len(self.unresolved_funcs) == last_round_list_len:
+                print self.unresolved_funcs
+                print "End Find!"
+                break
 
+    def start_run(self , start_address , end_address , fuzzTarget=None):
+        # print "  ______ _____ _____  __  __  _____ ____  _____  _   _  "
+        # print " |  ____|_   _|  __ \|  \/  |/ ____/ __ \|  __ \| \ | | "
+        # print " | |__    | | | |__) | \  / | |   | |  | | |__) |  \| | "
+        # print " |  __|   | | |  _  /| |\/| | |   | |  | |  _  /| . ` | "
+        # print " | |     _| |_| | \ \| |  | | |___| |__| | | \ \| |\  | "
+        # print " |_|    |_____|_|  \_\_|  |_|\_____\____/|_|  \_\_| \_| "
+        # print "                                                        "
+        # # uc_result = self.emu_start(start_address , end_address)
+        self.start_find(start_address , end_address)
+        print "=================End Find================="
+        print "start run!"
+        raw_input()
         rounds = 0
         while True:
             self._load_context()
@@ -477,12 +524,10 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
 
     def init_class(self): 
         """
-        this part import hook module 
-        return Hooker & FuncEmu class
+        import other classes
         """
-        self.hookcode = Hooker(self , self.arch )
-        self.funcemu = FuncEmu(self , self.hookcode)
-        self.crash = CrashLoader(self)
+        self.hookcode = HookLoader(self)
+        self.crash    = CrashLoader(self)
         
 
     def get_regs_by_arch(self , arch):
