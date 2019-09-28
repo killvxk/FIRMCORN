@@ -19,6 +19,8 @@ COMPILE_GCC = 1
 COMPILE_MSVC = 2
 INPUT_BASE = 0x300000
 
+MAGIC = "^^^firm#"
+
 class Fuzzer():
     def __init__(self  , seed ,datas , func_list, formats="not" , enable_debug = True):
         self.seed = seed
@@ -26,15 +28,13 @@ class Fuzzer():
         self.formats = formats
         self.fuzz_func_list = func_list
         self.enable_debug = enable_debug
-        
 
 
-    def init(self ,fc , arch , compiler=COMPILE_GCC):
+    def init(self ,fc  , compiler=COMPILE_GCC):
         self.fc = fc 
-        self.arch = arch
+        self.arch = self.fc.arch
         self.compiler = compiler
         self.get_common_regs() 
-
 
     def get_mutate_data(self):
         """ 
@@ -61,7 +61,6 @@ class Fuzzer():
         generation-based method
         """
         pass
-
 
     def fuzz_func_alt(self , uc , address , size , user_data):
         """
@@ -100,6 +99,30 @@ class Fuzzer():
             if self.enable_debug:
                 print "reg_res : {}".format( str(self.fc.mem_read(INPUT_BASE , self.size)))
                 print "ret_addr : {}".format(str(self.fc.reg_read(self.REG_PC , self.size)))
+
+
+    def find_magic_num(self, uc , address , size , user_data):
+        if self.fc.mem_got.get(address) is not None or self.fc.rebase_got.get(address):
+            #raw_input()
+            for reg_arg in self.fc.REG_ARGS:
+                reg_arg_value = self.fc.reg_read( reg_arg )
+                try:
+                    mem_value = self.fc.mem_read(reg_arg_value , 0x30)
+                except:
+                    continue
+                if MAGIC in mem_value:
+                    print "find magic : {}".format(mem_value)
+                    print "magic function name : {}".format(self.fc.mem_got[address])
+                    print "reg_arg_value : {}".format(hex(reg_arg_value))
+                    malformed_data = self.get_mutate_data()
+                    mem_value_new = mem_value.replace(MAGIC , malformed_data)
+                    print type(mem_value_new)
+                    print "new data : {}".format(mem_value_new)
+                    raw_input()
+                    self.fc.mem_write(reg_arg_value , str(mem_value_new))
+                    print "write done"
+                    break
+
 
     def get_common_regs(self):
         """

@@ -32,12 +32,12 @@ class HookLoader(object):
         self.get_common_regs() 
         self.get_common_ret() 
 
-
     def func_alt(self , address , func , debug_func = True):
         self.debug_func = debug_func
         self.func_alt_addr[address] = (func )
 
         # use for hijack function , like getenv , printf .etc
+
     def _func_alt_dbg(self , uc , address , size , user_data):
         """
         The essence of function hijacking is to skip 
@@ -105,7 +105,7 @@ class HookLoader(object):
             # fc <==> firmcorn class <--- Uc class
             # 1 , get return address
             reg_sp = self.fc.reg_read(self.REG_SP)
-            # we should get address value from stack
+           
             if self.REG_RA == 0: 
                 ret_addr = unpack(self.pack_fmt , str(self.fc.mem_read(reg_sp , self.size)))[0]
             else:
@@ -128,7 +128,6 @@ class HookLoader(object):
             pass 
             '''
 
-
     def func_skip( self , func_skip_list , debug_func = True):
         # setup func skip list 
         self.debug_func = debug_func
@@ -147,33 +146,6 @@ class HookLoader(object):
                 self.func_alt( address , self.funcemu.func_list[self.fc.mem_got[address]] )
                 self.fc.hook_add(UC_HOOK_CODE , self._func_alt) 
 
-    def func_alt_auto(self, uc , address , size , user_data):
-        instr = uc.mem_read(address , size)
-        if self.fc.mem_got.has_key(address):
-            print "find func : {} --> {}".format(hex(address) , self.fc.mem_got[address])
-            if self.funcemu.func_list.has_key(self.fc.mem_got[address]):
-                print "custom func {}##############################################".format(self.fc.mem_got[address])
-                #fc.hookcode.func_alt(memset_addr2 , fc.funcemu.memset  , 2)
-                self.func_alt( address , self.funcemu.func_list[self.fc.mem_got[address]]  , 2)
-                if self.func_alt_addr is not None:
-                    self.fc.hook_add(UC_HOOK_CODE , self._func_alt) 
-                    # reg_sp = self.fc.reg_read(self.REG_SP)
-                    # # we should get address value from stack
-                    # if self.REG_RA == 0: 
-                    #     ret_addr = unpack(self.pack_fmt , str(self.fc.mem_read(reg_sp , self.size)))[0]
-                    # else:
-                    #     ret_addr = self.fc.reg_read(self.REG_RA)
-
-    def func_alt_auto_libc(self , uc, address , size , user_data):
-        if self.fc.mem_got.get(address) is not None and self.fc.rebase_got.get( self.fc.mem_got[address] ) is not None:
-            print "find got table func : {} --> {}".format(hex(address) , self.fc.mem_got[address]) 
-            # determaine if it has beed replaced 
-            if self.fc.reg_read(self.fc.REG_PC) != self.fc.rebase_got[ self.fc.mem_got[address] ]: 
-                if self.fc.rebase_got.get(self.fc.mem_got[address]):
-                    print "find libc func : {} --> {}".format(hex(self.fc.rebase_got[ self.fc.mem_got[address] ]) , self.fc.mem_got[address] )
-                    self.fc.reg_write(self.fc.REG_PC , self.fc.rebase_got[ self.fc.mem_got[address] ])
-                    raw_input()
-
     def get_common_ret(self):
         if self.arch == "x64":
             self.RET_INTR = "\xC3"
@@ -187,7 +159,7 @@ class HookLoader(object):
         else:
             raise Exception("Error arch")
 
-    def get_common_regs(self):
+    def get_common_regs(self):  
         """
         get some common register
         REG_PC: IP
