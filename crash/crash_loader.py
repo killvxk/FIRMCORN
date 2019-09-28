@@ -2,12 +2,8 @@ import subprocess
 import os 
 import sys
 import logging 
-import os
 import json
-import ctypes
-import ctypes.util
-import zlib
-from struct import unpack, pack, unpack_from, calcsize
+from datetime import datetime
 
 from unicorn import *
 from unicorn.arm_const import *
@@ -38,8 +34,12 @@ class CrashLoader():
 
 
     def crash_log(self):
-        pass
-    
+        if not os.path.exists("outputs"):
+            os.mkdir("outputs")
+        tm = datetime.now().strftime("%Y%m%d_%H%M%S") + ".crash"
+        fp = open("./outputs/" + tm , "w+")
+        fp.write(self.fc.malformed_data)
+        fp.close()
 
     def get_common_ret(self):
         if self.arch == "x64":

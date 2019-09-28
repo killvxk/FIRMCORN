@@ -455,8 +455,6 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
                 self.hook_add(UC_HOOK_CODE , self._set_trace)
             if self.unresolved_funcs is not None:
                 self.hook_add(UC_HOOK_CODE , self.hookcode.hook_unresolved_func)
-            # self.hook_add( UC_HOOK_MEM_READ_UNMAPPED | UC_HOOK_MEM_WRITE_UNMAPPED  , self.crash.mem_crash_check)
-            # self.hook_add(UC_ERR_FETCH_UNMAPPED , self.crash.crash_check_dbg)
             self.hook_add(UC_HOOK_CODE , self.log_instrs)
             self.hook_add(UC_HOOK_CODE , self.hookcode.hookauto.record_last_func)
             self.hook_add( UC_HOOK_MEM_READ_UNMAPPED | UC_HOOK_MEM_WRITE_UNMAPPED  , self.hookcode.hookauto.find_unresolved_func)
@@ -475,7 +473,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
                 break
 
     def start_run(self , start_address , end_address):
-        self.start_find(start_address , end_address)
+        #self.start_find(start_address , end_address)
         print "=================End Find================="
         print "start run!"
         raw_input()
@@ -499,21 +497,27 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
                 pass
             if self.unresolved_funcs is not None:
                 self.hook_add(UC_HOOK_CODE , self.hookcode.hook_unresolved_func)
-            self.hook_add( UC_HOOK_MEM_READ_UNMAPPED | UC_HOOK_MEM_WRITE_UNMAPPED  , self.crash.mem_crash_check)
-            # self.hook_add(UC_ERR_FETCH_UNMAPPED , self.crash.crash_check_dbg)
+            # self.hook_add( UC_HOOK_MEM_READ_UNMAPPED | UC_HOOK_MEM_WRITE_UNMAPPED  , self.crash.mem_crash_check)
+            #self.hook_add(UC_ERR_FETCH_UNMAPPED , self.crash.crash_check_dbg)
             self.hook_add(UC_HOOK_CODE , self.log_instrs)
 
+            # try:
+            #     uc_result = self.emu_start(start_address , end_address)
+            # except UcError as e:
+            #     # if e.errno == UC_ERR_READ_UNMAPPED:
+            #     print("   \033[1;31;40m !!! about to bail due to bad fetch... here's the data at PC: {} \033[0m   ".format(  binascii.hexlify(self.mem_read(self.reg_read(self.REG_PC), self.size)))  )
+            #     # print(binascii.hexlify(self.mem_read(self.reg_read(self.REG_PC), self.size)))
+            #     self.show_instrs()
             try:
                 uc_result = self.emu_start(start_address , end_address)
             except UcError as e:
-                # if e.errno == UC_ERR_READ_UNMAPPED:
-                print("   \033[1;31;40m !!! about to bail due to bad fetch... here's the data at PC:  \033[0m   ")
-                # print(binascii.hexlify(self.mem_read(self.reg_read(self.REG_PC), self.size)))
-                self.show_instrs()
-
+                if e.errno == UC_ERR_FETCH_UNMAPPED:
+                    print "   \033[1;31;40m !!! Find Crash !!! \033[0m   "
+                    self.crash.crash_log()
+                    break
             print "Round : {}".format(rounds)
             rounds += 1
-            raw_input()
+            #raw_input()
 
 
     def init_class(self): 

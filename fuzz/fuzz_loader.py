@@ -116,9 +116,9 @@ class Fuzzer():
                     print "reg_arg_value : {}".format(hex(reg_arg_value))
                     malformed_data = self.get_mutate_data()
                     mem_value_new = mem_value.replace(MAGIC , malformed_data)
-                    print type(mem_value_new)
+                    self.fc.malformed_data = mem_value_new
                     print "new data : {}".format(mem_value_new)
-                    raw_input()
+                    #raw_input()
                     self.fc.mem_write(reg_arg_value , str(mem_value_new))
                     print "write done"
                     break
