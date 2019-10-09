@@ -16,3 +16,4 @@ from fcntl import *
 from getpid import *
 from close import *
 from open_ import *
+from rand_ import *

@@ -13,6 +13,8 @@ from unicorn.arm64_const import *
 from unicorn.x86_const import *
 from unicorn.mips_const import *
 
+LITTLE2BIG      = lambda num : int( num.decode('hex')[::-1].encode('hex') , 16)
+
 
 COMPILE_GCC = 1
 COMPILE_MSVC = 2
@@ -61,6 +63,7 @@ class HookLoader(object):
             # 1 , get return address
             reg_sp = self.fc.reg_read(self.REG_SP)
             # we should get address value from stack
+            print hex(reg_sp)
             if self.REG_RA == 0: 
                 ret_addr = unpack(self.pack_fmt , str(self.fc.mem_read(reg_sp , self.size)))[0]
             else:
@@ -90,6 +93,7 @@ class HookLoader(object):
         the function function, according to the parameters, 
         and also set the stack balance for addres 
         """
+        self.debug_func = False
         if self.debug_func:
             # print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
             pass
@@ -105,9 +109,13 @@ class HookLoader(object):
             # fc <==> firmcorn class <--- Uc class
             # 1 , get return address
             reg_sp = self.fc.reg_read(self.REG_SP)
-           
             if self.REG_RA == 0: 
-                ret_addr = unpack(self.pack_fmt , str(self.fc.mem_read(reg_sp , self.size)))[0]
+                _value =  str(self.fc.mem_read(reg_sp , self.size)).encode("hex")
+                if self.fc.endian == "little":
+                    _value = LITTLE2BIG(_value)
+                else:
+                    _value = int( _value , 16)
+                ret_addr = _value
             else:
                 ret_addr = self.fc.reg_read(self.REG_RA)
             
@@ -128,28 +136,27 @@ class HookLoader(object):
             pass 
             '''
 
-    def func_skip( self , func_skip_list , debug_func = True):
-        # setup func skip list 
-        self.debug_func = debug_func
-        self.func_skip_list = func_skip_list
 
     def _func_skip(self  ,  uc , address , size , user_data):
-        if address in self.func_skip_list:
+        self.debug_func = False
+        if address in self.fc.skip_func_list:
             if self.debug_func:
                 print "address skip:{:#x}".format(address)
             self.fc.reg_write( self.REG_PC ,  address+size)
 
     def hook_unresolved_func(self , uc , address , size , user_data):
+        self.debug_func = False
         if self.fc.mem_got.get(address):
             if self.fc.mem_got[address]  in  self.fc.unresolved_funcs:
-                print "find unresolved function : {}".format(self.fc.mem_got[address])
+                if self.debug_func:
+                    print "find unresolved function : {}".format(self.fc.mem_got[address])
                 self.func_alt( address , self.funcemu.func_list[self.fc.mem_got[address]] )
                 self.fc.hook_add(UC_HOOK_CODE , self._func_alt) 
 
     def get_common_ret(self):
         if self.arch == "x64":
             self.RET_INTR = "\xC3"
-        elif self.arch == "x32":
+        elif self.arch == "x86":
             self.RET_INTR = "\xC3"
         elif self.arch == "mips":
             self.RET_INTR = "\x03\x20\xf8\x09" # jalr    t9
@@ -172,7 +179,7 @@ class HookLoader(object):
         if self.arch == "x64":
             self.uc_arch =  UC_ARCH_X86
             self.uc_mode = UC_MODE_64
-        elif self.arch == "x32":
+        elif self.arch == "x86":
             self.uc_arch = UC_ARCH_X86
             self.uc_mode = UC_MODE_32
         elif self.arch == "mips":
@@ -185,21 +192,13 @@ class HookLoader(object):
             raise Exception("Error arch")
 
         if self.uc_arch == UC_ARCH_X86:
-            if self.uc_mode == UC_MODE_16:
-                self.size = 2
-                self.pack_fmt = '<H'
-                self.REG_PC = UC_X86_REG_IP
-                self.REG_SP = UC_X86_REG_SP
-                self.REG_RA = 0
-                self.REG_RES = UC_X86_REG_AX
-                self.REG_ARGS = []
-            elif self.uc_mode == UC_MODE_32:
+            if self.uc_mode == UC_MODE_32:
                 self.size = 4
                 self.pack_fmt = '<I'
                 self.REG_PC = UC_X86_REG_EIP
                 self.REG_SP = UC_X86_REG_ESP
                 self.REG_RA = 0
-                self.REG_RES = UC_X86_REG_EAX
+                self.REG_RES = [UC_X86_REG_EAX]
                 self.REG_ARGS = []
             elif self.uc_mode == UC_MODE_64:
                 self.size = 8
@@ -207,7 +206,7 @@ class HookLoader(object):
                 self.REG_PC = UC_X86_REG_RIP
                 self.REG_SP = UC_X86_REG_RSP
                 self.REG_RA = 0
-                self.REG_RES = UC_X86_REG_RAX
+                self.REG_RES = [UC_X86_REG_RAX]
                 if self.compiler == COMPILE_GCC:
                     self.REG_ARGS = [UC_X86_REG_RDI, UC_X86_REG_RSI, UC_X86_REG_RDX, UC_X86_REG_RCX,
                                      UC_X86_REG_R8, UC_X86_REG_R9]
@@ -224,7 +223,7 @@ class HookLoader(object):
             self.REG_PC = UC_ARM_REG_PC
             self.REG_SP = UC_ARM_REG_SP
             self.REG_RA = UC_ARM_REG_LR
-            self.REG_RES = UC_ARM_REG_R0
+            self.REG_RES = [UC_ARM_REG_R0]
             self.REG_ARGS = [UC_ARM_REG_R0, UC_ARM_REG_R1, UC_ARM_REG_R2, UC_ARM_REG_R3]
         elif self.uc_arch == UC_ARCH_ARM64:
             self.size = 8
@@ -232,7 +231,7 @@ class HookLoader(object):
             self.REG_PC = UC_ARM64_REG_PC
             self.REG_SP = UC_ARM64_REG_SP
             self.REG_RA = UC_ARM64_REG_LR
-            self.REG_RES = UC_ARM64_REG_X0
+            self.REG_RES = [UC_ARM64_REG_X0]
             self.REG_ARGS = [UC_ARM64_REG_X0, UC_ARM64_REG_X1, UC_ARM64_REG_X2, UC_ARM64_REG_X3,
                              UC_ARM64_REG_X4, UC_ARM64_REG_X5, UC_ARM64_REG_X6, UC_ARM64_REG_X7]
         elif self.uc_arch == UC_ARCH_MIPS:

@@ -29,10 +29,6 @@ class CrashLoader():
     def crash_check_dbg(self, uc ,address , size , user_data):
         print "Memory fetech error : {}".format(hex(address)) 
 
-    def identity_ret(self):
-        pass
-
-
     def crash_log(self):
         if not os.path.exists("outputs"):
             os.mkdir("outputs")
@@ -44,7 +40,7 @@ class CrashLoader():
     def get_common_ret(self):
         if self.arch == "x64":
             self.RET_INTR = "\xC3"
-        elif self.arch == "x32":
+        elif self.arch == "x86":
             self.RET_INTR = "\xC3"
         elif self.arch == "mips":
             self.RET_INTR = "\x03\xE0\x00\x08"

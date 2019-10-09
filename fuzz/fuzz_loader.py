@@ -22,13 +22,12 @@ INPUT_BASE = 0x300000
 MAGIC = "^^^firm#"
 
 class Fuzzer():
-    def __init__(self  , seed ,datas , func_list, formats="not" , enable_debug = True):
+    def __init__(self  , seed ,datas , formats="not" , enable_debug = True):
         self.seed = seed
         self.datas =datas
         self.formats = formats
-        self.fuzz_func_list = func_list
+        self.fuzz_func_list = []
         self.enable_debug = enable_debug
-
 
     def init(self ,fc  , compiler=COMPILE_GCC):
         self.fc = fc 
@@ -62,7 +61,7 @@ class Fuzzer():
         """
         pass
 
-    def fuzz_func_alt(self , uc , address , size , user_data):
+    def fuzz_func_alt_dbg(self , uc , address , size , user_data):
         """
         use for hijack function , like getenv , printf .etc
         """
@@ -74,7 +73,8 @@ class Fuzzer():
             reg_sp = self.fc.reg_read(self.REG_SP)
             # we should get address value from stack
             if self.REG_RA == 0: 
-                ret_addr = unpack(self.pack_fmt , str(self.fc.mem_read(reg_sp , self.size)))[0]
+                _value = str(self.fc.mem_read(reg_sp , self.size))
+                ret_addr = unpack(self.pack_fmt , _value)[0]
             else:
                 ret_addr = self.fc.reg_read(self.REG_RA)
 
@@ -100,7 +100,6 @@ class Fuzzer():
                 print "reg_res : {}".format( str(self.fc.mem_read(INPUT_BASE , self.size)))
                 print "ret_addr : {}".format(str(self.fc.reg_read(self.REG_PC , self.size)))
 
-
     def find_magic_num(self, uc , address , size , user_data):
         if self.fc.mem_got.get(address) is not None or self.fc.rebase_got.get(address):
             #raw_input()
@@ -123,7 +122,6 @@ class Fuzzer():
                     print "write done"
                     break
 
-
     def get_common_regs(self):
         """
         get some common register
@@ -137,7 +135,7 @@ class Fuzzer():
         if self.arch == "x64":
             self.uc_arch =  UC_ARCH_X86
             self.uc_mode = UC_MODE_64
-        elif self.arch == "x32":
+        elif self.arch == "x86":
             self.uc_arch = UC_ARCH_X86
             self.uc_mode = UC_MODE_32
         elif self.arch == "mips":

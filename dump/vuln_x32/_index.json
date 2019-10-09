@@ -1,0 +1,214 @@
+{
+    "arch": {
+        "arch": "x86",
+        "endian": "little"
+    },
+    "segments": [
+        {
+            "permissions": {
+                "r": true,
+                "w": false,
+                "x": true
+            },
+            "end": 134516736,
+            "content_file": "9eed7c7fad6ff0cf436cba6078c42e35.bin",
+            "start": 134512640,
+            "name": "/home/b1ngo/Firmcorn/vuln_x86"
+        },
+        {
+            "permissions": {
+                "r": true,
+                "w": false,
+                "x": false
+            },
+            "end": 134520832,
+            "content_file": "7da3d3b617d2add058f7327933ff81c7.bin",
+            "start": 134516736,
+            "name": "/home/b1ngo/Firmcorn/vuln_x86"
+        },
+        {
+            "permissions": {
+                "r": true,
+                "w": true,
+                "x": false
+            },
+            "end": 134524928,
+            "content_file": "92198b5b67928121136e14a4ba147e8b.bin",
+            "start": 134520832,
+            "name": "/home/b1ngo/Firmcorn/vuln_x86"
+        },
+        {
+            "permissions": {
+                "r": true,
+                "w": true,
+                "x": false
+            },
+            "end": 4158607360,
+            "content_file": "1f0e86d5683da9d0c885ad918a712fe5.bin",
+            "start": 4158603264,
+            "name": ""
+        },
+        {
+            "permissions": {
+                "r": true,
+                "w": false,
+                "x": true
+            },
+            "end": 4160376832,
+            "content_file": "0dd86bfb9d9032a0ab7c45276176da13.bin",
+            "start": 4158607360,
+            "name": "/lib/i386-linux-gnu/libc-2.23.so"
+        },
+        {
+            "permissions": {
+                "r": true,
+                "w": false,
+                "x": false
+            },
+            "end": 4160385024,
+            "content_file": "1bae62befe348f35ec98b1379ee84579.bin",
+            "start": 4160376832,
+            "name": "/lib/i386-linux-gnu/libc-2.23.so"
+        },
+        {
+            "permissions": {
+                "r": true,
+                "w": true,
+                "x": false
+            },
+            "end": 4160389120,
+            "content_file": "be3f0d87129bf0ab6d9962b66899f3d7.bin",
+            "start": 4160385024,
+            "name": "/lib/i386-linux-gnu/libc-2.23.so"
+        },
+        {
+            "permissions": {
+                "r": true,
+                "w": true,
+                "x": false
+            },
+            "end": 4160401408,
+            "content_file": "af228ac200d3bcb40fc27c96288aca70.bin",
+            "start": 4160389120,
+            "name": ""
+        },
+        {
+            "permissions": {
+                "r": true,
+                "w": true,
+                "x": false
+            },
+            "end": 4160569344,
+            "content_file": "eb87d2e539970011acefd036d9aaea62.bin",
+            "start": 4160565248,
+            "name": ""
+        },
+        {
+            "permissions": {
+                "r": true,
+                "w": false,
+                "x": false
+            },
+            "end": 4160581632,
+            "content_file": "",
+            "start": 4160569344,
+            "name": "[vvar]"
+        },
+        {
+            "permissions": {
+                "r": true,
+                "w": false,
+                "x": true
+            },
+            "end": 4160589824,
+            "content_file": "82b59be78bef7a425d2c168a9859c22a.bin",
+            "start": 4160581632,
+            "name": "[vdso]"
+        },
+        {
+            "permissions": {
+                "r": true,
+                "w": false,
+                "x": true
+            },
+            "end": 4160733184,
+            "content_file": "6aa86ee5f8e6f0ad592588516483355b.bin",
+            "start": 4160589824,
+            "name": "/lib/i386-linux-gnu/ld-2.23.so"
+        },
+        {
+            "permissions": {
+                "r": true,
+                "w": false,
+                "x": false
+            },
+            "end": 4160737280,
+            "content_file": "dc520635067905588a78c774e538c996.bin",
+            "start": 4160733184,
+            "name": "/lib/i386-linux-gnu/ld-2.23.so"
+        },
+        {
+            "permissions": {
+                "r": true,
+                "w": true,
+                "x": false
+            },
+            "end": 4160741376,
+            "content_file": "90adae6bebf0e4163aae9dc25f5ca4c2.bin",
+            "start": 4160737280,
+            "name": "/lib/i386-linux-gnu/ld-2.23.so"
+        },
+        {
+            "permissions": {
+                "r": true,
+                "w": true,
+                "x": false
+            },
+            "end": 4294959104,
+            "content_file": "5fd92f6e6af79896f3a779918a3769ce.bin",
+            "start": 4294819840,
+            "name": "[stack]"
+        }
+    ],
+    "regs": {
+        "esp": 4294953772,
+        "edi": 4160385024,
+        "dil": null,
+        "cs": 35,
+        "ip": null,
+        "bpl": null,
+        "ebx": 0,
+        "ecx": 2330588867,
+        "edx": 4294953812,
+        "ss": 43,
+        "ch": 4294967286,
+        "eax": 4160392636,
+        "bp": 0,
+        "sil": null,
+        "fsbase": 0,
+        "eip": 134513915,
+        "bh": 0,
+        "fs": 0,
+        "cx": 4294964931,
+        "ax": 4294938044,
+        "es": 43,
+        "bl": 0,
+        "ah": 4294967181,
+        "esi": 4160385024,
+        "dl": 84,
+        "ebp": 0,
+        "dx": 4294953812,
+        "al": 4294967228,
+        "ds": 43,
+        "si": 28672,
+        "bx": 0,
+        "dh": 4294967243,
+        "sp": 4294953772,
+        "eflags": 662,
+        "spl": null,
+        "gs": 99,
+        "cl": 4294967235,
+        "gsbase": 0,
+        "di": 28672
+    }
+}

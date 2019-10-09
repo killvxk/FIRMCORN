@@ -4,7 +4,7 @@ import os
 import json
 import binascii
 from pwn import * 
-# import unicorn
+
 
 # Unicorn imports
 # require unicorn moudle
@@ -23,29 +23,32 @@ from crash.crash_loader import *
 # Name of the index file
 CONTEXT_JSON = "_index.json"
 
-# Page size required by Unicorn
 UNICORN_PAGE_SIZE = 0x1000
 
-# Max allowable segment size (1G)
 MAX_ALLOWABLE_SEG_SIZE = 1024 * 1024 * 1024
     
-# Alignment functions to align all memory segments to Unicorn page boundaries (4KB pages only)
 ALIGN_PAGE_DOWN = lambda x: x & ~(UNICORN_PAGE_SIZE - 1)
 ALIGN_PAGE_UP   = lambda x: (x + UNICORN_PAGE_SIZE - 1) & ~(UNICORN_PAGE_SIZE-1)
+LITTLE2BIG      = lambda num : int( num.decode('hex')[::-1].encode('hex') , 16)
 
-
+COMPILE_GCC = 1
+COMPILE_MSVC = 2
 BASE = 0x0400000
+
 
 
 class Firmcorn( Uc ): # Firmcorn object inherit from Uc object  
     '''
     Firmcorn-object is main object of our Firmcorn Framework
     '''
-    def __init__(self   , enable_debug = True):
+    def __init__(self   ,compiler = COMPILE_GCC , enable_debug = True):
         self.enable_debug = enable_debug
         self.trace_start_addr = 0
         self.trace_end_addr = 0
         self.dbg_addr_list = []
+        self.skip_func_list = None
+        self.fuzztarget = None
+        self.compiler = compiler
         self.instrs = []
 
     def load_context(self , context_dir , binary , libc):
@@ -115,7 +118,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         if self.arch == "x64":
             self.uc_arch =  UC_ARCH_X86
             self.uc_mode = UC_MODE_64
-        elif self.arch == "x32":
+        elif self.arch == "x86":
             self.uc_arch = UC_ARCH_X86
             self.uc_mode = UC_MODE_32
         elif self.arch == "mips":
@@ -144,9 +147,13 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         print self.got.items()
         self.mem_got = dict()
         for name , addr in self.got.items():
-            #del self.got[name]
-            self.mem_got.update({ int(str(self.mem_read(addr , self.size)).encode("hex") , 16) : name})
-            print "Name : {:<40} Addr : {:<10} Value: 0x{:<10}".format( name, hex(addr) , str(self.mem_read(addr , self.size)).encode("hex"))
+            _addr = str(self.mem_read(addr , self.size)).encode("hex") 
+            if self.endian == "little":
+                _addr = LITTLE2BIG(_addr)
+            else:
+                _addr = int(_addr , 16)
+            self.mem_got.update({ _addr : name})
+            print "Name : {:<40} Addr : {:<10} Value: {:<10}".format( name, hex(addr) , hex(_addr))
         print "======================Init GOT Table End========================="
         
     def rebased_got(self):
@@ -162,6 +169,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
                 break
         print self.libc
         libc_base = dl_resolve_addr - self.libc.symbols[dl_resolve_name] 
+        print "libc_base : {}".format(hex(libc_base))
         for addr , name  in self.mem_got.items():
             if self.libc.symbols.has_key(name):
                 self.rebase_got.update( { name :  libc_base + self.libc.symbols[name]   })
@@ -185,8 +193,8 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         self.enable_debug = debug_func
         # setup register
         for register , value in regs.iteritems():
-            if self.enable_debug:
-                print "Reg {0}start_address = {1}".format(register, hex(value)) 
+            if self.enable_debug and value is not None:
+                print "Reg {0} start_address = {1}".format(register, hex(value)) 
                 pass
             if not regs_map.has_key(register.lower()):
                 if self.enable_debug:
@@ -212,7 +220,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         
         return True
 
-    def set_memory(self , segments_list , debug_func = False  ):
+    def set_memory(self , segments_list , debug_func = True  ):
         """
         setup memory need 2 steps
         1. mu.mem_map
@@ -330,7 +338,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
 
         return True
 
-    def map_segment(self , name, address, size, perms , debug_func = False ):
+    def map_segment(self , name, address, size, perms , debug_func = True ):
         self.enable_debug = debug_func
         map_start = address 
         map_end = address + size
@@ -346,24 +354,33 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
 
         # pass
 
+    def func_skip(self , skip_list = None):
+        self.skip_func_list = skip_list
+
     def set_trace(self , trace_start_addr , trace_end_addr  , debug_func=True):
         self.trace_start_addr = trace_start_addr
         self.trace_end_addr = trace_end_addr
 
     def _set_trace(self , uc , address , size , user_data):
-        if address >= self.trace_start_addr and address <= self.trace_end_addr:
-            if self.enable_debug:
-                print "trace address"
-            print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
+        if address >= self.trace_start_addr and address:
+            # print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
+            print "{} ".format(hex(address)) , 
             instr = self.mem_read(address, size)
             # context.arch      = 'i386'
             context.endian    = str(self.endian)
             # context.os        = 'linux'
             # context.word_size = 32
             # print ("0x%x %s" % (address - BASE ,   disasm(instr)) )
-            if self.arch == "x64" or self.arch == "x32":
+            if  self.arch == "x86":
                 print "{}".format( disasm(instr , arch="{}".format("i386")))
-            print "{}".format( disasm(instr , arch="{}".format("mips")))
+            elif self.arch == "x64":
+                print "{}".format( disasm(instr , arch="{}".format("amd64")))
+            elif self.arch == "mips":
+                print "{}".format( disasm(instr , arch="{}".format("mips")))
+            elif self.arch == "arm":
+                print "{}".format( disasm(instr , arch="{}".format("arm")))
+            else:
+                raise Exception("arch not found")
 
     def show_debug_info(self , dbg_addr_list):
         self.dbg_addr_list = dbg_addr_list
@@ -394,18 +411,20 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             try:
                 print("Reg {} --> {:<51} {}".format(register.lower() ,hex(self.reg_read(regs_map[register.lower()])), "||"))
             except Exception as e:
-                print "ERROR writing register: {}, value: {} -- {}".format(register, value, repr(e))
+                # print "ERROR writing register: {}, value: {} -- {}".format(register, value, repr(e))
+                pass
         print("=================================================================")
 
     def show_memory_layout(self):
         print("=========================Memory Layout===========================")
         # show stack memory
         for i in range(6):
-            reg_sp = self.reg_read(self.REG_SP , size)
+            # reg_sp = self.reg_read(self.REG_SP , size)
             #stack_addr = reg_sp + 0x14 + 4*i
-            stack_addr = 0x76fff62f  + 4*i
-            mem_cont = self.mem_read(stack_addr, 4)
-            print("sp+{} {} --> {:<41} {}".format( 0x14 + 4*i , hex(stack_addr) ,str(mem_cont).encode("hex") , "||"))
+            # print self.size
+            stack_addr = 0x7fffffffd870  - 8*i
+            mem_cont = self.mem_read(stack_addr, self.size)
+            print("{} --> {:<41} {}".format(  hex(stack_addr) ,str(mem_cont).encode("hex") , "||"))
         print("=================================================================")
 
     def show_instrs(self):
@@ -420,7 +439,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
     def log_instrs(self , uc , address , size , user_data):
         self.instrs.append(address)
 
-    def add_func(self , func_list):
+    def add_func(self , func_list = None):
         self.unresolved_funcs = func_list
 
     def add_fuzz(self, fuzzTarget):
@@ -428,7 +447,6 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         add a fuzz targrt object
         """
         self.fuzztarget = fuzzTarget
-
 
     def start_find(self , start_address , end_address):
         print "  ______ _____ _____  __  __  _____ ____  _____  _   _  "
@@ -443,11 +461,13 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         rounds = 0
         while True:
             self._load_context()
+            #raw_input()
             """
             some hook function
             """
+            #raw_input()
             last_round_list_len = len(self.unresolved_funcs)
-            if self.hookcode.func_skip_list is not None:
+            if self.skip_func_list is not None:
                 self.hook_add(UC_HOOK_CODE , self.hookcode._func_skip)
             if self.dbg_addr_list is not None:
                 self.hook_add(UC_HOOK_CODE, self._show_debug_info)
@@ -473,20 +493,17 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
                 break
 
     def start_run(self , start_address , end_address):
-        #self.start_find(start_address , end_address)
+        self.start_find(start_address , end_address)
         print "=================End Find================="
         print "start run!"
-        raw_input()
+        # raw_input()
         rounds = 0
         while True:
             self._load_context()
-            """
-            some hook function
-            """
-            if self.fuzztarget is not None:
+            if  self.fuzztarget is not None:
                 self.fuzztarget.init(self)
                 self.hook_add(UC_HOOK_CODE , self.fuzztarget.find_magic_num)
-            if self.hookcode.func_skip_list is not None:
+            if self.skip_func_list is not None:
                 self.hook_add(UC_HOOK_CODE , self.hookcode._func_skip)
             if self.dbg_addr_list is not None:
                 self.hook_add(UC_HOOK_CODE, self._show_debug_info)
@@ -508,6 +525,8 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             #     print("   \033[1;31;40m !!! about to bail due to bad fetch... here's the data at PC: {} \033[0m   ".format(  binascii.hexlify(self.mem_read(self.reg_read(self.REG_PC), self.size)))  )
             #     # print(binascii.hexlify(self.mem_read(self.reg_read(self.REG_PC), self.size)))
             #     self.show_instrs()
+            import datetime
+            oldtime=datetime.datetime.now()
             try:
                 uc_result = self.emu_start(start_address , end_address)
             except UcError as e:
@@ -515,10 +534,12 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
                     print "   \033[1;31;40m !!! Find Crash !!! \033[0m   "
                     self.crash.crash_log()
                     break
+
+            newtime=datetime.datetime.now()
+            print "time : {}".format( (newtime-oldtime).microseconds )
             print "Round : {}".format(rounds)
             rounds += 1
-            #raw_input()
-
+            raw_input()
 
     def init_class(self): 
         """
@@ -526,7 +547,6 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         """
         self.hookcode = HookLoader(self)
         self.crash    = CrashLoader(self)
-        
 
     def get_regs_by_arch(self , arch):
         if arch == "arm64le" or arch == "arm64be":
@@ -535,8 +555,8 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             arch = "arm"
         elif arch == "mipsel":
             arch = "mips"
-
         registers = {
+
             "x64" : {
                 "rax":    UC_X86_REG_RAX,
                 "rbx":    UC_X86_REG_RBX,
@@ -565,17 +585,40 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
                 "ss":     UC_X86_REG_SS,
             },
             "x86" : {
-                "eax":    UC_X86_REG_EAX,
-                "ebx":    UC_X86_REG_EBX,
-                "ecx":    UC_X86_REG_ECX,
-                "edx":    UC_X86_REG_EDX,
-                "esi":    UC_X86_REG_ESI,
-                "edi":    UC_X86_REG_EDI,
-                "ebp":    UC_X86_REG_EBP,
-                "esp":    UC_X86_REG_ESP,
+                "dil":    UC_X86_REG_DIL,
+                "ip":     UC_X86_REG_IP ,
+                "fs":     UC_X86_REG_FS ,
                 "eip":    UC_X86_REG_EIP,
+                "bh":     UC_X86_REG_BH ,
+                "edi":    UC_X86_REG_EDI,
+                "ah":     UC_X86_REG_AH ,
+                "al":     UC_X86_REG_AL ,
+                "cs":     UC_X86_REG_CS ,
+                "cx":     UC_X86_REG_CX ,
+                "eax":    UC_X86_REG_EAX,
+                "di":     UC_X86_REG_DI ,
+                "ebp":    UC_X86_REG_EBP,
+                "edx":    UC_X86_REG_EDX,
+                "ebx":    UC_X86_REG_EBX,
+                "cl":     UC_X86_REG_CL ,
+                "ecx":    UC_X86_REG_ECX,
+                "ch":     UC_X86_REG_CH ,
+                "bp":     UC_X86_REG_BP ,
+                "dl":     UC_X86_REG_DL ,
                 "esp":    UC_X86_REG_ESP,
-                "efl":    UC_X86_REG_EFLAGS,
+                "eiz":    UC_X86_REG_EIZ,
+                "fpsw":   UC_X86_REG_FPSW,
+                "bpl":    UC_X86_REG_BPL,
+                "dh":     UC_X86_REG_DH ,
+                "gs":     UC_X86_REG_GS ,
+                "ax":     UC_X86_REG_AX ,
+                "eflags": UC_X86_REG_EFLAGS,
+                "ds":     UC_X86_REG_DS ,
+                "es":     UC_X86_REG_ES ,
+                "bx":     UC_X86_REG_BX ,
+                "dx":     UC_X86_REG_DX ,
+                "bl":     UC_X86_REG_BL ,
+                "esi":    UC_X86_REG_ESI
             },        
             "arm" : {
                 "r0":     UC_ARM_REG_R0,
@@ -673,7 +716,6 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             }
         }
         return registers[arch]  
-
 
     def get_common_regs(self):
         """

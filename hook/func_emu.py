@@ -44,6 +44,7 @@ class FuncEmu(object):
         self.func_list.update({ 'close': self.close})
         self.func_list.update({ 'getpid': self.getpid})
         self.func_list.update({ 'open': self.open_})
+        self.func_list.update({ 'rand': self.rand_})
         self.strdup_call_num = 0
 
     def strcpy(self):
@@ -110,3 +111,7 @@ class FuncEmu(object):
     def open_(self):
         open_Emu = open_(self.fc, self.hc)
         open_Emu.run()
+
+    def rand_(self):
+        rand_Emu = rand_(self.fc, self.hc)
+        return rand_Emu.run()
