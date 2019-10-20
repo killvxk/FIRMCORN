@@ -1,0 +1,244 @@
+{
+    "regs": {
+        "rip": 4195878,
+        "rax": 0,
+        "sp": 140737488345144,
+        "rcx": 653524110,
+        "cx": 18446744073709550734,
+        "bh": 0,
+        "r8": 4196224,
+        "dil": 80,
+        "gsbase": 0,
+        "bp": 18446744073709541504,
+        "fsbase": 140737353930496,
+        "ip": null,
+        "r11": 10918220137763070,
+        "es": 0,
+        "bl": 0,
+        "eflags": 514,
+        "rbx": 0,
+        "al": 0,
+        "rsi": 0,
+        "dl": 18446744073709551572,
+        "ah": 0,
+        "rbp": 140737488345216,
+        "cs": 51,
+        "ax": 0,
+        "fs": 0,
+        "r10": 140737488345152,
+        "r15": 0,
+        "r9": 140737488345168,
+        "rdx": 653524,
+        "sil": 0,
+        "cl": 18446744073709551502,
+        "bx": 0,
+        "r14": 0,
+        "di": 18446744073709541456,
+        "ss": 43,
+        "rdi": 140737488345168,
+        "si": 0,
+        "rsp": 140737488345144,
+        "ds": 0,
+        "ch": 18446744073709551612,
+        "r12": 4195632,
+        "dx": 18446744073709549780,
+        "dh": 18446744073709551608,
+        "gs": 0,
+        "r13": 140737488345440,
+        "spl": 56,
+        "bpl": 18446744073709551488
+    },
+    "segments": [
+        {
+            "start": 4194304,
+            "content_file": "650c17e26700ae516a5b89030f066000.bin",
+            "end": 4198400,
+            "permissions": {
+                "r": true,
+                "x": true,
+                "w": false
+            },
+            "name": "/home/b1ngo/Firmcorn/evaluation/loop_output"
+        },
+        {
+            "start": 6291456,
+            "content_file": "2a792a727c49ca44f5ef1e096175a13e.bin",
+            "end": 6295552,
+            "permissions": {
+                "r": true,
+                "x": false,
+                "w": false
+            },
+            "name": "/home/b1ngo/Firmcorn/evaluation/loop_output"
+        },
+        {
+            "start": 6295552,
+            "content_file": "3bba13cec6c93af51a33c8870a4b0d01.bin",
+            "end": 6299648,
+            "permissions": {
+                "r": true,
+                "x": false,
+                "w": true
+            },
+            "name": "/home/b1ngo/Firmcorn/evaluation/loop_output"
+        },
+        {
+            "start": 140737347899392,
+            "content_file": "c8c207e47904fcb3fcdacac3f2941588.bin",
+            "end": 140737349734400,
+            "permissions": {
+                "r": true,
+                "x": true,
+                "w": false
+            },
+            "name": "/lib/x86_64-linux-gnu/libc-2.23.so"
+        },
+        {
+            "start": 140737349734400,
+            "content_file": "",
+            "end": 140737351831552,
+            "permissions": {
+                "r": false,
+                "x": false,
+                "w": false
+            },
+            "name": "/lib/x86_64-linux-gnu/libc-2.23.so"
+        },
+        {
+            "start": 140737351831552,
+            "content_file": "fdf4ec6ee0029c838d495f5ade637600.bin",
+            "end": 140737351847936,
+            "permissions": {
+                "r": true,
+                "x": false,
+                "w": false
+            },
+            "name": "/lib/x86_64-linux-gnu/libc-2.23.so"
+        },
+        {
+            "start": 140737351847936,
+            "content_file": "5e31867a87c123bc2f9ad8af93aeadf0.bin",
+            "end": 140737351856128,
+            "permissions": {
+                "r": true,
+                "x": false,
+                "w": true
+            },
+            "name": "/lib/x86_64-linux-gnu/libc-2.23.so"
+        },
+        {
+            "start": 140737351856128,
+            "content_file": "f6c1ee89431df47f98c89d858ebb1dc0.bin",
+            "end": 140737351872512,
+            "permissions": {
+                "r": true,
+                "x": false,
+                "w": true
+            },
+            "name": ""
+        },
+        {
+            "start": 140737351872512,
+            "content_file": "5a176f52352fa50e74d2cfabc0601fc0.bin",
+            "end": 140737352028160,
+            "permissions": {
+                "r": true,
+                "x": true,
+                "w": false
+            },
+            "name": "/lib/x86_64-linux-gnu/ld-2.23.so"
+        },
+        {
+            "start": 140737353924608,
+            "content_file": "2e83bdd34c5012e39d297720b05b942d.bin",
+            "end": 140737353936896,
+            "permissions": {
+                "r": true,
+                "x": false,
+                "w": true
+            },
+            "name": ""
+        },
+        {
+            "start": 140737354100736,
+            "content_file": "",
+            "end": 140737354113024,
+            "permissions": {
+                "r": true,
+                "x": false,
+                "w": false
+            },
+            "name": "[vvar]"
+        },
+        {
+            "start": 140737354113024,
+            "content_file": "e81d1f2fa83d101c31ef1d2910079487.bin",
+            "end": 140737354121216,
+            "permissions": {
+                "r": true,
+                "x": true,
+                "w": false
+            },
+            "name": "[vdso]"
+        },
+        {
+            "start": 140737354121216,
+            "content_file": "3bac8ba2702576dd8e8082fbd315982b.bin",
+            "end": 140737354125312,
+            "permissions": {
+                "r": true,
+                "x": false,
+                "w": false
+            },
+            "name": "/lib/x86_64-linux-gnu/ld-2.23.so"
+        },
+        {
+            "start": 140737354125312,
+            "content_file": "2579f277525c23bb12c53046424dd129.bin",
+            "end": 140737354129408,
+            "permissions": {
+                "r": true,
+                "x": false,
+                "w": true
+            },
+            "name": "/lib/x86_64-linux-gnu/ld-2.23.so"
+        },
+        {
+            "start": 140737354129408,
+            "content_file": "f8c98afb8a14ace77ac377ca57217361.bin",
+            "end": 140737354133504,
+            "permissions": {
+                "r": true,
+                "x": false,
+                "w": true
+            },
+            "name": ""
+        },
+        {
+            "start": 140737488211968,
+            "content_file": "46cc7259ea4fd9cbffd83dc4dc607e50.bin",
+            "end": 140737488351232,
+            "permissions": {
+                "r": true,
+                "x": false,
+                "w": true
+            },
+            "name": "[stack]"
+        },
+        {
+            "start": 18446744073699065856,
+            "content_file": "f50fc8acf66ee2f3fbbf8e270dcfe791.bin",
+            "end": 18446744073699069952,
+            "permissions": {
+                "r": true,
+                "x": true,
+                "w": false
+            },
+            "name": "[vsyscall]"
+        }
+    ],
+    "arch": {
+        "endian": "little",
+        "arch": "x64"
+    }
+}

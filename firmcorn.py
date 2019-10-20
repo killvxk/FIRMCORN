@@ -47,6 +47,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         self.trace_end_addr = 0
         self.dbg_addr_list = []
         self.skip_func_list = None
+        self.unresolved_funcs = None
         self.fuzztarget = None
         self.compiler = compiler
         self.instrs = []
@@ -518,7 +519,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             #self.hook_add(UC_ERR_FETCH_UNMAPPED , self.crash.crash_check_dbg)
             self.hook_add(UC_HOOK_CODE , self.log_instrs)
 
-            # try:
+            # try:  
             #     uc_result = self.emu_start(start_address , end_address)
             # except UcError as e:
             #     # if e.errno == UC_ERR_READ_UNMAPPED:
@@ -527,9 +528,11 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             #     self.show_instrs()
             import datetime
             oldtime=datetime.datetime.now()
+            uc_result = self.emu_start(start_address , end_address)
             try:
                 uc_result = self.emu_start(start_address , end_address)
             except UcError as e:
+                print e.errno
                 if e.errno == UC_ERR_FETCH_UNMAPPED:
                     print "   \033[1;31;40m !!! Find Crash !!! \033[0m   "
                     self.crash.crash_log()
