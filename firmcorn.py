@@ -363,7 +363,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
         self.trace_end_addr = trace_end_addr
 
     def _set_trace(self , uc , address , size , user_data):
-        if address >= self.trace_start_addr and address:
+        if address >= self.trace_start_addr and address <=self.trace_end_addr:
             # print('>>> Tracing instruction at 0x%x, instruction size = 0x%x' %(address, size))
             print "{} ".format(hex(address)) , 
             instr = self.mem_read(address, size)
@@ -516,7 +516,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             if self.unresolved_funcs is not None:
                 self.hook_add(UC_HOOK_CODE , self.hookcode.hook_unresolved_func)
             # self.hook_add( UC_HOOK_MEM_READ_UNMAPPED | UC_HOOK_MEM_WRITE_UNMAPPED  , self.crash.mem_crash_check)
-            #self.hook_add(UC_ERR_FETCH_UNMAPPED , self.crash.crash_check_dbg)
+            # self.hook_add(UC_ERR_FETCH_UNMAPPED , self.crash.crash_check_dbg)
             self.hook_add(UC_HOOK_CODE , self.log_instrs)
 
             # try:  
@@ -528,7 +528,7 @@ class Firmcorn( Uc ): # Firmcorn object inherit from Uc object
             #     self.show_instrs()
             import datetime
             oldtime=datetime.datetime.now()
-            uc_result = self.emu_start(start_address , end_address)
+            # uc_result = self.emu_start(start_address , end_address)
             try:
                 uc_result = self.emu_start(start_address , end_address)
             except UcError as e:

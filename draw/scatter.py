@@ -14,7 +14,6 @@ yValue = []
 datas = {16: [3,2], 1: [2], 2: [9, 4, 3, 3], 3: [2, 1 , 1], 4: [4,1], 6: [3], 8: [12,1]}
 
 
-
 maxlen = -1
 for k ,v in datas.items():
     xValue.append( k)
