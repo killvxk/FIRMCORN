@@ -7,15 +7,15 @@ import os
 import math
 
 
-SENSITIVE_FUNC_LIST = ['strcpy','strcat','read','scanf','gets','read','gets','system','execve','getenv']
+SENSITIVE_FUNC_LIST = ['strcpy','strcat','read','scanf','gets','read','gets','system','execve','getenv' , 'sprintf' , 'tcapi_set'] 
 
 class PreanalysisTarget():
     def __init__(self , enable_debug=False):
         self.complex_sort_dict = dict()
         self.vuln_sort_dict = dict()
         self.enable_debug = enable_debug
-        fileName = idc.AskFile(1, "*.*", "Search Vulnerability Code")
-        baseName = idc.GetInputFile()
+        # fileName = idc.AskFile(1, "*.*", "Search Vulnerability Code")
+        # baseName = idc.GetInputFile()
         self.funcs  = idautils.Functions()
         self.arch = self.get_arch()
 
@@ -30,13 +30,16 @@ class PreanalysisTarget():
             # get  cyclomatic complexity & xref_num
             xref_num = self.get_xref_num(func)
             cyc_complex_num = self.get_cyclomatic_complexity(func)
-            if xref_num==0:
-                if self.enable_debug:
-                    print "ignore this function : {} --> {}".format(hex(func) , GetFunctionName(func))
-                continue
+            # if xref_num==0:
+            #     if self.enable_debug:
+            #         print "ignore this function : {} --> {}".format(hex(func) , GetFunctionName(func))
+            #     continue
             stage1_list.append(cyc_complex_num)
             stage1_list.append(xref_num)   
             complex_rate = int(cyc_complex_num * math.log(cyc_complex_num)) + xref_num
+            if complex_rate == 0:
+                print "Complex Rate 0 function : {} --> {}".format(hex(func) , GetFunctionName(func))
+                # continue
             stage1_dict.update( {func:complex_rate})
         list_tmp = []
         for k,v in stage1_dict.items():
@@ -87,16 +90,50 @@ class PreanalysisTarget():
         for k,v in self.complex_sort_dict.items():
             each_rate_list = []
             for i in range(len(v)):
+                tmp = []
                 sensitive_index = self.get_sensitive_index(v[i]) # each v[i] is func_ea 
                 memop_num = self.get_memop_num(v[i])
                 vuln_rate = sensitive_index + memop_num
-                each_rate_list.append({vuln_rate:v[i]})
+                if vuln_rate == 0:
+                    print "Vuln Rate 0 function : {} --> {}".format(hex(v[i]) , GetFunctionName(v[i]))
+                    # continue
+                tmp.append(sensitive_index)
+                tmp.append(memop_num)
+                tmp.append(v[i])
+                each_rate_list.append({vuln_rate:tmp})
             self.vuln_sort_dict.update({k:each_rate_list})
-        print self.vuln_sort_dict # need to sort
         for k in self.vuln_sort_dict:
             self.vuln_sort_dict[k].sort(reverse=True)
+        self.vuln_sort_dict = [ (k , self.vuln_sort_dict[k]) for k in sorted(self.vuln_sort_dict.keys())]
+        # for k in self.vuln_sort_dict:
+        #     print k
+        print self.vuln_sort_dict
         return self.vuln_sort_dict 
 
+    def vuln_sort_show(self):
+        """
+        stage 2 sorting
+        stage1 dict format: {rate1 : [ea1 , ea2 , ...] , rate2 : [ea1 ,ea2 ..] ...}
+        stage2 dict format: {rate1 : [{ea1_rate1 : ea1 } , {ea1_rate2 : ea2 } ..] , rate2: [ {ea1_rate1: ea1 }, {ea1_rate2: ea2 } ]}  
+        """
+        for k,v in self.complex_sort_dict.items():
+            each_rate_list = []
+            for i in range(len(v)):
+                tmp = []
+                sensitive_index = self.get_sensitive_index(v[i]) # each v[i] is func_ea 
+                memop_num = self.get_memop_num(v[i])
+                vuln_rate = sensitive_index + memop_num
+                if vuln_rate == 0:
+                    continue
+                each_rate_list.append( vuln_rate )
+            self.vuln_sort_dict.update({k:each_rate_list})
+        for k in self.vuln_sort_dict:
+            self.vuln_sort_dict[k].sort(reverse=True)
+        # self.vuln_sort_dict = [ (k , self.vuln_sort_dict[k]) for k in sorted(self.vuln_sort_dict.keys())]
+        # for k in self.vuln_sort_dict:
+        #     print k
+        print self.vuln_sort_dict
+        return self.vuln_sort_dict 
 
     def get_sensitive_index(self , func_ea):
         indexs = 0
@@ -109,7 +146,7 @@ class PreanalysisTarget():
                 if func == sub_func:
                     if self.enable_debug:
                         print "find sensitive func: {}".format(sub_func)
-                    indexs += 1
+                    indexs += 10    
                 else:
                     continue
         return indexs
@@ -142,7 +179,7 @@ class PreanalysisTarget():
         """
         memop_num / allop_num
         """
-        memop_num = 0
+        memop_num = 0.0
         allop_num = 0 
         dism_addr = list(FuncItems(func_ea))
         for instr in dism_addr:
@@ -150,23 +187,29 @@ class PreanalysisTarget():
             op = GetOpType(instr, 0) 
             # print op
             dism_instr = GetDisasm(instr)
-
             # need to distinguish arch
+            # print self.arch[0]
+            # raw_input()
+            # print dism_addr
             if self.arch[0] == "metapc":
                 # x86 arch 
                 if op == 4 and "mov"  in dism_instr:
                     memop_num += 1
                     # print "0x{} {}".format(hex(instr), dism_instr)
-            elif self.arch[0] == "mips" or  self.arch[0] == "mipsb":
-                if op == 1 and ("sw"  in dism_instr or "lw"  in dism_instr):
+            elif self.arch[0] == "mips" or  self.arch[0] == "mipsb"  or  self.arch[0] == "mipsl" :
+                if op == 1 and ("sw"  in dism_instr or "lw"  in dism_instr or  "sb"  in dism_instr or "lb"  in dism_instr ):
                     memop_num += 1
                     # print "0x{} {}".format(hex(instr), dism_instr)
-            elif self.arch[0]== "arm" :
-                pass
+            elif self.arch[0] == "ARM" :
+                # print dism_addr
+                if op == 1 and ("STR" in dism_instr or "STRH" in dism_instr or "STRB" in dism_instr):
+                    # pass
+                    memop_num += 1
+                    # print dism_instr
             else:
                 print "unknow arch"
         # print "memop_num: {}   all_op_num{} , rate: {} ".format(memop_num , allop_num,  int((float(memop_num) / float(allop_num)) * 100))
-        return memop_num
+        return int(( memop_num / len(dism_addr) )* 10.0)
 
     def get_arch(self):
         arch_list = []
@@ -190,5 +233,8 @@ class PreanalysisTarget():
 
 
 target = PreanalysisTarget()
+print "==============================Complex Sort=============================="
 target.complex_sort()
-target.vuln_sort()
+print "==========================Vulnerability Sort============================"
+# target.vuln_sort()
+target.vuln_sort_show()
