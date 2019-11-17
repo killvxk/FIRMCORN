@@ -26,4 +26,6 @@ plt.ylabel("Number")
 # 显示图例
 # plt.legend( loc = 'upper right')
 plt.legend()
-plt.show()
+# plt.show()
+
+plt.savefig('function_category.png',dpi = 300)
