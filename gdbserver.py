@@ -1,6 +1,5 @@
 import os
 import subprocess
-
 import pygdbmi.gdbcontroller
 import pdb
 import logging
@@ -242,9 +241,5 @@ dump_process_memory(gdbmi_)
 # response = gdbmi_.write("info registers") # hahhaha
 
 
-
-
-
-# print response
 
 

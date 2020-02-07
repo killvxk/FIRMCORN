@@ -116,7 +116,7 @@ class DumpPwndbgTarget():
 
         if not vmmap:
             print("No address mapping information found")
-            return final_segment_list
+            return  
         # print(vmmap)
         # Assume segment entries are sorted by start address
         for entry in vmmap:
